@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aum Sapariya — A Personal Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg: #FAFAF7;
+  --bg-2: #F3F1EC;
+  --surface: #FFFFFF;
+  --border: #E8E3DA;
+  --border-strong: #D4CFC5;
+  --accent: #E85D3A;
+  --accent-soft: #FFF0EB;
+  --accent-2: #2B4C7E;
+  --accent-2-soft: #EBF0F7;
+  --text: #1C1917;
+  --text-dim: #78716C;
+  --text-faint: #A8A29E;
+  --serif: 'Fraunces', serif;
+  --sans: 'Manrope', sans-serif;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none;
+  position:relative;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:radial-gradient(circle,rgba(28,25,23,0.045) 1px,transparent 1px);
+  background-size:28px 28px;pointer-events:none;z-index:0;
+}
+
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px)}
+.blob-1{width:550px;height:550px;background:radial-gradient(circle,rgba(232,93,58,0.08),transparent 70%);top:-120px;right:-120px;animation:blobDrift 22s ease-in-out infinite}
+.blob-2{width:450px;height:450px;background:radial-gradient(circle,rgba(43,76,126,0.06),transparent 70%);bottom:-80px;left:-100px;animation:blobDrift 28s ease-in-out infinite reverse}
+.blob-3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,140,66,0.06),transparent 70%);top:50%;left:40%;animation:blobDrift 25s ease-in-out infinite 5s}
+@keyframes blobDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(-30px,40px) scale(1.1)}
+  66%{transform:translate(25px,-25px) scale(0.93)}
+}
+
+.page-loader{
+  position:fixed;inset:0;background:var(--accent);z-index:10001;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;
+  clip-path:circle(150% at 50% 50%);
+  transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1);
+}
+.page-loader.loaded{clip-path:circle(0% at 50% 50%)}
+.page-loader .loader-name{
+  color:#fff;font-family:var(--serif);font-style:italic;
+  font-size:1.8rem;opacity:0;animation:loaderFade 1.6s ease forwards;
+}
+.page-loader .loader-sub{
+  color:rgba(255,255,255,0.6);font-size:0.65rem;
+  letter-spacing:0.35em;text-transform:uppercase;opacity:0;
+  animation:loaderFade 1.4s ease 0.15s forwards;
+}
+@keyframes loaderFade{
+  0%{opacity:0;transform:translateY(12px)}
+  20%{opacity:1;transform:translateY(0)}
+  80%{opacity:1}
+  100%{opacity:0;transform:translateY(-8px)}
+}
+
+.scroll-progress{
+  position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;
+  background:linear-gradient(90deg,var(--accent),#FF8C42,var(--accent-2));
+  border-radius:0 2px 2px 0;transition:width 0.08s linear;
+}
+
+.cursor-dot,.cursor-ring{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+  border-radius:50%;transform:translate(-50%,-50%);will-change:transform;
+}
+.cursor-dot{width:8px;height:8px;background:var(--text);mix-blend-mode:difference}
+.cursor-ring{
+  width:40px;height:40px;border:1.5px solid var(--accent);
+  opacity:0.5;transition:width 0.35s var(--spring),height 0.35s var(--spring),
+  opacity 0.3s ease,border-color 0.3s ease,background 0.3s ease;
+}
+.cursor-ring.hover{
+  width:72px;height:72px;opacity:1;border-color:var(--accent);
+  background:rgba(232,93,58,0.06);
+}
+@media(max-width:768px){.cursor-dot,.cursor-ring{display:none}body{cursor:auto}}
+
+.topbar{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  width:calc(100% - 28px);max-width:920px;z-index:1000;
+  padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,0.65);backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(0,0,0,0.06);border-radius:24px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  transition:padding 0.4s var(--smooth),background 0.4s ease,box-shadow 0.4s ease;
+}
+.topbar.scrolled{padding:0.7rem 2rem;background:rgba(255,255,255,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.topbar .logo{font-family:var(--serif);font-size:1.2rem;letter-spacing:0.05em;color:var(--text);font-weight:400;white-space:nowrap}
+.topbar .logo em{font-style:italic;color:var(--accent)}
+.topbar .meta{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem}
+.topbar .meta .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+.hamburger{display:none;background:none;border:none;color:var(--text);cursor:none;padding:4px;z-index:1001}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text);margin:5px 0;transition:all 0.35s var(--spring);transform-origin:center;border-radius:2px}
+.hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media(max-width:768px){.topbar{padding:0.8rem 1.2rem;border-radius:18px;top:10px;width:calc(100% - 20px)}.topbar.scrolled{padding:0.6rem 1.2rem}.topbar .meta{display:none}.hamburger{display:block}}
+
+.mobile-menu{
+  position:fixed;inset:0;z-index:999;background:rgba(250,250,247,0.97);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;
+  opacity:0;visibility:hidden;transition:opacity 0.5s var(--smooth),visibility 0.5s;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{
+  font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text-dim);
+  text-decoration:none;letter-spacing:0.02em;transition:color 0.3s ease,transform 0.5s var(--spring);
+  transform:translateY(20px);opacity:0;
+}
+.mobile-menu.open a{transform:translateY(0);opacity:1}
+.mobile-menu.open a:nth-child(1){transition-delay:0.06s}
+.mobile-menu.open a:nth-child(2){transition-delay:0.12s}
+.mobile-menu.open a:nth-child(3){transition-delay:0.18s}
+.mobile-menu.open a:nth-child(4){transition-delay:0.24s}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu a em{font-style:italic;color:var(--accent)}
+.mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
+
+/* Side-nav — uses scaleX instead of width to prevent panel shake */
+.side-nav{
+  position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:90;
+  display:flex;flex-direction:column;gap:0;
+  background:rgba(255,255,255,0.55);backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(0,0,0,0.06);border-radius:18px;
+  padding:1.4rem 1.3rem;
+  box-shadow:0 4px 24px rgba(0,0,0,0.05);
+  will-change:transform,opacity;
+  /* FIX: smooth opacity transition for footer fade-out */
+  transition:opacity 0.45s ease;
+}
+.side-nav a{
+  display:flex;align-items:center;gap:0.9rem;color:var(--text-faint);font-size:0.6rem;
+  letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;
+  transition:color 0.4s ease,padding-left 0.4s var(--spring);
+  padding:0.6rem 0;position:relative;
+}
+.side-nav a::before{
+  content:'';width:36px;height:1.5px;background:currentColor;border-radius:1px;
+  transform:scaleX(0.44);transform-origin:left center;
+  transition:transform 0.4s var(--spring),background 0.4s ease;
+  flex-shrink:0;
+}
+.side-nav a:hover,.side-nav a.active{color:var(--accent)}
+.side-nav a.active::before,.side-nav a:hover::before{transform:scaleX(1);background:var(--accent)}
+@media(max-width:1200px){.side-nav{display:none}}
+
+.marquee-wrap{overflow:hidden;padding:1.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1}
+.marquee-track{display:flex;width:max-content;animation:marqueeScroll 30s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-text{font-family:var(--serif);font-size:0.85rem;font-style:italic;color:var(--text-faint);white-space:nowrap;padding-right:2.5rem;letter-spacing:0.03em}
+.marquee-text .sep{color:var(--accent);margin:0 0.8rem;font-style:normal}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+section{position:relative;padding:7rem 3rem;z-index:1}
+@media(max-width:768px){section{padding:5rem 1.5rem}}
+@media(min-width:1201px){section{padding-right:16rem}}
+.container{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+.section-label{display:flex;align-items:center;gap:1.5rem;margin-bottom:3rem}
+.section-num{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--accent)}
+.section-divider{flex:0 0 60px;height:1.5px;background:var(--border-strong);border-radius:1px}
+.section-tag{font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim)}
+
+.hl{background:linear-gradient(180deg,transparent 50%,rgba(232,93,58,0.16) 50%);padding:0 3px;border-radius:2px}
+.hl-blue{background:linear-gradient(180deg,transparent 50%,rgba(43,76,126,0.12) 50%);padding:0 3px;border-radius:2px}
+.hl-yellow{background:linear-gradient(180deg,transparent 50%,rgba(255,193,7,0.18) 50%);padding:0 3px;border-radius:2px}
+
+.grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 3rem 4rem;overflow:hidden}
+@media(min-width:1201px){.hero{padding-right:16rem}}
+.hero-content{display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center;width:100%;max-width:1400px;margin:0 auto;position:relative;z-index:2}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr;gap:3rem}}
+.hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,8vw,7rem);font-weight:300;line-height:1.05;letter-spacing:-0.025em;margin-bottom:2rem}
+.hero-text h1 em{font-style:italic;font-weight:400}
+.hero-text .subtitle{max-width:480px;font-size:1.05rem;color:var(--text-dim);line-height:1.75;margin-bottom:3rem}
+.hero-text .meta-row{display:flex;flex-wrap:wrap;gap:2.5rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-faint)}
+.hero-text .meta-row span{display:flex;flex-direction:column;gap:0.5rem}
+.hero-text .meta-row strong{color:var(--text);font-weight:400;font-size:0.85rem;letter-spacing:0.05em;text-transform:none;font-family:var(--serif);font-style:italic}
+
+.hero-portrait{
+  width:280px;height:380px;border-radius:24px;overflow:hidden;flex-shrink:0;
+  box-shadow:0 20px 60px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);
+  transition:transform 0.6s var(--spring),box-shadow 0.5s ease;
+  position:relative;z-index:3;
+}
+.hero-portrait:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 30px 70px rgba(232,93,58,0.15),0 0 0 1px rgba(0,0,0,0.04)}
+.hero-portrait .img-wrap{width:100%;height:100%;overflow:hidden;background:var(--accent)}
+.hero-portrait .img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--spring)}
+.hero-portrait:hover .img-wrap img{transform:scale(1.06)}
+
+.scroll-cue{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.8rem;
+  font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint);z-index:5;
+}
+.scroll-cue .line{width:1.5px;height:44px;background:var(--border);border-radius:1px;position:relative;overflow:hidden}
+.scroll-cue .line::after{content:'';position:absolute;top:0;left:0;right:0;height:16px;background:var(--accent);border-radius:1px;animation:scrollDown 2s ease-in-out infinite}
+@keyframes scrollDown{0%{transform:translateY(-16px);opacity:0}50%{opacity:1}100%{transform:translateY(44px);opacity:0}}
+
+.bygone{background:var(--bg)}
+.bygone-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;align-items:end}
+@media(max-width:900px){.bygone-intro{grid-template-columns:1fr;gap:2rem}}
+.bygone-intro h2{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em}
+.bygone-intro h2 em{font-style:italic;color:var(--accent)}
+.bygone-intro p{color:var(--text-dim);font-size:1.05rem;max-width:480px;line-height:1.8}
+
+.timeline{position:relative;margin-top:3rem;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);border-radius:1px}
+.timeline-item{position:relative;display:grid;grid-template-columns:120px 1fr;gap:3rem;padding:2.8rem 0;align-items:start;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border-bottom:none}
+.timeline-item::before{content:'';position:absolute;left:-2.5rem;top:3.8rem;width:12px;height:12px;background:var(--bg);border:2px solid var(--accent);border-radius:50%;transform:translateX(-50%);transition:all 0.4s var(--spring)}
+.timeline-item:hover::before{background:var(--accent);transform:translateX(-50%) scale(1.3);box-shadow:0 0 0 6px rgba(232,93,58,0.12)}
+.timeline-year{font-family:var(--serif);font-size:2.4rem;font-style:italic;color:var(--accent);font-weight:300;line-height:1}
+.timeline-content h3{font-family:var(--serif);font-size:1.6rem;font-weight:400;margin-bottom:0.4rem;letter-spacing:-0.01em;line-height:1.2}
+.timeline-content .role{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
+.timeline-content p{color:var(--text-dim);font-size:0.95rem;line-height:1.75;max-width:800px}
+
+.timeline-item--visual .timeline-image{margin-top:1.5rem;border-radius:16px;overflow:hidden;max-width:420px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.timeline-item--visual .timeline-image img{width:100%;display:block;filter:saturate(0.8);transition:transform 0.7s var(--spring)}
+.timeline-item--visual:hover .timeline-image img{transform:scale(1.04)}
+.timeline-item--visual .timeline-image .img-caption{padding:0.6rem 1rem 0.8rem;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-faint)}
+
+.timeline-featured{
+  position:relative;margin:1.5rem 0;border-radius:20px;overflow:hidden;
+  min-height:260px;border:1px solid var(--border);
+  transition:border-color 0.5s ease,box-shadow 0.5s var(--spring);
+}
+.timeline-featured:hover{border-color:var(--accent);box-shadow:0 16px 50px rgba(232,93,58,0.12)}
+.timeline-featured::before{
+  content:'';position:absolute;left:-2.5rem;top:50%;width:12px;height:12px;
+  background:var(--bg);border:2px solid var(--accent);border-radius:50%;
+  transform:translate(-50%,-50%);z-index:3;transition:all 0.4s var(--spring);
+}
+.timeline-featured:hover::before{background:var(--accent);transform:translate(-50%,-50%) scale(1.3);box-shadow:0 0 0 6px rgba(232,93,58,0.12)}
+.timeline-featured-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.88) saturate(0.65);transition:transform 1s var(--smooth),filter 0.6s ease}
+.timeline-featured:hover .timeline-featured-bg{transform:scale(1.04);filter:brightness(0.92) saturate(0.75)}
+.timeline-featured-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.93) 0%,rgba(255,255,255,0.78) 60%,rgba(255,255,255,0.88) 100%)}
+.timeline-featured-content{position:relative;z-index:2;padding:3rem;display:flex;flex-direction:column;justify-content:center;min-height:260px;max-width:600px}
+.timeline-featured-year{font-family:var(--serif);font-size:3rem;font-style:italic;color:var(--accent);font-weight:300;line-height:1;margin-bottom:0.6rem;opacity:0.7}
+.timeline-featured-content h3{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:0.5rem;letter-spacing:-0.01em}
+.timeline-featured-content .role{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
+.timeline-featured-content p{color:var(--text-dim);font-size:0.95rem;line-height:1.75}
+
+@media(max-width:900px){
+  .timeline-item{grid-template-columns:1fr;gap:1.2rem;padding:2.2rem 0}
+  .timeline-year{font-size:1.8rem}
+  .timeline-featured-content{padding:2rem;max-width:100%}
+  .timeline-featured-year{font-size:2.2rem}
+  .timeline-featured-content h3{font-size:1.5rem}
+  .timeline-item--visual .timeline-image{max-width:100%}
+}
+
+.fleeting{background:var(--bg-2);position:relative}
+.fleeting::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent);border-radius:1px}
+.fleeting-intro h2{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1rem;max-width:1000px}
+.fleeting-intro p{color:var(--text-dim);max-width:900px;font-size:1.05rem;line-height:1.8;margin-top:1.5rem}
+.blink-title{background:linear-gradient(135deg,var(--accent),#FF8C42,var(--accent-2),var(--accent));background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.fleeting-grid{margin-top:4rem;max-width:900px}
+.now-list{display:flex;flex-direction:column}
+.now-item{display:grid;grid-template-columns:56px 140px 1fr;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--border);align-items:start;transition:padding-left 0.4s var(--spring)}
+.now-item:hover{padding-left:0.5rem}
+.now-item:last-child{border-bottom:none}
+.now-thumb{width:48px;height:48px;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:transform 0.5s var(--spring),box-shadow 0.4s ease;flex-shrink:0;margin-top:0.1rem}
+.now-item:hover .now-thumb{transform:scale(1.12) rotate(-3deg);box-shadow:0 6px 18px rgba(232,93,58,0.18)}
+.now-thumb img{width:100%;height:100%;object-fit:cover}
+.now-label{font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-dim);padding-top:0.7rem;position:relative}
+.now-label::before{content:'';position:absolute;left:-1.2rem;top:1rem;width:5px;height:5px;border:1.5px solid var(--accent);background:transparent;transform:rotate(45deg);transition:all 0.3s var(--spring)}
+.now-item:hover .now-label::before{background:var(--accent);transform:rotate(45deg) scale(1.2)}
+.now-value h4{font-family:var(--serif);font-size:1.25rem;font-weight:400;margin-bottom:0.3rem;line-height:1.3}
+.now-value h4 em{font-style:italic;color:var(--accent)}
+.now-value p{color:var(--text-dim);font-size:0.95rem;line-height:1.7}
+
+@media(max-width:768px){
+  .now-item{grid-template-columns:48px 1fr;gap:0.8rem 1rem}
+  .now-item .now-label{grid-column:2}
+  .now-item .now-value{grid-column:2}
+  .now-label::before{display:none}
+  .now-value h4{font-size:1.1rem}
+  .now-value p{font-size:0.9rem}
+}
+
+.hereafter{background:var(--bg);position:relative;overflow:hidden}
+.vision-statement{font-family:var(--serif);font-size:clamp(1.9rem,4.5vw,3.8rem);line-height:1.18;font-weight:300;margin:4rem 0 3rem;max-width:1100px;letter-spacing:-0.015em;position:relative;z-index:2}
+.vision-statement em{font-style:italic;color:var(--accent)}
+.vision-statement .quote-mark{font-family:var(--serif);font-style:italic;font-size:7rem;color:var(--accent);opacity:0.1;position:absolute;top:-3rem;left:-2rem;line-height:1;pointer-events:none}
+
+.future-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:4rem;position:relative;z-index:2}
+@media(max-width:900px){.future-cards{grid-template-columns:1fr}}
+
+.future-card{
+  position:relative;background:var(--surface);border-radius:20px;
+  padding:2.5rem 2rem 4rem;overflow:hidden;
+  transition:transform 0.5s var(--spring),box-shadow 0.5s ease;
+}
+.future-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+  background:linear-gradient(135deg,var(--accent),transparent 40%,transparent 60%,var(--accent-2));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0.3;transition:opacity 0.5s ease;z-index:1;
+}
+.future-card:hover::before{opacity:1}
+.future-card-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0.05;transition:opacity 0.6s ease,transform 0.8s var(--smooth);z-index:0}
+.future-card:hover .future-card-bg{opacity:0.09;transform:scale(1.05)}
+.future-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px -12px rgba(232,93,58,0.18)}
+.future-card .num{font-family:var(--serif);font-style:italic;font-size:0.95rem;color:var(--accent);margin-bottom:1.6rem;display:flex;align-items:center;gap:0.8rem;position:relative;z-index:2}
+.future-card .num::after{content:'';flex:0 0 28px;height:1.5px;background:var(--border-strong);border-radius:1px}
+.future-card h4{font-family:var(--serif);font-size:1.5rem;font-weight:400;margin-bottom:0.8rem;line-height:1.25;position:relative;z-index:2}
+.future-card p{color:var(--text-dim);font-size:0.92rem;line-height:1.75;position:relative;z-index:2}
+.future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
+.future-card .horizon span:last-child{color:var(--accent);font-weight:500}
+
+.footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
+@media(max-width:768px){.footer{padding:5rem 1.5rem 2rem}}
+@media(min-width:1201px){.footer{padding-right:16rem}}
+.footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr;gap:5rem;align-items:end}
+@media(max-width:900px){.footer-content{grid-template-columns:1fr;gap:3rem}}
+.footer-text h3{font-family:var(--serif);font-size:clamp(1.9rem,4.5vw,3.2rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;margin-bottom:1.5rem;color:#E8E2D5}
+.footer-text h3 em{font-style:italic;color:var(--accent)}
+.footer-text p{color:#8C8578;font-size:0.95rem;max-width:420px;line-height:1.7}
+.footer-text .email-link{display:inline-flex;align-items:center;gap:0.8rem;margin-top:2rem;color:#E8E2D5;text-decoration:none;font-family:var(--serif);font-style:italic;font-size:1.2rem;border-bottom:1px solid rgba(255,255,255,0.12);padding-bottom:0.3rem;transition:color 0.3s ease,border-color 0.3s ease}
+.footer-text .email-link:hover{color:var(--accent);border-color:var(--accent)}
+.footer-text .email-link i{font-size:0.85rem;transition:transform 0.4s var(--spring)}
+.footer-text .email-link:hover i{transform:translate(4px,-4px)}
+
+.socials{display:flex;flex-direction:column}
+.socials-label{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:#57534E;margin-bottom:1.5rem}
+.social-link{display:flex;align-items:center;gap:1.2rem;color:#8C8578;text-decoration:none;font-size:0.85rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:all 0.4s var(--spring);position:relative}
+.social-link:first-of-type{border-top:1px solid rgba(255,255,255,0.06)}
+.social-link i{font-size:1.1rem;width:20px;color:#6B6560;transition:color 0.4s ease}
+.social-link .platform{flex:1;font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase}
+.social-link .handle{font-family:var(--serif);font-style:italic;font-size:1rem;color:#D6D3D1;transition:color 0.4s ease}
+.social-link .arrow{opacity:0;transform:translateX(-10px);transition:all 0.4s var(--spring);color:var(--accent)}
+.social-link:hover{color:var(--accent);padding-left:1rem}
+.social-link:hover i{color:var(--accent)}
+.social-link:hover .handle{color:var(--accent)}
+.social-link:hover .arrow{opacity:1;transform:translateX(0)}
+.footer-bottom{max-width:1400px;margin:5rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#57534E}
+.footer-bottom .accent{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(35px);transition:opacity 0.9s var(--spring),transform 0.9s var(--spring)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity 0.9s var(--spring),transform 0.9s var(--spring)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(0.95) translateY(20px);transition:opacity 0.9s var(--spring),transform 0.9s var(--spring)}
+.reveal-scale.visible{opacity:1;transform:scale(1) translateY(0)}
+.reveal-blur{opacity:0;transform:translateY(20px);filter:blur(6px);transition:opacity 0.8s ease,transform 0.8s var(--spring),filter 0.8s ease}
+.reveal-blur.visible{opacity:1;transform:translateY(0);filter:blur(0)}
+
+.reveal[data-delay="1"]{transition-delay:0.08s}
+.reveal[data-delay="2"]{transition-delay:0.16s}
+.reveal[data-delay="3"]{transition-delay:0.24s}
+.reveal[data-delay="4"]{transition-delay:0.32s}
+.reveal[data-delay="5"]{transition-delay:0.4s}
+.reveal-scale[data-delay="1"]{transition-delay:0.1s}
+.reveal-scale[data-delay="2"]{transition-delay:0.2s}
+.reveal-scale[data-delay="3"]{transition-delay:0.3s}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+::selection{background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="page-loader" id="pageLoader">
+  <span class="loader-name">Aum Sapariya</span>
+  <span class="loader-sub">A Personal Codex</span>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<header class="topbar" id="topbar">
+  <div class="logo">Aum <em>Sapariya</em></div>
+  <div class="meta">
+    <span class="dot"></span>
+    <span>Balance the Crucible and the Crown</span>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero"><em>00</em> — Origin</a>
+  <a href="#bygone"><em>01</em> — Bygone</a>
+  <a href="#fleeting"><em>02</em> — Fleeting Blink</a>
+  <a href="#hereafter"><em>03</em> — Hereafter</a>
+  <span class="menu-label">Aum Sapariya · 2025</span>
+</div>
+
+<nav class="side-nav" id="sideNav">
+  <a href="#hero" data-section="hero" class="active">00 — Origin</a>
+  <a href="#bygone" data-section="bygone">01 — Bygone</a>
+  <a href="#fleeting" data-section="fleeting">02 — Fleeting Blink</a>
+  <a href="#hereafter" data-section="hereafter">03 — Hereafter</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="reveal">
+        I am <em class="grad-text">Aum Sapariya</em>,<br>
+        a student of numbers,<br>
+        quiet and curious.
+      </h1>
+      <p class="subtitle reveal" data-delay="1">
+        A CA student navigating the long road of ledgers and logic. Easy-going and kind, I find my moves in chess, my stories in books, and my quiet escapes in films, shows, and anime.
+      </p>
+      <div class="meta-row reveal" data-delay="2">
+        <span>Based in<strong>Rajkot, India</strong></span>
+        <span>Currently<strong>CA Student</strong></span>
+        <span>Open to<strong>Connections</strong></span>
+      </div>
+    </div>
+    <div class="reveal-scale" data-delay="1">
+      <div class="hero-portrait">
+        <div class="img-wrap">
+          <img src="https://z-cdn-media.chatglm.cn/files/af19efdf-042e-413f-990f-cafd65c81c12.png?auth_key=1884979918-da89f78b30064d8799d2c4516f17949f-0-4fefc90c31c3640dc59b31afb424ef14" alt="Aum Sapariya">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Begin</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-text">Chartered Accountancy <span class="sep">✦</span> Chess <span class="sep">✦</span> Books <span class="sep">✦</span> Anime <span class="sep">✦</span> Rajkot, India <span class="sep">✦</span> Japan Dreams <span class="sep">✦</span> Game of Thrones <span class="sep">✦</span> One Piece <span class="sep">✦</span> Kahlil Gibran <span class="sep">✦</span> Ledgers & Logic <span class="sep">✦</span></span>
+    <span class="marquee-text">Chartered Accountancy <span class="sep">✦</span> Chess <span class="sep">✦</span> Books <span class="sep">✦</span> Anime <span class="sep">✦</span> Rajkot, India <span class="sep">✦</span> Japan Dreams <span class="sep">✦</span> Game of Thrones <span class="sep">✦</span> One Piece <span class="sep">✦</span> Kahlil Gibran <span class="sep">✦</span> Ledgers & Logic <span class="sep">✦</span></span>
+  </div>
+</div>
+
+<!-- BYGONE -->
+<section class="bygone" id="bygone">
+  <div class="container">
+    <div class="section-label reveal-left">
+      <span class="section-num">01.</span>
+      <div class="section-divider"></div>
+      <span class="section-tag">Bygone — things that have passed</span>
+    </div>
+    <div class="bygone-intro">
+      <h2 class="reveal">The road behind,<br>written in <em>small hours</em><br>and hard light.</h2>
+      <p class="reveal" data-delay="1">The story begins on a quiet Friday — <span class="hl">the 23rd of February, 2007</span>. From that first breath, the road behind has been a slow accumulation of small hours, hard lessons, and gentle realizations, shaping the quiet rhythm of who I am becoming.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year reveal-blur">2007</div>
+        <div class="timeline-content"><h3>The Beginning</h3></div>
+      </div>
+      <div class="timeline-item timeline-item--visual reveal">
+        <div class="timeline-year reveal-blur">2010</div>
+        <div class="timeline-content">
+          <h3>The First Shift</h3>
+          <div class="role">Early Childhood · Porbandar</div>
+          <p>For the first <span class="hl">three years</span>, life was a quiet, unblemished happiness. But seasons change, and sometimes the ground shifts beneath us without warning. Due to unforeseen circumstances, we had to leave the warmth of our village behind. The road led us to <span class="hl">Porbandar city</span>, where the next three years gently unfolded. It was there I first stepped into the world outside, completing my <span class="hl">preschool</span> and <span class="hl">first standard</span>—a bittersweet beginning in a new place, carrying the quiet echoes of the home we had left behind.</p>
+          <div class="timeline-image">
+            <img src="https://picsum.photos/seed/porbandar-coast-warm/840/480.jpg" alt="Porbandar">
+            <div class="img-caption">Porbandar · Where the sea meets memory</div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year reveal-blur">2013</div>
+        <div class="timeline-content">
+          <h3>The Transit Year</h3>
+          <div class="role">Childhood · Dhoraji</div>
+          <p>After three years by the sea, the winds shifted again. We packed our quiet echoes and moved to <span class="hl-blue">Dhoraji city</span>. It was a brief chapter—just <span class="hl-blue">one year</span>—but a necessary pause between the place we had grown into and the city that would eventually become our home.</p>
+        </div>
+      </div>
+      <div class="timeline-featured reveal-scale">
+        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/golden-childhood-street-warm/1200/600.jpg')"></div>
+        <div class="timeline-featured-overlay"></div>
+        <div class="timeline-featured-content">
+          <div class="timeline-featured-year">2014</div>
+          <h3>The Golden Years</h3>
+          <div class="role">Childhood · Rajkot</div>
+          <p>Then came the move to <span class="hl-yellow">Rajkot</span>. We rented a house, and for the next <span class="hl-yellow">four years</span>, I lived what felt like the best days of my childhood. I made friends so wholesome that their memories still echo in quiet corners of my mind. We celebrated countless festivals together, laughed without a care, and ran through those streets without ever keeping track of time. I didn't even notice where those four years went.</p>
+        </div>
+      </div>
+      <div class="timeline-item timeline-item--visual reveal">
+        <div class="timeline-year reveal-blur">2018</div>
+        <div class="timeline-content">
+          <h3>A Quiet Restart</h3>
+          <div class="role">Early Teens · Rajkot</div>
+          <p>Eventually, we moved again—this time, just across the city to our <span class="hl">own home</span>. There was a quiet joy in finally having a place of our own, but a deep, aching sadness in leaving the streets and the friends that had become my whole world. Yet, a new home brings a quiet restart. I made new friends, met new neighbors, and built almost a <span class="hl">new life</span> from scratch.</p>
+          <div class="timeline-image">
+            <img src="https://picsum.photos/seed/quiet-home-rajko-warm/840/480.jpg" alt="New home">
+            <div class="img-caption">Rajkot · A place of our own</div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-featured reveal-scale" data-delay="1">
+        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/pandemic-room-light/1200/600.jpg')"></div>
+        <div class="timeline-featured-overlay"></div>
+        <div class="timeline-featured-content">
+          <div class="timeline-featured-year">2019</div>
+          <h3>The Great Pause & The Search</h3>
+          <div class="role">The Pandemic Years · Lockdown</div>
+          <p>Then came <span class="hl-blue">2019</span>, and with it, the pandemic. The world shut its doors, and life as we knew it changed overnight. Confined to the walls of our home, I began to explore. I kept <span class="hl-blue">throwing things at the wall to see what would stick</span>—trying my hand at coding, sketching art, writing poems, and losing myself in books, games, shows, and movies. It was a season of quiet isolation, but also of restless searching, trying to find my own niche in the sudden stillness.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year reveal-blur">2022</div>
+        <div class="timeline-content">
+          <h3>The Return to the Light</h3>
+          <div class="role">Post-Pandemic · High School</div>
+          <p>Slowly, the world began to breathe again. The lockdowns lifted, the streets filled back up, and life found its way back to normal. I stepped into the <span class="hl">10th grade</span>, trading the quiet isolation of my room for the noise of the classroom once more. The transition was strange at first, but the rhythm of life quickly caught up, pulling me forward.</p>
+        </div>
+      </div>
+      <div class="timeline-featured reveal-scale" data-delay="1">
+        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/crossroads-path-choose-warm/1200/600.jpg')"></div>
+        <div class="timeline-featured-overlay"></div>
+        <div class="timeline-featured-content">
+          <div class="timeline-featured-year">2023</div>
+          <h3>The Crossroads</h3>
+          <div class="role">10th Grade · Rajkot</div>
+          <p>In <span class="hl-yellow">2023</span>, I completed my 10th grade. It was the first major crossroads—the question of what to become. After the restless searching of the lockdown years, I found my direction in the logic of numbers. I chose the <span class="hl-yellow">commerce field</span> and set my sights on becoming a <span class="hl-yellow">Chartered Accountant</span>. It was a decision made not in haste, but with a quiet certainty that this was the path I wanted to walk.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year reveal-blur">2025</div>
+        <div class="timeline-content">
+          <h3>A New Threshold</h3>
+          <div class="role">12th Grade · Commerce</div>
+          <p>The next two years were a blur of ledgers, tax codes, and late-night studying. In <span class="hl">2025</span>, I completed my <span class="hl">12th grade</span>. The foundation has been laid, the first major step taken. Now, the real crucible begins.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="animation-direction:reverse">
+    <span class="marquee-text">Porbandar <span class="sep">→</span> Dhoraji <span class="sep">→</span> Rajkot <span class="sep">→</span> Lockdown <span class="sep">→</span> 10th Grade <span class="sep">→</span> Commerce <span class="sep">→</span> CA Foundation <span class="sep">→</span> CA Intermediate <span class="sep">→</span> The Road Ahead <span class="sep">→</span></span>
+    <span class="marquee-text">Porbandar <span class="sep">→</span> Dhoraji <span class="sep">→</span> Rajkot <span class="sep">→</span> Lockdown <span class="sep">→</span> 10th Grade <span class="sep">→</span> Commerce <span class="sep">→</span> CA Foundation <span class="sep">→</span> CA Intermediate <span class="sep">→</span> The Road Ahead <span class="sep">→</span></span>
+  </div>
+</div>
+
+<!-- THE FLEETING BLINK -->
+<section class="fleeting" id="fleeting">
+  <div class="container">
+    <div class="section-label reveal-left">
+      <span class="section-num">02.</span>
+      <div class="section-divider"></div>
+      <span class="section-tag">The Fleeting Blink — what is, right now</span>
+    </div>
+    <div class="fleeting-intro">
+      <h2 class="reveal">The present is a <em class="blink-title">narrow</em> window —<br>everything I am is happening<br>inside this <em class="blink-title">thin sliver</em> of light.</h2>
+      <p class="reveal" data-delay="1">I officially embarked on this path on the <span class="hl">18th of March, 2025</span>. Months of quiet labor culminated on the <span class="hl">3rd of November, 2025</span>, when I passed my <span class="hl">CA Foundation</span>. I am currently wading through the dense volumes of CA Intermediate and slowly learning a new language. Yet, beneath the steady rhythm of these days, one question haunts the quiet hours: <span class="hl-blue">will I pass CA Intermediate on my first attempt?</span></p>
+    </div>
+    <div class="fleeting-grid">
+      <div class="now-list">
+        <div class="now-item reveal">
+          <div class="now-thumb"><img src="https://media.canva.com/v2/image-resize/format:PNG/height:1200/quality:100/uri:ifs%3A%2F%2FM%2F54ba150a-d89d-4844-812f-3e10b8290509/watermark:F/width:1200?csig=AAAAAAAAAAAAAAAAAAAAAM_nFIZ0kKV318SSXVbPfWU5uxtMhERUAvDHVpyZoma4&exp=1784996474&osig=AAAAAAAAAAAAAAAAAAAAAGS2rBgsZQb2fCcFQF2jWjGJ2LI1U2VoW9Q0F-_0EyzN&signer=media-rpc&x-canva-quality=screen_3x" alt="Stack of books"></div>
+          <div class="now-label">Studying</div>
+          <div class="now-value">
+            <h4><em>Chartered Accountancy</em></h4>
+            <p>Navigating ledgers, tax codes, and the quiet logic of numbers.</p>
+          </div>
+        </div>
+        <div class="now-item reveal" data-delay="1">
+          <div class="now-thumb"><img src="https://media.canva.com/v2/image-resize/format:PNG/height:1024/quality:100/uri:ifs%3A%2F%2FM%2F7bea9860-2f35-4634-a3c3-c933c059f6ad/watermark:F/width:1024?csig=AAAAAAAAAAAAAAAAAAAAALEeu0HBKxTdiG92BKg0HLv6ACc8jSe5UUCKzG7pbiv5&exp=1784994945&osig=AAAAAAAAAAAAAAAAAAAAAPXt-YD2mvtmH_Sk9KlLiMPZ8nBq236To-tgUnXs8-9q&signer=media-rpc&x-canva-quality=screen_3x" alt="Open book"></div>
+          <div class="now-label">Reading</div>
+          <div class="now-value">
+            <h4><em>The Prophet</em> by Kahlil Gibran</h4>
+            <p>A book that teaches the quiet dignity of labor—how <span class="hl">"when you work you are a flute through whose heart the whispering of the hours turns into music."</span></p>
+          </div>
+        </div>
+        <div class="now-item reveal" data-delay="2">
+          <div class="now-thumb"><img src="https://media.canva.com/v2/image-resize/format:PNG/height:1200/quality:100/uri:ifs%3A%2F%2FM%2F79894d3c-477a-4ecc-bb3a-afd16a4b75cf/watermark:F/width:1200?csig=AAAAAAAAAAAAAAAAAAAAACoK4dNJUz83QrErKBRUvvO3HbDQ4CUtwGKTz-R0vNcT&exp=1784998360&osig=AAAAAAAAAAAAAAAAAAAAAP0tj2rPCYxQyMckOflLhHgnU3olArH60puGO_NO8tRM&signer=media-rpc&x-canva-quality=screen_3x" alt="Crossed swords"></div>
+          <div class="now-label">Watching</div>
+          <div class="now-value">
+            <h4><em>Game of Thrones</em></h4>
+            <p>Captivated by its political intricacies and the deep, unflinching exploration of how one's actions and the pursuit of power ripple outward—affecting the emotions, loyalty, actions, and mentality of everyone in their wake.</p>
+          </div>
+        </div>
+        <div class="now-item reveal" data-delay="3">
+          <div class="now-thumb"><img src="https://media.canva.com/v2/image-resize/format:PNG/height:1200/quality:100/uri:ifs%3A%2F%2FM%2F0c2b63df-0606-4524-a626-352eb4ebe7f1/watermark:F/width:1200?csig=AAAAAAAAAAAAAAAAAAAAACiZi8xoPvsTeOf-CI9uml4LJxIFa29BqkDNI5FpJNtG&exp=1784996231&osig=AAAAAAAAAAAAAAAAAAAAACjE35e1Prr_5aHYXXMCyKCUg3d0lpYsLBXNYRJg5-S3&signer=media-rpc&x-canva-quality=screen_3x" alt="Straw hat"></div>
+          <div class="now-label">Anime</div>
+          <div class="now-value">
+            <h4><em>One Piece</em></h4>
+            <p>Drawn to its vast, adventurous ocean and its profound willingness to tackle real-world shadows like <span class="hl-blue">corruption, bribery, and slavery</span>, proving that animation can carry the weight of our heaviest truths.</p>
+          </div>
+        </div>
+        <div class="now-item reveal" data-delay="4">
+          <div class="now-thumb"><img src="https://media.canva.com/v2/image-resize/format:PNG/height:1200/quality:100/uri:ifs%3A%2F%2FM%2Fd0b85966-74af-4663-a82d-2c0761415b2f/watermark:F/width:1200?csig=AAAAAAAAAAAAAAAAAAAAAEdFKSfcUCStD0OLSZxbMCyA0OvO3nIAycDFndY73ftu&exp=1784996391&osig=AAAAAAAAAAAAAAAAAAAAANKOvhbWpgwXCR2pE91glYEQoKRP4nGtlSx3sHNTF0Qs&signer=media-rpc&x-canva-quality=screen_3x" alt="Chess knight"></div>
+          <div class="now-label">Playing</div>
+          <div class="now-value">
+            <h4><em>Chess</em></h4>
+            <p>Moving pieces, thinking three steps ahead, enjoying the quiet tension of the board.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 3 -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-text">CA Intermediate <span class="sep">✦</span> IIM <span class="sep">✦</span> Own Practice <span class="sep">✦</span> Japan <span class="sep">✦</span> Retirement <span class="sep">✦</span> Quiet Order <span class="sep">✦</span> Deep Culture <span class="sep">✦</span> Slow Seasons <span class="sep">✦</span> One Stubborn Morning at a Time <span class="sep">✦</span></span>
+    <span class="marquee-text">CA Intermediate <span class="sep">✦</span> IIM <span class="sep">✦</span> Own Practice <span class="sep">✦</span> Japan <span class="sep">✦</span> Retirement <span class="sep">✦</span> Quiet Order <span class="sep">✦</span> Deep Culture <span class="sep">✦</span> Slow Seasons <span class="sep">✦</span> One Stubborn Morning at a Time <span class="sep">✦</span></span>
+  </div>
+</div>
+
+<!-- HEREAFTER -->
+<section class="hereafter" id="hereafter">
+  <div class="container">
+    <div class="section-label reveal-left">
+      <span class="section-num">03.</span>
+      <div class="section-divider"></div>
+      <span class="section-tag">Hereafter — what is yet to come</span>
+    </div>
+    <div class="vision-statement reveal">
+      <span class="quote-mark">"</span>
+      The future is not a place I am going —<br>
+      it is a thing I am <em>quietly building</em>,<br>
+      one stubborn morning at a time.
+    </div>
+    <div class="future-cards">
+      <div class="future-card reveal-scale" data-tilt>
+        <div class="future-card-bg" style="background-image:url('https://picsum.photos/seed/intense-study-warm/600/800.jpg')"></div>
+        <div class="num">i.</div>
+        <h4>The Immediate Crucible</h4>
+        <p>To conquer the <span class="hl">CA Intermediate</span>, followed closely by the CA Finals, to finally earn the designation of a <span class="hl">Chartered Accountant</span>. The road is steep, but the foundation has been laid.</p>
+        <div class="horizon"><span>Horizon</span><span>6 — 12 months</span></div>
+      </div>
+      <div class="future-card reveal-scale" data-delay="1" data-tilt>
+        <div class="future-card-bg" style="background-image:url('https://picsum.photos/seed/diverging-paths-warm/600/800.jpg')"></div>
+        <div class="num">ii.</div>
+        <h4>The Diverging Paths</h4>
+        <p>If the winds align and opportunity knocks, to secure a seat at <span class="hl-blue">IIM</span> to broaden my horizons. If not, to take the leap and lay the foundation of my <span class="hl-blue">own CA practice</span>, building something from the ground up.</p>
+        <div class="horizon"><span>Horizon</span><span>1 — 2 years</span></div>
+      </div>
+      <div class="future-card reveal-scale" data-delay="2" data-tilt>
+        <div class="future-card-bg" style="background-image:url('https://picsum.photos/seed/japan-temple-warm/600/800.jpg')"></div>
+        <div class="num">iii.</div>
+        <h4>The Eastern Dream</h4>
+        <p>To eventually leave the familiar, dusty shores of India behind and spend the quiet years of <span class="hl-yellow">retirement</span> living in <span class="hl-yellow">Japan</span>—a land of quiet order, deep culture, and slow, beautiful seasons.</p>
+        <div class="horizon"><span>Horizon</span><span>A lifetime</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="siteFooter">
+  <div class="footer-content">
+    <div class="footer-text">
+      <h3 class="reveal">If any of this<br><em>rhymes</em> with you —<br>let's connect.</h3>
+      <p class="reveal" data-delay="1" style="margin-top:1.5rem">I'm always open to meeting fellow professionals, creatives, and curious minds. Tell me what you're working on, what's keeping you up, or just say hello.</p>
+      <a href="mailto:aumksapariya.1212@gmail.com" class="email-link reveal" data-delay="2">
+        <span>aumksapariya.1212@gmail.com</span>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+    <div class="socials reveal" data-delay="1">
+      <div class="socials-label">— Find me elsewhere</div>
+      <a href="https://instagram.com/aum_.patel" class="social-link" target="_blank" rel="noopener">
+        <i class="fa-brands fa-instagram"></i>
+        <span class="platform">Instagram</span>
+        <span class="handle">@aum_.patel</span>
+        <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="https://www.linkedin.com/in/aum-sapariya" class="social-link" target="_blank" rel="noopener">
+        <i class="fa-brands fa-linkedin-in"></i>
+        <span class="platform">LinkedIn</span>
+        <span class="handle">Aum Sapariya</span>
+        <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© <span id="year">2025</span> <span class="accent">Aum Sapariya</span> · All rights, gently reserved</div>
+    <div>Designed in warmth · <span class="accent">Built by hand</span></div>
+  </div>
+</footer>
+
+<script>
+/* ── Custom Cursor ── */
+(function(){
+  var dot = document.getElementById('cursorDot');
+  var ring = document.getElementById('cursorRing');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,.timeline-item,.timeline-featured,.future-card,.hero-portrait,.now-item,.social-link').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', function() { ring.classList.remove('hover'); });
+  });
+})();
+
+/* ── Page Loader ── */
+(function(){
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function() {
+    setTimeout(function() { loader.classList.add('loaded'); }, 800);
+    setTimeout(function() { loader.style.display = 'none'; }, 1600);
+  });
+  setTimeout(function() {
+    loader.classList.add('loaded');
+    setTimeout(function() { loader.style.display = 'none'; }, 800);
+  }, 3000);
+})();
+
+/* ── Scroll Progress Bar ── */
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', function() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+/* ── Topbar Scroll State ── */
+(function(){
+  var topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function() {
+    topbar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
+/* ── Hamburger / Mobile Menu ── */
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('active');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('active');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+
+/* ── Reveal Animations ── */
+(function(){
+  var els = document.querySelectorAll('.reveal,.reveal-left,.reveal-scale,.reveal-blur');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+  } else {
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+
+/* ── Side-Nav: Active State + Footer Fade-Out ── */
+(function(){
+  var navLinks = document.querySelectorAll('.side-nav a');
+  var sectionIds = ['hero', 'bygone', 'fleeting', 'hereafter'];
+  var sections = sectionIds.map(function(id) { return document.getElementById(id); });
+  var sideNav = document.getElementById('sideNav');
+  var footer = document.getElementById('siteFooter');
+
+  function onScroll() {
+    var winH = window.innerHeight;
+
+    /* 1) Active section tracking */
+    var activeIndex = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (!sections[i]) continue;
+      if (sections[i].getBoundingClientRect().top <= winH * 0.4) {
+        activeIndex = i;
+      }
+    }
+    for (var j = 0; j < navLinks.length; j++) {
+      navLinks[j].classList.toggle('active', j === activeIndex);
+    }
+
+    /* 2) Smooth fade-out when footer approaches */
+    var footerTop = footer.getBoundingClientRect().top;
+    var fadeStart = winH * 0.75;   /* start fading here */
+    var fadeEnd   = winH * 0.45;   /* fully gone here */
+
+    if (footerTop < fadeStart) {
+      var progress = 1 - Math.max(0, (footerTop - fadeEnd) / (fadeStart - fadeEnd));
+      sideNav.style.opacity = Math.max(0, 1 - progress);
+      sideNav.style.pointerEvents = progress >= 1 ? 'none' : '';
+    } else {
+      sideNav.style.opacity = 1;
+      sideNav.style.pointerEvents = '';
+    }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() { onScroll(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  onScroll();
+})();
+
+/* ── Subtle Tilt on Future Cards ── */
+(function(){
+  document.querySelectorAll('[data-tilt]').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -3;
+      var ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 3;
+      card.style.transform = 'translateY(-8px) perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    });
+    card.addEventListener('mouseleave', function() { card.style.transform = ''; });
+  });
+})();
+
+/* ── Year ── */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
