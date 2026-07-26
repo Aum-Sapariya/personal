@@ -142,7 +142,6 @@ body::before{
 .mobile-menu a em{font-style:italic;color:var(--accent)}
 .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
 
-/* Side-nav — uses scaleX instead of width to prevent panel shake */
 .side-nav{
   position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:90;
   display:flex;flex-direction:column;gap:0;
@@ -152,7 +151,6 @@ body::before{
   padding:1.4rem 1.3rem;
   box-shadow:0 4px 24px rgba(0,0,0,0.05);
   will-change:transform,opacity;
-  /* FIX: smooth opacity transition for footer fade-out */
   transition:opacity 0.45s ease;
 }
 .side-nav a{
@@ -667,14 +665,14 @@ section{position:relative;padding:7rem 3rem;z-index:1}
         <div class="num">i.</div>
         <h4>The Immediate Crucible</h4>
         <p>To conquer the <span class="hl">CA Intermediate</span>, followed closely by the CA Finals, to finally earn the designation of a <span class="hl">Chartered Accountant</span>. The road is steep, but the foundation has been laid.</p>
-        <div class="horizon"><span>Horizon</span><span>6 — 12 months</span></div>
+        <div class="horizon"><span>Horizon</span><span>3 — 4 years</span></div>
       </div>
       <div class="future-card reveal-scale" data-delay="1" data-tilt>
         <div class="future-card-bg" style="background-image:url('https://picsum.photos/seed/diverging-paths-warm/600/800.jpg')"></div>
         <div class="num">ii.</div>
         <h4>The Diverging Paths</h4>
         <p>If the winds align and opportunity knocks, to secure a seat at <span class="hl-blue">IIM</span> to broaden my horizons. If not, to take the leap and lay the foundation of my <span class="hl-blue">own CA practice</span>, building something from the ground up.</p>
-        <div class="horizon"><span>Horizon</span><span>1 — 2 years</span></div>
+        <div class="horizon"><span>Horizon</span><span>5 — 6 years</span></div>
       </div>
       <div class="future-card reveal-scale" data-delay="2" data-tilt>
         <div class="future-card-bg" style="background-image:url('https://picsum.photos/seed/japan-temple-warm/600/800.jpg')"></div>
@@ -815,8 +813,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 
   function onScroll() {
     var winH = window.innerHeight;
-
-    /* 1) Active section tracking */
     var activeIndex = 0;
     for (var i = 0; i < sections.length; i++) {
       if (!sections[i]) continue;
@@ -827,12 +823,9 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     for (var j = 0; j < navLinks.length; j++) {
       navLinks[j].classList.toggle('active', j === activeIndex);
     }
-
-    /* 2) Smooth fade-out when footer approaches */
     var footerTop = footer.getBoundingClientRect().top;
-    var fadeStart = winH * 0.75;   /* start fading here */
-    var fadeEnd   = winH * 0.45;   /* fully gone here */
-
+    var fadeStart = winH * 0.75;
+    var fadeEnd   = winH * 0.45;
     if (footerTop < fadeStart) {
       var progress = 1 - Math.max(0, (footerTop - fadeEnd) / (fadeStart - fadeEnd));
       sideNav.style.opacity = Math.max(0, 1 - progress);
@@ -850,7 +843,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       ticking = true;
     }
   }, { passive: true });
-
   onScroll();
 })();
 
