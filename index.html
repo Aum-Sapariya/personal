@@ -101,7 +101,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .mobile-menu.open{opacity:1;visibility:visible}
 .mobile-menu a{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text-dim);text-decoration:none;letter-spacing:0.02em;transition:color 0.3s ease,transform 0.5s var(--spring);transform:translateY(20px);opacity:0}
 .mobile-menu.open a{transform:translateY(0);opacity:1}
-.mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}.mobile-menu.open a:nth-child(7){transition-delay:0.42s}
+.mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}
 .mobile-menu a:hover{color:var(--accent)}
 .mobile-menu a em{font-style:italic;color:var(--accent)}
 .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
@@ -266,15 +266,15 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
 .future-card .horizon span:last-child{color:var(--accent);font-weight:500}
 
-/* CTA Wrapper (Now handles 3 items gracefully) */
+/* Dual CTA Wrapper (Academics & Library) */
 .dual-cta-wrapper { 
-  display: flex; gap: 1.5rem; margin-top: 6rem; position: relative; z-index: 2; 
+  display: flex; gap: 2rem; margin-top: 6rem; position: relative; z-index: 2; 
   align-items: stretch; 
 }
 .cta-container { 
   --mouse-x: 50%; --mouse-y: 50%;
-  flex: 1; position: relative; min-width: 0; 
-  background: #000000; padding: 1.5rem; border-radius: 32px; 
+  flex: 1; position: relative; 
+  background: #000000; padding: 2rem; border-radius: 32px; 
   border: 1px solid #1C1917; 
   box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,1);
   overflow: hidden; 
@@ -284,10 +284,9 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   background: linear-gradient(to bottom, transparent 10%, var(--border-strong) 50%, transparent 90%);
   align-self: stretch;
 }
-@media(max-width: 1024px) { 
+@media(max-width: 768px) { 
   .dual-cta-wrapper { flex-direction: column; gap: 1.5rem; } 
   .cta-divider { width: 80%; height: 1px; background: linear-gradient(to right, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: center; } 
-  .cta-container { padding: 2rem; }
 }
 
 /* The Moving Smoke Layer */
@@ -320,16 +319,11 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 
 .cta-card { 
   --card-mx: 50%; --card-my: 50%;
-  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; 
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; 
   background: #141414; border: 1px solid rgba(255, 255, 255, 0.05); 
-  border-radius: 24px; padding: 2rem; text-decoration: none; height: 100%;
+  border-radius: 24px; padding: 2.5rem 3rem; text-decoration: none; height: 100%;
   transition: transform 0.5s var(--spring), background 0.4s ease; 
   position: relative; isolation: isolate; z-index: 3;
-}
-@media(min-width: 1025px) {
-  .cta-card { flex-direction: column; align-items: flex-start; justify-content: center; }
-  .cta-text-group { text-align: left; }
-  .cta-icon { align-self: flex-end; margin-top: 1rem; }
 }
 .cta-card::after { 
   content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px; 
@@ -340,19 +334,13 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 } 
 .cta-card:hover { transform: translateY(-4px); background: #181818; } 
 .cta-card:hover::after { opacity: 1; }
-.cta-text-group { position: relative; z-index: 3; flex: 1; }
+.cta-text-group { position: relative; z-index: 3; }
 .cta-tag { font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; display: block; }
-.cta-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: #F5F5F4; line-height: 1.3; margin: 0 0 0.8rem 0; font-style: italic; }
-.cta-subtitle { font-family: var(--sans); font-size: 0.8rem; color: #A8A29E; transition: color 0.3s ease; font-weight: 400; }
+.cta-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: #F5F5F4; line-height: 1.3; margin: 0 0 1rem 0; font-style: italic; }
+.cta-subtitle { font-family: var(--sans); font-size: 0.85rem; color: #A8A29E; transition: color 0.3s ease; font-weight: 400; }
 .cta-card:hover .cta-subtitle { color: #D6D3D1; }
-.cta-icon { font-size: 1.5rem; color: #57534E; transition: transform 0.4s var(--spring), color 0.4s ease; position: relative; z-index: 3; flex-shrink: 0; }
+.cta-icon { font-size: 1.8rem; color: #57534E; transition: transform 0.4s var(--spring), color 0.4s ease; position: relative; z-index: 3; flex-shrink: 0; }
 .cta-card:hover .cta-icon { color: var(--accent); transform: translateX(10px); }
-@media(max-width: 1024px) { 
-  .cta-card { flex-direction: row; align-items: center; padding: 2.5rem 3rem; gap: 2rem; }
-  .cta-title { font-size: 1.3rem; }
-  .cta-subtitle { font-size: 0.85rem; }
-  .cta-icon { font-size: 1.8rem; }
-}
 @media(max-width: 480px) { .cta-card { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2rem; } .cta-icon { align-self: flex-end; } }
 
 .footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
@@ -436,7 +424,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="#hereafter"><em>03</em> — Hereafter</a>
   <a href="academics.html"><em>04</em> — Academic Journey</a>
   <a href="library.html"><em>05</em> — The Library</a>
-  <a href="family.html"><em>06</em> — The Lineage</a>
   <span class="menu-label">Aum Sapariya · 2025</span>
 </div>
 
@@ -447,7 +434,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="#hereafter" data-section="hereafter">03 — Hereafter</a>
   <a href="academics.html">04 — Academics ↗</a>
   <a href="library.html">05 — Library ↗</a>
-  <a href="family.html">06 — Lineage ↗</a>
 </nav>
 
 <!-- HERO -->
@@ -709,7 +695,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     
-    <!-- Triple CTA Wrapper: Academics, Library & Lineage -->
+    <!-- Dual CTA Wrapper: Academics & Library -->
     <div class="dual-cta-wrapper reveal" data-delay="1">
       
       <!-- Academic CTA -->
@@ -740,25 +726,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <span class="cta-tag">The Quiet Library</span>
             <h4 class="cta-title">"A scattered shelf of stories and the quiet lessons they leave behind."</h4>
             <span class="cta-subtitle">Explore the books that shaped my thoughts →</span>
-          </div>
-          <div class="cta-icon">
-            <i class="fa-solid fa-arrow-right-long"></i>
-          </div>
-        </a>
-      </div>
-
-      <!-- Divider -->
-      <div class="cta-divider"></div>
-
-      <!-- Lineage CTA -->
-      <div class="cta-container">
-        <div class="smoke-layer"></div>
-        <div class="glow-light"></div>
-        <a href="family.html" class="cta-card">
-          <div class="cta-text-group">
-            <span class="cta-tag">The Lineage</span>
-            <h4 class="cta-title">"Roots & Branches. A seven-generation quiet lineage."</h4>
-            <span class="cta-subtitle">Explore the family tree that paved the road →</span>
           </div>
           <div class="cta-icon">
             <i class="fa-solid fa-arrow-right-long"></i>
@@ -973,7 +940,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   onScroll();
 })();
 
-/* ── Rainy Night Smoke & Spotlight Border (CTA) ── */
+/* ── Rainy Night Smoke & Spotlight Border (Dual CTA) ── */
 (function(){
   document.querySelectorAll('.cta-container').forEach(function(ctaContainer) {
     var ctaCard = ctaContainer.querySelector('.cta-card');
