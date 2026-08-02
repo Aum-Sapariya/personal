@@ -51,7 +51,7 @@
     .page-loader{position:fixed;inset:0;background:var(--accent);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;clip-path:circle(150% at 50% 50%);transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1)}
     .page-loader.loaded{clip-path:circle(0% at 50% 50%)}
     .page-loader .loader-name{color:#fff;font-family:var(--serif);font-style:italic;font-size:1.8rem;opacity:0;animation:loaderFade 1.6s ease forwards}
-    .page-loader .loader-sub{color:rgba(255,255,255,0.7);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;opacity:0;animation:loaderFade 1.4s ease 0.15s forwards;text-align:center;padding:0 1rem}
+    .page-loader .loader-sub{color:rgba(255,255,255,0.7);font-size:0.7rem;letter-spacing:0.2em;opacity:0;animation:loaderFade 1.4s ease 0.15s forwards;text-align:center;padding:0 1rem}
     @keyframes loaderFade{0%{opacity:0;transform:translateY(12px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
 
     .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;background:linear-gradient(90deg,var(--accent),#FF8C42,var(--accent-2));border-radius:0 2px 2px 0;transition:width 0.08s linear}
@@ -64,7 +64,7 @@
     .topbar.scrolled{padding:0.7rem 2rem;background:rgba(255,255,255,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .topbar .logo{font-family:var(--serif);font-size:1.2rem;letter-spacing:0.05em;color:var(--text);font-weight:400;white-space:nowrap;text-decoration:none}
     .topbar .logo em{font-style:italic;color:var(--accent)}
-    .topbar .meta{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem}
+    .topbar .meta{font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem; font-family:var(--serif); font-style:italic;}
     .topbar .meta .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
 
@@ -250,8 +250,8 @@
 
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="page-loader" id="pageLoader">
-  <span class="loader-name">The Academic Codex</span>
-  <span class="loader-sub">Precision · Integrity · Excellence</span>
+  <span class="loader-name">Precision in Numbers</span>
+  <span class="loader-sub">Integrity in Practice · Excellence in Governance</span>
 </div>
 
 <div class="cursor-dot" id="cursorDot"></div>
@@ -264,7 +264,7 @@
   <a href="index.html" class="logo">Aum <em>Sapariya</em></a>
   <div class="meta">
     <span class="dot"></span>
-    <span>Academic Codex</span>
+    <span>Precision in Numbers, Integrity in Practice, Excellence in Governance.</span>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
