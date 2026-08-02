@@ -169,6 +169,7 @@ body::before{
 .mobile-menu.open a:nth-child(2){transition-delay:0.12s}
 .mobile-menu.open a:nth-child(3){transition-delay:0.18s}
 .mobile-menu.open a:nth-child(4){transition-delay:0.24s}
+.mobile-menu.open a:nth-child(5){transition-delay:0.30s}
 .mobile-menu a:hover{color:var(--accent)}
 .mobile-menu a em{font-style:italic;color:var(--accent)}
 .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
@@ -366,6 +367,27 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
 .future-card .horizon span:last-child{color:var(--accent);font-weight:500}
 
+.academics-cta {
+  text-align: center; 
+  margin-top: 5rem; 
+  position: relative; 
+  z-index: 2;
+}
+.academics-cta a {
+  font-family: var(--serif); 
+  font-style: italic; 
+  font-size: 1.5rem; 
+  color: var(--accent); 
+  text-decoration: none; 
+  border-bottom: 1px solid var(--accent); 
+  padding-bottom: 0.3rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.academics-cta a:hover {
+  color: var(--text);
+  border-color: var(--text);
+}
+
 .footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
 @media(max-width:768px){.footer{padding:5rem 1.5rem 2rem}}
 @media(min-width:1201px){.footer{padding-right:16rem}}
@@ -452,6 +474,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="#bygone"><em>01</em> — Bygone</a>
   <a href="#fleeting"><em>02</em> — Fleeting Blink</a>
   <a href="#hereafter"><em>03</em> — Hereafter</a>
+  <a href="academics.html"><em>04</em> — Academic Journey</a>
   <span class="menu-label">Aum Sapariya · 2025</span>
 </div>
 
@@ -460,6 +483,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="#bygone" data-section="bygone">01 — Bygone</a>
   <a href="#fleeting" data-section="fleeting">02 — Fleeting Blink</a>
   <a href="#hereafter" data-section="hereafter">03 — Hereafter</a>
+  <a href="academics.html">04 — Academics ↗</a>
 </nav>
 
 <!-- HERO -->
@@ -713,6 +737,12 @@ section{position:relative;padding:7rem 3rem;z-index:1}
         <div class="horizon"><span>Horizon</span><span>A lifetime</span></div>
       </div>
     </div>
+    
+    <!-- Link to Academics Page -->
+    <div class="academics-cta reveal" data-delay="1">
+      <a href="academics.html">View My Academic Codex →</a>
+    </div>
+    
   </div>
 </section>
 
