@@ -113,13 +113,13 @@
     .hotspots-layer {
       position: absolute;
       inset: 0;
-      z-index: 40;
+      z-index: 60; /* Increased to be above the text container */
     }
     .hotspot {
       position: absolute;
       cursor: pointer;
       transform: translate(-50%, -50%);
-      padding: 1.5rem; /* Increased hit area significantly */
+      padding: 1.5rem; 
     }
     .hotspot-dot {
       position: relative;
@@ -128,10 +128,10 @@
       justify-content: center;
       width: 36px; 
       height: 36px;
-      transition: transform 0.3s ease; /* Visual feedback on hover */
+      transition: transform 0.3s ease; 
     }
     .hotspot:hover .hotspot-dot, .hotspot.active .hotspot-dot {
-      transform: scale(1.2); /* Enlarge dot when hovered/active */
+      transform: scale(1.2); 
     }
     .hotspot-ring {
       position: absolute;
@@ -168,7 +168,6 @@
       pointer-events: none;
       text-align: center;
     }
-    /* Active state for both Desktop Hover and Mobile Tap */
     .hotspot:hover .tooltip, .hotspot.active .tooltip {
       opacity: 1;
       transform: translate(-50%, 0);
@@ -197,11 +196,26 @@
       gap: 1.5rem; 
       opacity: 0;
       animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+      pointer-events: none; /* Allows clicks to pass through the text to hotspots underneath */
+    }
+    .cta-btn {
+      pointer-events: auto; /* Re-enables clicks only for the button */
     }
     @media (min-width: 640px) {
       .text-container {
         left: 2.5rem;
         max-width: 320px;
+      }
+    }
+    /* Move text to the bottom on mobile to clear the top hotspots */
+    @media (max-width: 768px) {
+      .text-container {
+        top: auto;
+        bottom: 1.25rem;
+        left: 1.25rem;
+        right: 1.25rem;
+        max-width: 100%;
+        gap: 1rem;
       }
     }
     .desc-text {
@@ -290,7 +304,7 @@
   <!-- 3. Ancestor Hotspots -->
   <div class="hotspots-layer" id="hotspots-layer"></div>
 
-  <!-- 4. Top Left Text Container -->
+  <!-- 4. Text Container -->
   <div class="text-container">
     <div class="text-block-1">
       <p class="desc-text">Every layer of our lineage records a chapter of our history, from ancient roots to present branches, layered across generations beneath us.</p>
