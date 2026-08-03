@@ -191,9 +191,11 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   font-size: 1.1rem; /* Increased from 0.9rem */
   color: var(--text);
   animation: scrollLeft 60s linear infinite;
+  animation-delay: -15s; /* Added delay to stagger rows on load */
 }
 .shloka-row--rev {
   animation: scrollRight 70s linear infinite;
+  animation-delay: -35s; /* Added delay to stagger rows on load */
 }
 @keyframes scrollLeft {
   0% { transform: translateX(0); }
