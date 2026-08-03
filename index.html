@@ -71,21 +71,9 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .topbar.scrolled{padding:0.7rem 2rem;background:rgba(255,255,255,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.08)}
 .topbar .logo{font-family:var(--serif);font-size:1.2rem;letter-spacing:0.05em;color:var(--text);font-weight:400;white-space:nowrap;display:flex;align-items:center;gap:0.8rem}
 .topbar .logo em{font-style:italic;color:var(--accent)}
-
-/* Multilingual Rotating Name (Minimalist Design) */
-.logo-translate {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--text-dim);
-  opacity: 0;
-  transform: translateY(3px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  border-left: 1px solid var(--border-strong);
-  padding-left: 0.8rem;
-}
+.logo-translate {font-size: 0.9rem;font-weight: 300;color: var(--text-dim);opacity: 0;transform: translateY(3px);transition: opacity 0.5s ease, transform 0.5s ease;border-left: 1px solid var(--border-strong);padding-left: 0.8rem;}
 .logo-translate.visible { opacity: 1; transform: translateY(0); }
 @media(max-width: 480px) { .logo-translate { display: none; } }
-
 .topbar .meta{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem}
 .topbar .meta .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
@@ -106,12 +94,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .mobile-menu a em{font-style:italic;color:var(--accent)}
 .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
 
-.side-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:0;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(0,0,0,0.06);border-radius:18px;padding:1.4rem 1.3rem;box-shadow:0 4px 24px rgba(0,0,0,0.05);will-change:transform,opacity;transition:opacity 0.45s ease}
+.side-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:0;background:rgba(255,255,255,0.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(0,0,0,0.06);border-radius:18px;padding:1.4rem 1.3rem;box-shadow:0 4px 24px rgba(0,0,0,0.05);will-change:transform,opacity;transition:opacity 0.45s ease;opacity:0;pointer-events:none;}
 .side-nav a{display:flex;align-items:center;gap:0.9rem;color:var(--text-faint);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;transition:color 0.4s ease,padding-left 0.4s var(--spring);padding:0.6rem 0;position:relative}
 .side-nav a::before{content:'';width:36px;height:1.5px;background:currentColor;border-radius:1px;transform:scaleX(0.44);transform-origin:left center;transition:transform 0.4s var(--spring),background 0.4s ease;flex-shrink:0}
 .side-nav a:hover,.side-nav a.active{color:var(--accent)}
 .side-nav a.active::before,.side-nav a:hover::before{transform:scaleX(1);background:var(--accent)}
-@media(max-width:1200px){.side-nav{display:none}}
+@media(max-width:1200px){.side-nav{display:none !important}}
 
 .marquee-wrap{overflow:hidden;padding:1.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1}
 .marquee-track{display:flex;width:max-content;animation:marqueeScroll 30s linear infinite}
@@ -132,9 +120,9 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .hl{background:linear-gradient(180deg,transparent 50%,rgba(232,93,58,0.16) 50%);padding:0 3px;border-radius:2px}
 .hl-blue{background:linear-gradient(180deg,transparent 50%,rgba(43,76,126,0.12) 50%);padding:0 3px;border-radius:2px}
 .hl-yellow{background:linear-gradient(180deg,transparent 50%,rgba(255,193,7,0.18) 50%);padding:0 3px;border-radius:2px}
-
 .grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
+/* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:8rem 3rem 4rem;overflow:hidden}
 @media(min-width:1201px){.hero{padding-right:16rem}}
 .hero-content{display:grid;grid-template-columns:1fr auto;gap:5rem;align-items:center;width:100%;max-width:1400px;margin:0 auto;position:relative;z-index:2}
@@ -146,8 +134,8 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .hero-text .meta-row span{display:flex;flex-direction:column;gap:0.5rem}
 .hero-text .meta-row strong{color:var(--text);font-weight:400;font-size:0.85rem;letter-spacing:0.05em;text-transform:none;font-family:var(--serif);font-style:italic}
 
-.hero-portrait{width:280px;height:380px;border-radius:24px;overflow:hidden;flex-shrink:0;box-shadow:0 20px 60px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);transition:transform 0.6s var(--spring),box-shadow 0.5s ease;position:relative;z-index:3}
-.hero-portrait:hover{transform:translateY(-8px) rotate(1deg);box-shadow:0 30px 70px rgba(232,93,58,0.15),0 0 0 1px rgba(0,0,0,0.04)}
+.hero-portrait-wrapper { perspective: 1000px; }
+.hero-portrait{width:280px;height:380px;border-radius:24px;overflow:hidden;flex-shrink:0;box-shadow:0 20px 60px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.04);transition:transform 0.2s ease-out;position:relative;z-index:3;transform-style:preserve-3d;will-change:transform}
 .hero-portrait .img-wrap{width:100%;height:100%;overflow:hidden;background:var(--accent)}
 .hero-portrait .img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--spring)}
 .hero-portrait:hover .img-wrap img{transform:scale(1.06)}
@@ -157,82 +145,284 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .scroll-cue .line::after{content:'';position:absolute;top:0;left:0;right:0;height:16px;background:var(--accent);border-radius:1px;animation:scrollDown 2s ease-in-out infinite}
 @keyframes scrollDown{0%{transform:translateY(-16px);opacity:0}50%{opacity:1}100%{transform:translateY(44px);opacity:0}}
 
-/* Name Meaning Block */
-.name-meaning-wrapper {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 3rem 5rem;
-  text-align: center;
+/* =========================================
+   NAME MEANING SECTION (DIVINE GLOW & SHLOKAS)
+   ========================================= */
+.name-section {
   position: relative;
-  z-index: 2;
-}
-.name-meaning {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-dim);
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg, #FAFAF7 0%, #FFFFFF 40%, #F3F1EC 100%);
+  overflow: hidden;
+  padding: 10rem 3rem;
   border-top: 1px solid var(--border);
-  padding-top: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.05);
 }
-.name-meaning em {
-  color: var(--accent);
-  font-weight: 500;
-}
-@media(max-width: 768px) {
-  .name-meaning-wrapper {
-    padding: 0 1.5rem 4rem;
-  }
+@media(min-width: 1201px) {
+  .name-section { padding-right: 3rem; }
 }
 
-.bygone{background:var(--bg)}
+/* Sanskrit Shloka Background - Increased opacity and reduced blur for readability */
+.shloka-bg {
+  position: absolute;
+  inset: -5%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35; /* Increased from 0.08 */
+  filter: blur(0.5px); /* Reduced blur significantly */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem; /* Increased gap */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+.shloka-row {
+  display: flex;
+  gap: 4rem;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: 1.1rem; /* Increased from 0.9rem */
+  color: var(--text);
+  animation: scrollLeft 60s linear infinite;
+}
+.shloka-row--rev {
+  animation: scrollRight 70s linear infinite;
+}
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.shloka-row span {
+  flex-shrink: 0;
+}
+
+/* The moving divine glow behind the box */
+.name-glow-tracker {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,93,58,0.25) 0%, transparent 60%);
+  filter: blur(50px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  left: var(--mx, 50%);
+  top: var(--my, 50%);
+  z-index: 2;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+.name-section:hover .name-glow-tracker {
+  opacity: 1;
+}
+
+.name-box {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(232, 93, 58, 0.3);
+  border-radius: 24px;
+  padding: 4rem 5rem;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.8) inset;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.name-section:hover .name-box {
+  border-color: rgba(232, 93, 58, 0.6);
+  box-shadow: 0 40px 80px -20px rgba(232,93,58,0.15), 0 0 0 1px rgba(255,255,255,0.9) inset;
+}
+
+.name-decorator {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 2.5rem;
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(232,93,58,0.5);
+}
+
+.name-text {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.8;
+  color: var(--text);
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+}
+
+.name-text em {
+  color: var(--accent);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.name-tag {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 600;
+  margin-top: 3rem;
+  opacity: 0.7;
+}
+
+/* TIMELINE (PREMIUM AESTHETIC & 3D TILT) */
+.bygone{background:var(--bg);overflow:hidden}
 .bygone-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;align-items:end}
 @media(max-width:900px){.bygone-intro{grid-template-columns:1fr;gap:2rem}}
 .bygone-intro h2{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em}
 .bygone-intro h2 em{font-style:italic;color:var(--accent)}
 .bygone-intro p{color:var(--text-dim);font-size:1.05rem;max-width:480px;line-height:1.8}
 
-.timeline{position:relative;margin-top:3rem;padding-left:2.5rem}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);border-radius:1px}
-.timeline-item{position:relative;display:grid;grid-template-columns:120px 1fr;gap:3rem;padding:2.8rem 0;align-items:start;border-bottom:1px solid var(--border)}
-.timeline-item:last-child{border-bottom:none}
-.timeline-item::before{content:'';position:absolute;left:-2.5rem;top:3.8rem;width:12px;height:12px;background:var(--bg);border:2px solid var(--accent);border-radius:50%;transform:translateX(-50%);transition:all 0.4s var(--spring)}
-.timeline-item:hover::before{background:var(--accent);transform:translateX(-50%) scale(1.3);box-shadow:0 0 0 6px rgba(232,93,58,0.12)}
-.timeline-year{font-family:var(--serif);font-size:2.4rem;font-style:italic;color:var(--accent);font-weight:300;line-height:1}
+.timeline-wrapper { position: relative; }
+.timeline-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  cursor: grab;
+  padding: 2rem 0 3rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.timeline-scroll::-webkit-scrollbar { display: none; }
+.timeline-scroll:active { cursor: grabbing; }
+
+.timeline-item {
+  scroll-snap-align: start;
+  flex: 0 0 340px;
+  border-radius: 24px;
+  padding: 2.5rem;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: transform 0.2s ease-out, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  --mx: 50%;
+  --my: 50%;
+  
+  /* Premium Frosted Glass Base */
+  background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(243,241,236,0.9));
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+
+/* Massive Watermark Year */
+.timeline-year-bg {
+  position: absolute;
+  top: -2rem;
+  left: -0.5rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 12rem;
+  font-weight: 700;
+  color: rgba(28, 25, 23, 0.03);
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+/* Cursor Spotlight */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mx) var(--my), rgba(232, 93, 58, 0.15), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.timeline-item:hover::before {
+  opacity: 1;
+}
+
+/* Gradient Border on Hover */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, var(--accent-2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.timeline-item:hover::after {
+  opacity: 1;
+}
+
+.timeline-item:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.12);
+}
+.timeline-item:hover .timeline-year-bg {
+  color: rgba(232, 93, 58, 0.08);
+}
+
+.timeline-content { position: relative; z-index: 3; }
+
+/* Strict Original Typography */
+.timeline-year{font-family:var(--serif);font-size:2.4rem;font-style:italic;color:var(--accent);font-weight:300;line-height:1;margin-bottom:1rem}
 .timeline-content h3{font-family:var(--serif);font-size:1.6rem;font-weight:400;margin-bottom:0.4rem;letter-spacing:-0.01em;line-height:1.2}
 .timeline-content .role{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
-.timeline-content p{color:var(--text-dim);font-size:0.95rem;line-height:1.75;max-width:800px}
+.timeline-content p{color:var(--text-dim);font-size:0.95rem;line-height:1.75}
 
-.timeline-item--visual .timeline-image{margin-top:1.5rem;border-radius:16px;overflow:hidden;max-width:420px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
-.timeline-item--visual .timeline-image img{width:100%;display:block;filter:saturate(0.8);transition:transform 0.7s var(--spring)}
-.timeline-item--visual:hover .timeline-image img{transform:scale(1.04)}
-.timeline-item--visual .timeline-image .img-caption{padding:0.6rem 1rem 0.8rem;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-faint)}
+/* Dark Tab Variations */
+.timeline-item--visual {
+  background: linear-gradient(145deg, #1c1a18, #0c0b0a);
+  border-color: rgba(255,255,255,0.05);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+.timeline-item--visual .timeline-year-bg { color: rgba(255,255,255,0.03); }
+.timeline-item--visual:hover .timeline-year-bg { color: rgba(255,140,66,0.1); }
+.timeline-item--visual::before { background: radial-gradient(400px circle at var(--mx) var(--my), rgba(255,140,66,0.15), transparent 40%); }
+.timeline-item--visual .timeline-year { color: #FF8C42; }
+.timeline-item--visual h3 { color: #fff; }
+.timeline-item--visual .role { color: rgba(255,255,255,0.6); }
+.timeline-item--visual p { color: rgba(255,255,255,0.8); }
 
-.timeline-featured{position:relative;margin:1.5rem 0;border-radius:20px;overflow:hidden;min-height:260px;border:1px solid var(--border);transition:border-color 0.5s ease,box-shadow 0.5s var(--spring)}
-.timeline-featured:hover{border-color:var(--accent);box-shadow:0 16px 50px rgba(232,93,58,0.12)}
-.timeline-featured::before{content:'';position:absolute;left:-2.5rem;top:50%;width:12px;height:12px;background:var(--bg);border:2px solid var(--accent);border-radius:50%;transform:translate(-50%,-50%);z-index:3;transition:all 0.4s var(--spring)}
-.timeline-featured:hover::before{background:var(--accent);transform:translate(-50%,-50%) scale(1.3);box-shadow:0 0 0 6px rgba(232,93,58,0.12)}
-.timeline-featured-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.88) saturate(0.65);transition:transform 1s var(--smooth),filter 0.6s ease}
-.timeline-featured:hover .timeline-featured-bg{transform:scale(1.04);filter:brightness(0.92) saturate(0.75)}
-.timeline-featured-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.93) 0%,rgba(255,255,255,0.78) 60%,rgba(255,255,255,0.88) 100%)}
-.timeline-featured-content{position:relative;z-index:2;padding:3rem;display:flex;flex-direction:column;justify-content:center;min-height:260px;max-width:600px}
-.timeline-featured-year{font-family:var(--serif);font-size:3rem;font-style:italic;color:var(--accent);font-weight:300;line-height:1;margin-bottom:0.6rem;opacity:0.7}
-.timeline-featured-content h3{font-family:var(--serif);font-size:1.9rem;font-weight:400;margin-bottom:0.5rem;letter-spacing:-0.01em}
-.timeline-featured-content .role{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
-.timeline-featured-content p{color:var(--text-dim);font-size:0.95rem;line-height:1.75}
-
-@media(max-width:900px){.timeline-item{grid-template-columns:1fr;gap:1.2rem;padding:2.2rem 0}.timeline-year{font-size:1.8rem}.timeline-featured-content{padding:2rem;max-width:100%}.timeline-featured-year{font-size:2.2rem}.timeline-featured-content h3{font-size:1.5rem}.timeline-item--visual .timeline-image{max-width:100%}}
-
+/* NOW LIST */
 .fleeting{background:var(--bg-2);position:relative}
 .fleeting::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent);border-radius:1px}
 .fleeting-intro h2{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,4.5rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1rem;max-width:1000px}
 .fleeting-intro p{color:var(--text-dim);max-width:900px;font-size:1.05rem;line-height:1.8;margin-top:1.5rem}
 .blink-title{background:linear-gradient(135deg,var(--accent),#FF8C42,var(--accent-2),var(--accent));background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease infinite}
 @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.fleeting-grid{margin-top:4rem;max-width:900px}
-.now-list{display:flex;flex-direction:column}
-.now-item{display:grid;grid-template-columns:56px 140px 1fr;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--border);align-items:start;transition:padding-left 0.4s var(--spring)}
-.now-item:hover{padding-left:0.5rem}
+
+.now-list{display:flex;flex-direction:column;max-width:900px}
+.now-item{display:grid;grid-template-columns:56px 140px 1fr;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--border);align-items:start;transition:all 0.5s var(--smooth);cursor:none}
+.now-list:hover .now-item:not(:hover) { opacity: 0.3; transform: scale(0.98); filter: blur(2px); }
+.now-item:hover { transform: translateX(10px); }
 .now-item:last-child{border-bottom:none}
 .now-thumb{width:48px;height:48px;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:transform 0.5s var(--spring),box-shadow 0.4s ease;flex-shrink:0;margin-top:0.1rem}
 .now-item:hover .now-thumb{transform:scale(1.12) rotate(-3deg);box-shadow:0 6px 18px rgba(232,93,58,0.18)}
@@ -244,8 +434,9 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .now-value h4 em{font-style:italic;color:var(--accent)}
 .now-value p{color:var(--text-dim);font-size:0.95rem;line-height:1.7}
 
-@media(max-width:768px){.now-item{grid-template-columns:48px 1fr;gap:0.8rem 1rem}.now-item .now-label{grid-column:2}.now-item .now-value{grid-column:2}.now-label::before{display:none}.now-value h4{font-size:1.1rem}.now-value p{font-size:0.9rem}}
+@media(max-width:768px){.now-item{grid-template-columns:48px 1fr;gap:0.8rem 1rem}.now-item .now-label{grid-column:2}.now-item .now-value{grid-column:2}.now-label::before{display:none}}
 
+/* FUTURE CARDS */
 .hereafter{background:var(--bg);position:relative;overflow:hidden}
 .vision-statement{font-family:var(--serif);font-size:clamp(1.9rem,4.5vw,3.8rem);line-height:1.18;font-weight:300;margin:4rem 0 3rem;max-width:1100px;letter-spacing:-0.015em;position:relative;z-index:2}
 .vision-statement em{font-style:italic;color:var(--accent)}
@@ -266,73 +457,19 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
 .future-card .horizon span:last-child{color:var(--accent);font-weight:500}
 
-/* Multi CTA Wrapper (Academics, Library & Ledger) */
-.cta-wrapper { 
-  display: flex; gap: 2rem; margin-top: 6rem; position: relative; z-index: 2; 
-  align-items: stretch; 
-}
-.cta-container { 
-  --mouse-x: 50%; --mouse-y: 50%;
-  flex: 1; position: relative; 
-  background: #000000; padding: 2rem; border-radius: 32px; 
-  border: 1px solid #1C1917; 
-  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,1);
-  overflow: hidden; 
-}
-.cta-divider {
-  width: 1px; 
-  background: linear-gradient(to bottom, transparent 10%, var(--border-strong) 50%, transparent 90%);
-  align-self: stretch;
-}
-@media(max-width: 1024px) { 
-  .cta-wrapper { flex-direction: column; gap: 1.5rem; } 
-  .cta-divider { width: 80%; height: 1px; background: linear-gradient(to right, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: center; } 
-}
+/* CTA Wrapper */
+.cta-wrapper { display: flex; gap: 2rem; margin-top: 6rem; position: relative; z-index: 2; align-items: stretch; }
+.cta-container { --mouse-x: 50%; --mouse-y: 50%; flex: 1; position: relative; background: #000000; padding: 2rem; border-radius: 32px; border: 1px solid #1C1917; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,1); overflow: hidden; }
+.cta-divider { width: 1px; background: linear-gradient(to bottom, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: stretch; }
+@media(max-width: 1024px) { .cta-wrapper { flex-direction: column; gap: 1.5rem; } .cta-divider { width: 80%; height: 1px; background: linear-gradient(to right, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: center; } }
 
-/* The Moving Smoke Layer */
-.smoke-layer {
-  position: absolute; inset: -20%; z-index: 1; 
-  background: 
-    radial-gradient(circle at 20% 35%, rgba(60, 60, 60, 0.4) 0%, transparent 25%),
-    radial-gradient(circle at 75% 44%, rgba(40, 40, 40, 0.5) 0%, transparent 30%),
-    radial-gradient(circle at 50% 10%, rgba(50, 50, 50, 0.4) 0%, transparent 20%),
-    radial-gradient(circle at 10% 80%, rgba(45, 45, 45, 0.5) 0%, transparent 35%);
-  background-size: 200% 200%, 180% 180%, 220% 220%, 150% 150%;
-  background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%;
-  filter: blur(10px);
-  animation: smokeDrift 15s ease-in-out infinite alternate;
-}
-@keyframes smokeDrift {
-  0% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; }
-  100% { background-position: 100% 50%, 0% 50%, 80% 20%, 50% 0%; }
-}
-
-/* The Amber Glow Light Illuminating the Smoke */
-.glow-light {
-  position: absolute; inset: 0; z-index: 2; 
-  background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(232, 93, 58, 0.5), transparent 65%);
-  filter: blur(40px);
-  opacity: 0; transition: opacity 0.4s ease; 
-  pointer-events: none; mix-blend-mode: screen;
-}
+.smoke-layer { position: absolute; inset: -20%; z-index: 1; background: radial-gradient(circle at 20% 35%, rgba(60, 60, 60, 0.4) 0%, transparent 25%), radial-gradient(circle at 75% 44%, rgba(40, 40, 40, 0.5) 0%, transparent 30%), radial-gradient(circle at 50% 10%, rgba(50, 50, 50, 0.4) 0%, transparent 20%), radial-gradient(circle at 10% 80%, rgba(45, 45, 45, 0.5) 0%, transparent 35%); background-size: 200% 200%, 180% 180%, 220% 220%, 150% 150%; background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; filter: blur(10px); animation: smokeDrift 15s ease-in-out infinite alternate; }
+@keyframes smokeDrift { 0% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; } 100% { background-position: 100% 50%, 0% 50%, 80% 20%, 50% 0%; } }
+.glow-light { position: absolute; inset: 0; z-index: 2; background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(232, 93, 58, 0.5), transparent 65%); filter: blur(40px); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; mix-blend-mode: screen; }
 .cta-container:hover .glow-light { opacity: 1; }
-
-.cta-card { 
-  --card-mx: 50%; --card-my: 50%;
-  display: flex; align-items: center; justify-content: space-between; gap: 2rem; 
-  background: #141414; border: 1px solid rgba(255, 255, 255, 0.05); 
-  border-radius: 24px; padding: 2.5rem 3rem; text-decoration: none; height: 100%;
-  transition: transform 0.5s var(--spring), background 0.4s ease; 
-  position: relative; isolation: isolate; z-index: 3;
-}
-.cta-card::after { 
-  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px; 
-  background: radial-gradient(500px circle at var(--card-mx) var(--card-my), rgba(255, 140, 66, 1), transparent 40%); 
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); 
-  -webkit-mask-composite: xor; mask-composite: exclude; 
-  opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 4; 
-} 
-.cta-card:hover { transform: translateY(-4px); background: #181818; } 
+.cta-card { --card-mx: 50%; --card-my: 50%; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: #141414; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 2.5rem 3rem; text-decoration: none; height: 100%; transition: transform 0.5s var(--spring), background 0.4s ease; position: relative; isolation: isolate; z-index: 3; }
+.cta-card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: radial-gradient(500px circle at var(--card-mx) var(--card-my), rgba(255, 140, 66, 1), transparent 40%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 4; }
+.cta-card:hover { transform: translateY(-4px); background: #181818; }
 .cta-card:hover::after { opacity: 1; }
 .cta-text-group { position: relative; z-index: 3; }
 .cta-tag { font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; display: block; }
@@ -355,7 +492,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .footer-text .email-link:hover{color:var(--accent);border-color:var(--accent)}
 .footer-text .email-link i{font-size:0.85rem;transition:transform 0.4s var(--spring)}
 .footer-text .email-link:hover i{transform:translate(4px,-4px)}
-
 .socials{display:flex;flex-direction:column}
 .socials-label{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:#57534E;margin-bottom:1.5rem}
 .social-link{display:flex;align-items:center;gap:1.2rem;color:#8C8578;text-decoration:none;font-size:0.85rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:all 0.4s var(--spring);position:relative}
@@ -417,6 +553,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   </button>
 </header>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html#hero"><em>00</em> — Origin</a>
   <a href="index.html#bygone"><em>01</em> — Bygone</a>
@@ -425,7 +562,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="ledger.html"><em>04</em> — The Ledger</a>
   <a href="academics.html"><em>05</em> — Academic Journey</a>
   <a href="library.html"><em>06</em> — The Library</a>
-  <span class="menu-label">Aum Sapariya · 2025</span>
+  <span class="menu-label">Aum Sapariya · 2026</span>
 </div>
 
 <nav class="side-nav" id="sideNav">
@@ -457,9 +594,11 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     <div class="reveal-scale" data-delay="1">
-      <div class="hero-portrait">
-        <div class="img-wrap">
-          <img src="/portrait.jpg" alt="Aum Sapariya">
+      <div class="hero-portrait-wrapper" id="heroPortraitWrapper">
+        <div class="hero-portrait" id="heroPortrait">
+          <div class="img-wrap">
+            <img src="/portrait.jpg" alt="Aum Sapariya">
+          </div>
         </div>
       </div>
     </div>
@@ -470,12 +609,60 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   </div>
 </section>
 
-<!-- Name Meaning Block -->
-<div class="name-meaning-wrapper reveal" data-delay="2">
-  <p class="name-meaning">
-    The word <em>Aum</em> (also written as <em>Om, ॐ</em>) originates in ancient India from Vedic Sanskrit. It is considered the primordial sound of creation and the most sacred syllable across Indian spiritual traditions, including Hinduism, Buddhism, Jainism, and Sikhism.
-  </p>
-</div>
+<!-- NAME MEANING SECTION -->
+<section class="name-section" id="nameMeaning">
+  <div class="shloka-bg">
+    <div class="shloka-row">
+      <span>ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ✦ असतो मा सद्गमय तमसो मा ज्योतिर्गमय ✦ मृत्योर्मा अमृतं गमय</span>
+      <span>ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ✦ असतो मा सद्गमय तमसो मा ज्योतिर्गमय ✦ मृत्योर्मा अमृतं गमय</span>
+    </div>
+    <div class="shloka-row shloka-row--rev">
+      <span>सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ✦ सर्वे भद्राणि पश्यन्तु मा कश्चित् दुःखभाग्भवेत् ✦ ॐ शान्तिः शान्तिः शान्तिः</span>
+      <span>सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः ✦ सर्वे भद्राणि पश्यन्तु मा कश्चित् दुःखभाग्भवेत् ✦ ॐ शान्तिः शान्तिः शान्तिः</span>
+    </div>
+    <div class="shloka-row">
+      <span>वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ✦ निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ✦ गजाननं भूतगणादि सेवितं कपित्थ जम्बूफलसार भक्षितम्</span>
+      <span>वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ✦ निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ✦ गजाननं भूतगणादि सेवितं कपित्थ जम्बूफलसार भक्षितम्</span>
+    </div>
+    <div class="shloka-row shloka-row--rev">
+      <span>योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय ✦ सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते ✦ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन</span>
+      <span>योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय ✦ सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते ✦ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन</span>
+    </div>
+    <div class="shloka-row">
+      <span>विद्या ददाति विनयं विनयाद् याति पात्रताम् ✦ पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम् ✦ अहं ब्रह्मास्मि</span>
+      <span>विद्या ददाति विनयं विनयाद् याति पात्रताम् ✦ पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम् ✦ अहं ब्रह्मास्मि</span>
+    </div>
+    <div class="shloka-row shloka-row--rev">
+      <span>उद्धरेदात्मनात्मानं नात्मानमवसादयेत् ✦ आत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः ✦ श्रद्धावान् लभते ज्ञानं</span>
+      <span>उद्धरेदात्मनात्मानं नात्मानमवसादयेत् ✦ आत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः ✦ श्रद्धावान् लभते ज्ञानं</span>
+    </div>
+    <div class="shloka-row">
+      <span>मनः एव मनुष्याणां कारणं बन्धमोक्षयोः ✦ बन्धाय विषयासक्तं मुक्त्यै निर्विषयं स्मृतम् ✦ तत्त्वमसि</span>
+      <span>मनः एव मनुष्याणां कारणं बन्धमोक्षयोः ✦ बन्धाय विषयासक्तं मुक्त्यै निर्विषयं स्मृतम् ✦ तत्त्वमसि</span>
+    </div>
+    <div class="shloka-row shloka-row--rev">
+      <span>वसुधैव कुटुम्बकम् ✦ सत्यं शिवं सुन्दरम् ✦ अहिंसा परमो धर्मः ✦ सत्यमेव जयते</span>
+      <span>वसुधैव कुटुम्बकम् ✦ सत्यं शिवं सुन्दरम् ✦ अहिंसा परमो धर्मः ✦ सत्यमेव जयते</span>
+    </div>
+    <div class="shloka-row">
+      <span>गुरुर्ब्रह्मा गुरुर्विष्णुर्गुरुर्देवो महेश्वरः ✦ गुरुः साक्षात् परब्रह्म तस्मै श्रीगुरवे नमः ✦ ॐ सर्वे भवन्तु सुखिनः</span>
+      <span>गुरुर्ब्रह्मा गुरुर्विष्णुर्गुरुर्देवो महेश्वरः ✦ गुरुः साक्षात् परब्रह्म तस्मै श्रीगुरवे नमः ✦ ॐ सर्वे भवन्तु सुखिनः</span>
+    </div>
+    <div class="shloka-row shloka-row--rev">
+      <span>लोकाः समस्ताः सुखिनो भवन्तु ✦ ॐ नमः शिवाय ✦ ॐ नमो भगवते वासुदेवाय ✦ हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे</span>
+      <span>लोकाः समस्ताः सुखिनो भवन्तु ✦ ॐ नमः शिवाय ✦ ॐ नमो भगवते वासुदेवाय ✦ हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे</span>
+    </div>
+  </div>
+  
+  <div class="name-glow-tracker"></div>
+  <div class="name-box reveal" data-delay="1">
+    <div class="name-decorator"></div>
+    <p class="name-text">
+      The word <em>Aum</em> (also written as <em>Om, ॐ</em>) originates in ancient India from Vedic Sanskrit. It is considered the primordial sound of creation and the most sacred syllable across Indian spiritual traditions, including Hinduism, Buddhism, Jainism, and Sikhism.
+    </p>
+    <span class="name-tag">The Genesis of the Name</span>
+  </div>
+</section>
 
 <!-- MARQUEE 1 -->
 <div class="marquee-wrap">
@@ -491,93 +678,95 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     <div class="section-label reveal-left">
       <span class="section-num">01.</span>
       <div class="section-divider"></div>
-      <span class="section-tag">Bygone — things that have passed</span>
+      <span class="section-tag">Bygone — things that have passed (Drag to scroll)</span>
     </div>
     <div class="bygone-intro">
       <h2 class="reveal">The road behind,<br>written in <em>small hours</em><br>and hard light.</h2>
       <p class="reveal" data-delay="1">The story begins on a quiet Friday — <span class="hl">the 23rd of February, 2007</span>. From that first breath, the road behind has been a slow accumulation of small hours, hard lessons, and gentle realizations, shaping the quiet rhythm of who I am becoming.</p>
     </div>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-year reveal-blur">2007</div>
-        <div class="timeline-content"><h3>The Beginning</h3></div>
-      </div>
-      <div class="timeline-item timeline-item--visual reveal">
-        <div class="timeline-year reveal-blur">2010</div>
+  </div>
+  
+  <div class="timeline-wrapper reveal-scale" data-delay="2">
+    <div class="timeline-scroll" id="timelineScroll">
+      <div class="timeline-item" data-tilt>
+        <div class="timeline-year-bg">2007</div>
         <div class="timeline-content">
+          <div class="timeline-year">2007</div>
+          <h3>The Beginning</h3>
+          <div class="role">Origin</div>
+          <p>The quiet Friday in February when the story first began. The foundation was laid in the warmth of a small family, setting the stage for every quiet rhythm that would follow.</p>
+        </div>
+      </div>
+      <div class="timeline-item timeline-item--visual" data-tilt>
+        <div class="timeline-year-bg">2010</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2010</div>
           <h3>The First Shift</h3>
-          <div class="role">Early Childhood · Porbandar</div>
-          <p>For the first <span class="hl">three years</span>, life was a quiet, unblemished happiness. But seasons change, and sometimes the ground shifts beneath us without warning. Due to unforeseen circumstances, we had to leave the warmth of our village behind. The road led us to <span class="hl">Porbandar city</span>, where the next three years gently unfolded. It was there I first stepped into the world outside, completing my <span class="hl">preschool</span> and <span class="hl">first standard</span>—a bittersweet beginning in a new place, carrying the quiet echoes of the home we had left behind.</p>
-          <div class="timeline-image">
-            <img src="https://picsum.photos/seed/porbandar-coast-warm/840/480.jpg" alt="Porbandar">
-            <div class="img-caption">Porbandar · Where the sea meets memory</div>
-          </div>
+          <div class="role">Porbandar</div>
+          <p>Moving to the coastal city. The first time stepping into the world outside the village, completing preschool and first standard in a new place.</p>
         </div>
       </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-year reveal-blur">2013</div>
+      <div class="timeline-item" data-tilt>
+        <div class="timeline-year-bg">2013</div>
         <div class="timeline-content">
+          <div class="timeline-year">2013</div>
           <h3>The Transit Year</h3>
-          <div class="role">Childhood · Dhoraji</div>
-          <p>After three years by the sea, the winds shifted again. We packed our quiet echoes and moved to <span class="hl-blue">Dhoraji city</span>. It was a brief chapter—just <span class="hl-blue">one year</span>—but a necessary pause between the place we had grown into and the city that would eventually become our home.</p>
+          <div class="role">Dhoraji</div>
+          <p>A brief, one-year pause. A necessary transit between the sea breeze of Porbandar and the city that would eventually become our permanent home.</p>
         </div>
       </div>
-      <div class="timeline-featured reveal-scale">
-        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/golden-childhood-street-warm/1200/600.jpg')"></div>
-        <div class="timeline-featured-overlay"></div>
-        <div class="timeline-featured-content">
-          <div class="timeline-featured-year">2014</div>
+      <div class="timeline-item timeline-item--visual" data-tilt>
+        <div class="timeline-year-bg">2014</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2014</div>
           <h3>The Golden Years</h3>
-          <div class="role">Childhood · Rajkot</div>
-          <p>Then came the move to <span class="hl-yellow">Rajkot</span>. We rented a house, and for the next <span class="hl-yellow">four years</span>, I lived what felt like the best days of my childhood. I made friends so wholesome that their memories still echo in quiet corners of my mind. We celebrated countless festivals together, laughed without a care, and ran through those streets without ever keeping track of time. I didn't even notice where those four years went.</p>
+          <div class="role">Rajkot</div>
+          <p>Renting a house, making wholesome friends, and running through streets without tracking time. Four years of unblemished happiness and countless festivals.</p>
         </div>
       </div>
-      <div class="timeline-item timeline-item--visual reveal">
-        <div class="timeline-year reveal-blur">2018</div>
+      <div class="timeline-item" data-tilt>
+        <div class="timeline-year-bg">2018</div>
         <div class="timeline-content">
+          <div class="timeline-year">2018</div>
           <h3>A Quiet Restart</h3>
-          <div class="role">Early Teens · Rajkot</div>
-          <p>Eventually, we moved again—this time, just across the city to our <span class="hl">own home</span>. There was a quiet joy in finally having a place of our own, but a deep, aching sadness in leaving the streets and the friends that had become my whole world. Yet, a new home brings a quiet restart. I made new friends, met new neighbors, and built almost a <span class="hl">new life</span> from scratch.</p>
-          <div class="timeline-image">
-            <img src="https://picsum.photos/seed/quiet-home-rajko-warm/840/480.jpg" alt="New home">
-            <div class="img-caption">Rajkot · A place of our own</div>
-          </div>
+          <div class="role">Rajkot</div>
+          <p>Moving to our own home. A deep sadness in leaving the old streets, but a new life built from scratch, meeting new neighbors and finding a new rhythm.</p>
         </div>
       </div>
-      <div class="timeline-featured reveal-scale" data-delay="1">
-        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/pandemic-room-light/1200/600.jpg')"></div>
-        <div class="timeline-featured-overlay"></div>
-        <div class="timeline-featured-content">
-          <div class="timeline-featured-year">2019</div>
-          <h3>The Great Pause & The Search</h3>
-          <div class="role">The Pandemic Years · Lockdown</div>
-          <p>Then came <span class="hl-blue">2019</span>, and with it, the pandemic. The world shut its doors, and life as we knew it changed overnight. Confined to the walls of our home, I began to explore. I kept <span class="hl-blue">throwing things at the wall to see what would stick</span>—trying my hand at coding, sketching art, writing poems, and losing myself in books, games, shows, and movies. It was a season of quiet isolation, but also of restless searching, trying to find my own niche in the sudden stillness.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-year reveal-blur">2022</div>
+      <div class="timeline-item timeline-item--visual" data-tilt>
+        <div class="timeline-year-bg">2019</div>
         <div class="timeline-content">
-          <h3>The Return to the Light</h3>
-          <div class="role">Post-Pandemic · High School</div>
-          <p>Slowly, the world began to breathe again. The lockdowns lifted, the streets filled back up, and life found its way back to normal. I stepped into the <span class="hl">10th grade</span>, trading the quiet isolation of my room for the noise of the classroom once more. The transition was strange at first, but the rhythm of life quickly caught up, pulling me forward.</p>
+          <div class="timeline-year">2019</div>
+          <h3>The Great Pause</h3>
+          <div class="role">Lockdown</div>
+          <p>Confined to walls, throwing things at the wall—coding, art, poems, games. A season of restless searching to find a niche in the sudden stillness.</p>
         </div>
       </div>
-      <div class="timeline-featured reveal-scale" data-delay="1">
-        <div class="timeline-featured-bg" style="background-image:url('https://picsum.photos/seed/crossroads-path-choose-warm/1200/600.jpg')"></div>
-        <div class="timeline-featured-overlay"></div>
-        <div class="timeline-featured-content">
-          <div class="timeline-featured-year">2023</div>
+      <div class="timeline-item" data-tilt>
+        <div class="timeline-year-bg">2022</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2022</div>
+          <h3>Return to the Light</h3>
+          <div class="role">Post-Pandemic</div>
+          <p>Stepping into the 10th grade, trading the isolation of my room for the noise of the classroom. The rhythm of life quickly caught up, pulling me forward.</p>
+        </div>
+      </div>
+      <div class="timeline-item timeline-item--visual" data-tilt>
+        <div class="timeline-year-bg">2023</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2023</div>
           <h3>The Crossroads</h3>
-          <div class="role">10th Grade · Rajkot</div>
-          <p>In <span class="hl-yellow">2023</span>, I completed my 10th grade. It was the first major crossroads—the question of what to become. After the restless searching of the lockdown years, I found my direction in the logic of numbers. I chose the <span class="hl-yellow">commerce field</span> and set my sights on becoming a <span class="hl-yellow">Chartered Accountant</span>. It was a decision made not in haste, but with a quiet certainty that this was the path I wanted to walk.</p>
+          <div class="role">10th Grade</div>
+          <p>Choosing the commerce field. Finding direction in the logic of numbers and setting sights on becoming a Chartered Accountant.</p>
         </div>
       </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-year reveal-blur">2025</div>
+      <div class="timeline-item" data-tilt>
+        <div class="timeline-year-bg">2025</div>
         <div class="timeline-content">
+          <div class="timeline-year">2025</div>
           <h3>A New Threshold</h3>
-          <div class="role">12th Grade · Commerce</div>
-          <p>The next two years were a blur of ledgers, tax codes, and late-night studying. In <span class="hl">2025</span>, I completed my <span class="hl">12th grade</span>. The foundation has been laid, the first major step taken. Now, the real crucible begins.</p>
+          <div class="role">12th Grade</div>
+          <p>Completing 12th grade. The foundation is laid, the first major step is taken, and the real crucible of Chartered Accountancy begins.</p>
         </div>
       </div>
     </div>
@@ -611,7 +800,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="now-label">Studying</div>
           <div class="now-value">
             <h4><em>Chartered Accountancy</em></h4>
-            <p>Navigating ledgers, tax codes, and the quiet logic of numbers.</p>
+            <p>I officially embarked on this path on March 18, 2025. Months of quiet labor culminated in passing the CA Foundation on November 3rd. Currently, I am wading through the dense volumes of CA Intermediate—navigating advanced accounting, taxation laws, and audit frameworks. The days blend into nights, but the logic of numbers keeps the mind sharp.</p>
           </div>
         </div>
         <div class="now-item reveal" data-delay="1">
@@ -619,7 +808,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="now-label">Reading</div>
           <div class="now-value">
             <h4><em>The Prophet</em> by Kahlil Gibran</h4>
-            <p>A book that teaches the quiet dignity of labor—how <span class="hl">"when you work you are a flute through whose heart the whispering of the hours turns into music."</span></p>
+            <p>Currently reading this profound collection of poetic essays. It is a book that teaches the quiet dignity of labor. It holds a mirror to the soul, reminding me that <span class="hl">"when you work you are a flute through whose heart the whispering of the hours turns into music."</span> It reshapes how I view the daily grind.</p>
           </div>
         </div>
         <div class="now-item reveal" data-delay="2">
@@ -627,7 +816,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="now-label">Watching</div>
           <div class="now-value">
             <h4><em>Game of Thrones</em></h4>
-            <p>Captivated by its political intricacies and the deep, unflinching exploration of how one's actions and the pursuit of power ripple outward—affecting the emotions, loyalty, actions, and mentality of everyone in their wake.</p>
+            <p>Currently rewatching this epic saga. I am captivated by its political intricacies and the deep, unflinching exploration of power. It is a masterclass in how actions ripple outward, affecting the loyalty, emotions, and mentality of everyone in their wake. There are no pure heroes or villains, only complex choices and consequences.</p>
           </div>
         </div>
         <div class="now-item reveal" data-delay="3">
@@ -635,7 +824,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="now-label">Anime</div>
           <div class="now-value">
             <h4><em>One Piece</em></h4>
-            <p>Drawn to its vast, adventurous ocean and its profound willingness to tackle real-world shadows like <span class="hl-blue">corruption, bribery, and slavery</span>, proving that animation can carry the weight of our heaviest truths.</p>
+            <p>Deep into this vast, adventurous ocean. I am drawn to its profound willingness to tackle real-world shadows like <span class="hl-blue">corruption, bribery, and slavery</span>. It proves that animation can carry the weight of our heaviest truths, blending profound tragedy with unyielding hope and camaraderie.</p>
           </div>
         </div>
         <div class="now-item reveal" data-delay="4">
@@ -643,7 +832,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="now-label">Playing</div>
           <div class="now-value">
             <h4><em>Chess</em></h4>
-            <p>Moving pieces, thinking three steps ahead, enjoying the quiet tension of the board.</p>
+            <p>Moving pieces, thinking three steps ahead, and enjoying the quiet tension of the board. It is a mental gymnasium where calculation meets intuition. Every opening is a conversation, every mid-game a battle of resources, and the endgame a quiet, inevitable truth. It mirrors the strategic patience required in my studies.</p>
           </div>
         </div>
       </div>
@@ -697,10 +886,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     
-    <!-- Multi CTA Wrapper: Academics, Library & Ledger -->
     <div class="cta-wrapper reveal" data-delay="1">
-      
-      <!-- Academic CTA -->
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -710,16 +896,10 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <h4 class="cta-title">"Precision in Numbers, Integrity in Practice, Excellence in Governance."</h4>
             <span class="cta-subtitle">Explore the quiet record of marks and milestones →</span>
           </div>
-          <div class="cta-icon">
-            <i class="fa-solid fa-arrow-right-long"></i>
-          </div>
+          <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-
-      <!-- Divider -->
       <div class="cta-divider"></div>
-
-      <!-- Library CTA -->
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -729,16 +909,10 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <h4 class="cta-title">"A scattered shelf of stories and the quiet lessons they leave behind."</h4>
             <span class="cta-subtitle">Explore the books that shaped my thoughts →</span>
           </div>
-          <div class="cta-icon">
-            <i class="fa-solid fa-arrow-right-long"></i>
-          </div>
+          <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-
-      <!-- Divider -->
       <div class="cta-divider"></div>
-
-      <!-- Ledger CTA -->
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -748,14 +922,10 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <h4 class="cta-title">"What you own defines you. What you owe refines you."</h4>
             <span class="cta-subtitle">Explore the philosophical balance sheet of my soul →</span>
           </div>
-          <div class="cta-icon">
-            <i class="fa-solid fa-arrow-right-long"></i>
-          </div>
+          <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-
     </div>
-    
   </div>
 </section>
 
@@ -787,13 +957,13 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     </div>
   </div>
   <div class="footer-bottom">
-    <div>© <span id="year">2025</span> <span class="accent">Aum Sapariya</span> · All rights, gently reserved</div>
+    <div>© <span id="year">2026</span> <span class="accent">Aum Sapariya</span> · All rights, gently reserved</div>
     <div>Designed in warmth · <span class="accent">Built by hand</span></div>
   </div>
 </footer>
 
 <script>
-/* ── Custom Cursor ── */
+/* Custom Cursor */
 (function(){
   var dot = document.getElementById('cursorDot');
   var ring = document.getElementById('cursorRing');
@@ -803,59 +973,35 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
   });
   (function loop() {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
+    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
     ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
     requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,button,.timeline-item,.timeline-featured,.future-card,.hero-portrait,.now-item,.social-link,.cta-card').forEach(function(el) {
+  document.querySelectorAll('a,button,.timeline-item,.future-card,.hero-portrait,.now-item,.social-link,.cta-card').forEach(function(el) {
     el.addEventListener('mouseenter', function() { ring.classList.add('hover'); });
     el.addEventListener('mouseleave', function() { ring.classList.remove('hover'); });
   });
 })();
 
-/* ── Multilingual Rotating Name ── */
+/* Multilingual Rotating Name */
 (function() {
-  var translations = [
-    "ઓમ સપારિયા",      // Gujarati
-    "ओम सापारिया",     // Marathi
-    "ओम सपारिया",      // Hindi
-    "ਓਮ ਸਪਾਰੀਆ",      // Punjabi
-    "ওম সাপারিয়া",    // Bengali
-    "ଓମ ସପାରିୟା",      // Odia
-    "ওম সপারিয়া",      // Assamese
-    "ಓಂ ಸಪಾರಿಯಾ",      // Kannada
-    "ఓం సపారియా",      // Telugu
-    "ஓம் சபாரியா",     // Tamil
-    "ഓം സപാരിയ"       // Malayalam
-  ];
-  
+  var translations = ["ઓમ સપારિયા", "ओम सापारिया", "ওম সাপারিয়া", "ਓਮ ਸਪਾਰੀਆ", "ಓಂ ಸಪಾರಿಯಾ", "ఓం సపారియా", "ஓம் சபாரியா", "ഓം സപാരിയ"];
   var currentIndex = 0;
   var translateEl = document.getElementById('logoTranslate');
-  
   function rotateLanguage() {
     if (!translateEl) return;
-    
-    // Fade out
     translateEl.classList.remove('visible');
-    
     setTimeout(function() {
       translateEl.textContent = translations[currentIndex];
-      // Fade in
       translateEl.classList.add('visible');
-      
-      // Move to next language
       currentIndex = (currentIndex + 1) % translations.length;
-    }, 500); // Wait for fade out transition
+    }, 500);
   }
-  
-  // Initialize immediately
   rotateLanguage();
-  // Rotate every 3 seconds
   setInterval(rotateLanguage, 3000);
 })();
 
-/* ── Page Loader ── */
+/* Page Loader */
 (function(){
   var loader = document.getElementById('pageLoader');
   window.addEventListener('load', function() {
@@ -868,7 +1014,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   }, 3000);
 })();
 
-/* ── Scroll Progress Bar ── */
+/* Scroll Progress Bar */
 (function(){
   var bar = document.getElementById('scrollProgress');
   window.addEventListener('scroll', function() {
@@ -877,7 +1023,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   }, { passive: true });
 })();
 
-/* ── Topbar Scroll State ── */
+/* Topbar Scroll State */
 (function(){
   var topbar = document.getElementById('topbar');
   window.addEventListener('scroll', function() {
@@ -885,7 +1031,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   }, { passive: true });
 })();
 
-/* ── Hamburger / Mobile Menu ── */
+/* Hamburger / Mobile Menu */
 (function(){
   var btn = document.getElementById('hamburger');
   var menu = document.getElementById('mobileMenu');
@@ -903,7 +1049,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   });
 })();
 
-/* ── Reveal Animations ── */
+/* Reveal Animations */
 (function(){
   var els = document.querySelectorAll('.reveal,.reveal-left,.reveal-scale,.reveal-blur');
   if ('IntersectionObserver' in window) {
@@ -918,16 +1064,29 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   }
 })();
 
-/* ── Side-Nav: Active State + Footer Fade-Out ── */
+/* Side-Nav: Active State + Name Section Reveal + Footer Fade-Out */
 (function(){
   var navLinks = document.querySelectorAll('.side-nav a');
   var sectionIds = ['hero', 'bygone', 'fleeting', 'hereafter'];
   var sections = sectionIds.map(function(id) { return document.getElementById(id); });
   var sideNav = document.getElementById('sideNav');
   var footer = document.getElementById('siteFooter');
+  var nameSection = document.getElementById('nameMeaning');
 
   function onScroll() {
     var winH = window.innerHeight;
+    
+    // Determine if we've scrolled past the Name Meaning section
+    var nameBottom = nameSection ? nameSection.getBoundingClientRect().bottom : 0;
+    var pastName = nameBottom < winH * 0.8; // Trigger when 80% scrolled past
+    
+    // Determine footer overlap
+    var footerTop = footer.getBoundingClientRect().top;
+    var fadeStart = winH * 0.75;
+    var fadeEnd   = winH * 0.45;
+    var footerProgress = 1 - Math.max(0, (footerTop - fadeEnd) / (fadeStart - fadeEnd));
+    
+    // Active Link Logic
     var activeIndex = 0;
     for (var i = 0; i < sections.length; i++) {
       if (!sections[i]) continue;
@@ -938,19 +1097,16 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     for (var j = 0; j < navLinks.length; j++) {
       navLinks[j].classList.toggle('active', j === activeIndex);
     }
-    var footerTop = footer.getBoundingClientRect().top;
-    var fadeStart = winH * 0.75;
-    var fadeEnd   = winH * 0.45;
-    if (footerTop < fadeStart) {
-      var progress = 1 - Math.max(0, (footerTop - fadeEnd) / (fadeStart - fadeEnd));
-      sideNav.style.opacity = Math.max(0, 1 - progress);
-      sideNav.style.pointerEvents = progress >= 1 ? 'none' : '';
+    
+    // Side Nav Visibility Logic
+    if (!pastName) {
+      sideNav.style.opacity = 0;
+      sideNav.style.pointerEvents = 'none';
     } else {
-      sideNav.style.opacity = 1;
-      sideNav.style.pointerEvents = '';
+      sideNav.style.opacity = Math.max(0, 1 - footerProgress);
+      sideNav.style.pointerEvents = footerProgress >= 1 ? 'none' : '';
     }
   }
-
   var ticking = false;
   window.addEventListener('scroll', function() {
     if (!ticking) {
@@ -961,7 +1117,20 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   onScroll();
 })();
 
-/* ── Rainy Night Smoke & Spotlight Border (Multi CTA) ── */
+/* Divine Cursor Glow for Name Section */
+(function(){
+  const nameSection = document.getElementById('nameMeaning');
+  if (!nameSection) return;
+  nameSection.addEventListener('mousemove', function(e) {
+    const rect = nameSection.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    nameSection.style.setProperty('--mx', x + 'px');
+    nameSection.style.setProperty('--my', y + 'px');
+  });
+})();
+
+/* Rainy Night Smoke & Spotlight Border (Dual CTA) */
 (function(){
   document.querySelectorAll('.cta-container').forEach(function(ctaContainer) {
     var ctaCard = ctaContainer.querySelector('.cta-card');
@@ -983,21 +1152,96 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   });
 })();
 
-/* ── Subtle Tilt on Future Cards ── */
+/* 3D Tilt & Spotlight on Timeline & Future Cards */
 (function(){
   document.querySelectorAll('[data-tilt]').forEach(function(card) {
     card.addEventListener('mousemove', function(e) {
       var r = card.getBoundingClientRect();
-      var rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -3;
-      var ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 3;
-      card.style.transform = 'translateY(-8px) perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      var rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -4; // Subtle tilt
+      var ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 4;
+      card.style.transform = 'translateY(-8px) perspective(1000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      
+      // Update Spotlight
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
     });
     card.addEventListener('mouseleave', function() { card.style.transform = ''; });
   });
 })();
 
-/* ── Year ── */
-document.getElementById('year').textContent = new Date().getFullYear();
+/* Magnetic Hero Portrait */
+(function(){
+  const wrapper = document.getElementById('heroPortraitWrapper');
+  const portrait = document.getElementById('heroPortrait');
+  if (wrapper && portrait) {
+    wrapper.addEventListener('mousemove', function(e) {
+      var r = wrapper.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      portrait.style.transform = 'rotateY(' + (x * 15) + 'deg) rotateX(' + (-y * 15) + 'deg) translateZ(20px)';
+    });
+    wrapper.addEventListener('mouseleave', function() {
+      portrait.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0px)';
+    });
+  }
+})();
+
+/* Smooth Draggable Horizontal Timeline (with Momentum) */
+(function(){
+  const scrollContainer = document.getElementById('timelineScroll');
+  if (!scrollContainer) return;
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  let velocity = 0;
+  let lastX = 0;
+  let frameId = null;
+
+  scrollContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    scrollContainer.classList.add('active');
+    startX = e.pageX;
+    lastX = e.pageX;
+    scrollLeft = scrollContainer.scrollLeft;
+    cancelAnimationFrame(frameId); 
+  });
+
+  scrollContainer.addEventListener('mouseleave', () => {
+    if (isDown) applyMomentum();
+    isDown = false;
+    scrollContainer.classList.remove('active');
+  });
+
+  scrollContainer.addEventListener('mouseup', () => {
+    if (isDown) applyMomentum();
+    isDown = false;
+    scrollContainer.classList.remove('active');
+  });
+
+  scrollContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX;
+    const walk = (x - startX) * 1.5;
+    scrollContainer.scrollLeft = scrollLeft - walk;
+    velocity = (lastX - x) * 1.5; 
+    lastX = x;
+  });
+
+  function applyMomentum() {
+    const decay = () => {
+      if (Math.abs(velocity) < 0.5) return;
+      scrollContainer.scrollLeft += velocity;
+      velocity *= 0.95; 
+      frameId = requestAnimationFrame(decay);
+    };
+    cancelAnimationFrame(frameId);
+    frameId = requestAnimationFrame(decay);
+  }
+})();
+
+document.getElementById('year').textContent = "2026";
 </script>
 </body>
 </html>
