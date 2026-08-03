@@ -951,7 +951,7 @@ if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
     }, 300);
   }
 
-  // Tap to Flip & Swipe Logic
+  // Tap to Flip & Swipe Logic (Removed finger-tilt to keep text readable)
   let touchStartX = 0, touchStartY = 0, hasMoved = false;
   
   mCard.addEventListener('touchstart', e => {
@@ -965,9 +965,6 @@ if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
     const my = e.touches[0].clientY - rect.top;
     mCard.style.setProperty('--mx', mx + 'px');
     mCard.style.setProperty('--my', my + 'px');
-    
-    // Make the tilt follow the finger snappily
-    mWrapper.style.transition = 'transform 0.1s ease-out';
   }, { passive: true });
 
   mCard.addEventListener('touchmove', e => {
@@ -983,31 +980,18 @@ if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
       e.preventDefault();
     }
 
+    // Update glow position only, keep card flat for readability
     const rect = mCard.getBoundingClientRect();
     const mx = e.touches[0].clientX - rect.left;
     const my = e.touches[0].clientY - rect.top;
     mCard.style.setProperty('--mx', mx + 'px');
     mCard.style.setProperty('--my', my + 'px');
-
-    const px = (mx / rect.width) - 0.5;
-    const py = (my / rect.height) - 0.5;
-    
-    const isFlipped = mCard.classList.contains('flipped');
-    // Invert direction if flipped so it feels physically accurate
-    const rotY = (isFlipped ? -px : px) * 15;
-    const rotX = (isFlipped ? py : -py) * 15;
-
-    mWrapper.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
   }, { passive: false });
 
   mCard.addEventListener('touchend', e => {
     if (isSwapping) return;
     
     const dx = e.changedTouches[0].clientX - touchStartX;
-    
-    // Smoothly reset wrapper tilt and prepare for opacity transition
-    mWrapper.style.transition = 'transform 0.4s ease, opacity 0.3s ease';
-    mWrapper.style.transform = '';
     
     if (!hasMoved) {
       // Tap to flip
@@ -1042,10 +1026,10 @@ if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
   function enableGyro() {
     window.addEventListener('deviceorientation', e => {
       if (!e.gamma && !e.beta) return;
-      const x = Math.max(-30, Math.min(30, e.beta - 45));
-      const y = Math.max(-30, Math.min(30, e.gamma));
-      const flipped = mCard.classList.contains('flipped') ? 180 : 0;
-      mWrapper.style.transform = `rotateX(${-x/2}deg) rotateY(${y/2 + flipped}deg)`;
+      // Subtle tilt only, max 10 degrees
+      const x = Math.max(-10, Math.min(10, e.beta - 45));
+      const y = Math.max(-10, Math.min(10, e.gamma));
+      mWrapper.style.transform = `rotateX(${-x/3}deg) rotateY(${y/3}deg)`;
     });
   }
 
