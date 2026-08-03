@@ -266,8 +266,8 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
 .future-card .horizon span:last-child{color:var(--accent);font-weight:500}
 
-/* Dual CTA Wrapper (Academics & Library) */
-.dual-cta-wrapper { 
+/* Multi CTA Wrapper (Academics, Library & Ledger) */
+.cta-wrapper { 
   display: flex; gap: 2rem; margin-top: 6rem; position: relative; z-index: 2; 
   align-items: stretch; 
 }
@@ -284,8 +284,8 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   background: linear-gradient(to bottom, transparent 10%, var(--border-strong) 50%, transparent 90%);
   align-self: stretch;
 }
-@media(max-width: 768px) { 
-  .dual-cta-wrapper { flex-direction: column; gap: 1.5rem; } 
+@media(max-width: 1024px) { 
+  .cta-wrapper { flex-direction: column; gap: 1.5rem; } 
   .cta-divider { width: 80%; height: 1px; background: linear-gradient(to right, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: center; } 
 }
 
@@ -435,6 +435,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="#hereafter" data-section="hereafter">03 — Hereafter</a>
   <a href="academics.html">04 — Academics ↗</a>
   <a href="library.html">05 — Library ↗</a>
+  <a href="ledger.html">06 — Ledger ↗</a>
 </nav>
 
 <!-- HERO -->
@@ -696,8 +697,8 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     
-    <!-- Dual CTA Wrapper: Academics & Library -->
-    <div class="dual-cta-wrapper reveal" data-delay="1">
+    <!-- Multi CTA Wrapper: Academics, Library & Ledger -->
+    <div class="cta-wrapper reveal" data-delay="1">
       
       <!-- Academic CTA -->
       <div class="cta-container">
@@ -727,6 +728,25 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <span class="cta-tag">The Quiet Library</span>
             <h4 class="cta-title">"A scattered shelf of stories and the quiet lessons they leave behind."</h4>
             <span class="cta-subtitle">Explore the books that shaped my thoughts →</span>
+          </div>
+          <div class="cta-icon">
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Divider -->
+      <div class="cta-divider"></div>
+
+      <!-- Ledger CTA -->
+      <div class="cta-container">
+        <div class="smoke-layer"></div>
+        <div class="glow-light"></div>
+        <a href="ledger.html" class="cta-card">
+          <div class="cta-text-group">
+            <span class="cta-tag">The Ledger of Life</span>
+            <h4 class="cta-title">"What you own defines you. What you owe refines you."</h4>
+            <span class="cta-subtitle">Explore the philosophical balance sheet of my soul →</span>
           </div>
           <div class="cta-icon">
             <i class="fa-solid fa-arrow-right-long"></i>
@@ -941,7 +961,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   onScroll();
 })();
 
-/* ── Rainy Night Smoke & Spotlight Border (Dual CTA) ── */
+/* ── Rainy Night Smoke & Spotlight Border (Multi CTA) ── */
 (function(){
   document.querySelectorAll('.cta-container').forEach(function(ctaContainer) {
     var ctaCard = ctaContainer.querySelector('.cta-card');
