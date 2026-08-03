@@ -12,7 +12,7 @@
     }
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Library — Aum Sapariya</title>
 
     <meta property="og:title" content="The Library — Aum Sapariya">
@@ -42,12 +42,9 @@
     }
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative;transition:background-color 0.8s ease;}
     body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(28,25,23,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
-    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px)}
-    .blob-1{width:550px;height:550px;background:radial-gradient(circle,rgba(232,93,58,0.08),transparent 70%);top:-120px;right:-120px;animation:blobDrift 22s ease-in-out infinite}
-    .blob-2{width:450px;height:450px;background:radial-gradient(circle,rgba(43,76,126,0.06),transparent 70%);bottom:-80px;left:-100px;animation:blobDrift 28s ease-in-out infinite reverse}
-    @keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,40px) scale(1.1)}66%{transform:translate(25px,-25px) scale(0.93)}}
+    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);width:600px;height:600px;background:radial-gradient(circle, var(--accent), transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.15;transition:background 0.8s ease;}
 
     .page-loader{position:fixed;inset:0;background:var(--accent);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;clip-path:circle(150% at 50% 50%);transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1)}
     .page-loader.loaded{clip-path:circle(0% at 50% 50%)}
@@ -74,6 +71,7 @@
     .hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
     .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
     .hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    @media(max-width:768px){.topbar{padding:0.8rem 1.2rem;border-radius:18px;top:10px;width:calc(100% - 20px)}.topbar .meta{display:none}.hamburger{display:block}}
 
     .mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(250,250,247,0.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;opacity:0;visibility:hidden;transition:opacity 0.5s var(--smooth),visibility 0.5s}
     .mobile-menu.open{opacity:1;visibility:visible}
@@ -85,237 +83,418 @@
     .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
 
     section{position:relative;padding:7rem 3rem;z-index:1}
-    @media(max-width:768px){section{padding:5rem 1.5rem}}
-    
+    @media(max-width:768px){section{padding:5rem 0}}
     .container{max-width:1400px;margin:0 auto;position:relative;z-index:1}
     .grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .hero{min-height:80vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 4rem;overflow:hidden}
     @media(max-width:768px){.hero{padding:7rem 1.5rem 3rem;min-height:auto}}
-    .hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,8vw,7rem);font-weight:300;line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem}
+    .hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,8vw,6rem);font-weight:300;line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem}
     .hero-text h1 em{font-style:italic;font-weight:400}
     .hero-text .subtitle{max-width:540px;font-size:1.05rem;color:var(--text-dim);line-height:1.75}
 
-    /* 3D Scattered Card Table */
-    .card-table {
-      position: relative;
-      width: 100%;
-      max-width: 1400px;
-      margin: 2rem auto 0;
-      height: 1200px;
-      perspective: 1200px;
-      transform-style: preserve-3d;
+    /* Right Side Floating Quote Box */
+    .hero-visual { 
+      position: absolute; 
+      right: 5rem; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      width: 340px; 
+      max-width: 30vw; 
+      z-index: 2; 
     }
-
-    .scattered-card {
-      --c: var(--accent);
-      --c-glow: #FF9D5C;
-      position: absolute;
-      width: 280px;
-      height: 360px;
-      background: #141414;
-      border: 1px solid rgba(255,255,255,0.05);
+    .quote-box {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(232, 227, 218, 0.6);
       border-radius: 24px;
-      padding: 2rem;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-      transition: transform 0.6s var(--ultra-smooth), width 0.6s var(--ultra-smooth), height 0.6s var(--ultra-smooth), box-shadow 0.6s var(--ultra-smooth), z-index 0s linear 0.2s;
-      isolation: isolate;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+      position: relative;
       overflow: hidden;
-      will-change: transform, width, height;
+      animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+    
+    .quote-tag { 
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); 
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; 
+    }
+    .quote-tag i { color: var(--accent); }
+    
+    .quote-content {
+      position: relative;
+      min-height: 200px;
+      transition: opacity 0.6s var(--smooth), transform 0.6s var(--smooth);
+    }
+    .quote-content.changing {
+      opacity: 0;
+      transform: translateY(8px);
     }
     
-    .scattered-card--1 { --c: #E85D3A; --c-glow: #FF9D5C; }
-    .scattered-card--2 { --c: #D4A017; --c-glow: #ffdb5e; }
-    .scattered-card--3 { --c: #2B4C7E; --c-glow: #5b9bdd; }
-    .scattered-card--4 { --c: #16A085; --c-glow: #1abc9c; }
-    .scattered-card--5 { --c: #8E44AD; --c-glow: #c77dff; }
-    .scattered-card--6 { --c: #C0392B; --c-glow: #e74c3c; }
-    .scattered-card--7 { --c: #D35400; --c-glow: #e67e22; }
-    .scattered-card--8 { --c: #2980B9; --c-glow: #3498db; }
-    .scattered-card--9 { --c: #7F8C8D; --c-glow: #bdc3c7; }
-
-    /* Dynamic Glowing Border */
-    .scattered-card::after { 
-      content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px; 
-      background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--c-glow) 0%, transparent 60%); 
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); 
-      -webkit-mask-composite: xor; mask-composite: exclude; 
-      opacity: 0; transition: opacity 0.4s var(--ultra-smooth); pointer-events: none; z-index: 4; 
-    } 
-    .scattered-card::before {
-      content: ''; position: absolute; inset: -2px; border-radius: 26px; padding: 2px;
-      background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--c-glow) 0%, transparent 60%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity: 0; transition: opacity 0.4s var(--ultra-smooth); pointer-events: none; z-index: -1;
-      filter: blur(10px); 
-    }
-
-    .card-symbol {
-      font-size: 1.5rem;
-      color: rgba(255,255,255,0.15);
-      transition: color 0.4s ease, text-shadow 0.4s ease;
+    .quote-text {
       font-family: var(--serif);
-      font-style: italic;
-      z-index: 2;
-      align-self: flex-end; /* Moved to Top Right */
-    }
-    .card-symbol.bottom { 
-      align-self: flex-start; /* Moved to Bottom Left */
-      transform: rotate(180deg); 
-    }
-
-    .card-header {
-      z-index: 2;
-      transition: opacity 0.3s ease, transform 0.5s var(--spring);
-    }
-    .card-genre {
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    .card-title {
-      font-family: var(--serif);
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 400;
-      color: #D6D3D1;
-      line-height: 1.2;
-      transition: color 0.4s ease;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .quote-author {
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.2rem;
+    }
+    .quote-author .author-name { 
+      font-size: 0.8rem; font-weight: 600; color: var(--text); 
+      font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.1em; 
+    }
+    .quote-author .book-name { 
+      font-size: 0.85rem; color: var(--text-dim); 
+      font-family: var(--serif); font-style: italic; 
+    }
+    
+    .quote-decor { 
+      position: absolute; bottom: -30px; right: -10px; 
+      font-family: var(--serif); font-size: 8rem; 
+      color: var(--accent); opacity: 0.05; 
+      pointer-events: none; line-height: 1; 
+      z-index: 0; 
+    }
+    .quote-content > * { position: relative; z-index: 1; }
+    
+    @media (max-width: 1024px) {
+      .hero-visual { display: none; }
     }
 
-    /* Hidden Details Container */
-    .card-details {
+    /* Desktop/Mobile Visibility */
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+    @media (max-width: 1024px) { .desktop-only { display: none !important; } .mobile-only { display: block !important; } }
+
+    /* Desktop Scattered Book Layout */
+    .book-container { width: 100%; max-width: 1200px; margin: 4rem auto 0; height: 900px; position: relative; }
+    
+    /* Pre-hover Base Book Style (Retouched) */
+    .book-slab {
+      --c: var(--accent); --c-dark: #4a1205; --c-glow: #FF9D5C; 
+      background-color: var(--c-dark, #141414); 
+      background-image: 
+        radial-gradient(circle at 120% -20%, rgba(255,255,255,0.09), transparent 45%),
+        linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6) 90%);
+      border-radius: 24px; 
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden; position: absolute; width: 220px; height: 340px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.4); isolation: isolate; cursor: none;
+      transition: width 0.6s var(--ultra-smooth), height 0.6s var(--ultra-smooth), transform 0.6s var(--ultra-smooth), background-color 0.6s var(--ultra-smooth), box-shadow 0.6s var(--ultra-smooth), z-index 0s linear 0.2s;
+      display: flex; align-items: center; padding: 2rem;
+    }
+
+    /* Decorative Spine Glow for Pre-hover State */
+    .book-slab::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      padding: 2.5rem;
-      opacity: 0;
+      top: 15%; left: 0;
+      width: 4px; height: 70%;
+      background: var(--c-glow);
+      border-radius: 0 2px 2px 0;
+      opacity: 0.5;
+      box-shadow: 0 0 12px var(--c-glow);
+      z-index: 2;
+      transition: opacity 0.3s var(--smooth);
       pointer-events: none;
-      transition: opacity 0.3s var(--ultra-smooth);
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      z-index: 3;
     }
-    .card-details::-webkit-scrollbar { width: 4px; }
-    .card-details::-webkit-scrollbar-track { background: transparent; }
-    .card-details::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
-    .detail-author { font-family: var(--serif); font-style: italic; font-size: 1rem; color: #A8A29E; margin-bottom: 1.5rem; display: block; }
-    .detail-summary { font-size: 0.9rem; line-height: 1.7; color: #D6D3D1; margin-bottom: 2rem; }
-    .detail-lesson { background: #0a0a0a; border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 0 30px rgba(232,93,58,0.05); }
-    .lesson-label { font-family: var(--sans); font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-glow); font-weight: 600; margin-bottom: 0.8rem; display: block; text-shadow: 0 0 10px var(--c-glow); }
-    .lesson-text { font-family: var(--serif); font-style: italic; font-size: 1rem; line-height: 1.5; color: #F5F5F4; font-weight: 500; }
+    .book-slab--1 { --c: #E85D3A; --c-glow: #FF9D5C; --c-dark: #4a1205; --shift-x: 0px;   --shift-y: 0px; }
+    .book-slab--2 { --c: #2B4C7E; --c-glow: #5b9bdd; --c-dark: #091424; --shift-x: 0px;   --shift-y: 0px; }
+    .book-slab--3 { --c: #D4A017; --c-glow: #ffdb5e; --c-dark: #3a2a04; --shift-x: -40px;  --shift-y: 0px; }
+    .book-slab--4 { --c: #3A7D6E; --c-glow: #5fe0c4; --c-dark: #08221d; --shift-x: -280px; --shift-y: 0px; }
+    .book-slab--5 { --c: #8E44AD; --c-glow: #c77dff; --c-dark: #2a0d34; --shift-x: -460px; --shift-y: 0px; }
+    .book-slab--6 { --c: #16A085; --c-glow: #1abc9c; --c-dark: #05231d; --shift-x: 0px;   --shift-y: -105px; }
+    .book-slab--7 { --c: #C0392B; --c-glow: #e74c3c; --c-dark: #350d08; --shift-x: 0px;   --shift-y: -150px; }
+    .book-slab--8 { --c: #2980B9; --c-glow: #3498db; --c-dark: #0c2735; --shift-x: 0px;   --shift-y: -60px; }
+    .book-slab--9 { --c: #D35400; --c-glow: #e67e22; --c-dark: #3a1600; --shift-x: -220px; --shift-y: -132px; }
 
-    /* =========================================
-       1. DESKTOP HOVER LAYOUT
-       ========================================= */
     @media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
       body { cursor: none; }
       .cursor-dot, .cursor-ring { display: block; }
       .topbar .meta { display: flex; }
       .hamburger { display: none; }
+      .hero { padding-right: 22rem; }
+      
+      /* On hover, expand the card in place and apply a bounded shift to keep it on screen */
+      .book-slab:hover { 
+        width: 700px !important; 
+        height: 600px !important; 
+        transform: translate(var(--shift-x, 0px), var(--shift-y, 0px)) rotate(0deg) !important; 
+        z-index: 100; 
+        background-color: #050505; 
+        background-image: none; /* Clear pre-hover textures */
+        border-color: transparent; 
+        box-shadow: 0 30px 80px rgba(0,0,0,0.8); 
+        transition: width 0.6s var(--ultra-smooth), height 0.6s var(--ultra-smooth), transform 0.6s var(--ultra-smooth), background-color 0.6s var(--ultra-smooth), box-shadow 0.6s var(--ultra-smooth), z-index 0s linear 0s;
+      } 
 
-      .scattered-card:hover {
-        width: 480px;
-        height: 640px;
-        transform: rotate(0deg) scale(1.02) !important;
-        z-index: 100;
-        box-shadow: 0 30px 70px rgba(0,0,0,0.6);
-        transition: transform 0.6s var(--ultra-smooth), width 0.6s var(--ultra-smooth), height 0.6s var(--ultra-smooth), box-shadow 0.6s var(--ultra-smooth), z-index 0s linear 0s;
+      /* Hide spine element on hover */
+      .book-slab:hover::before { 
+        opacity: 0; 
       }
-      .scattered-card:hover::after { opacity: 1; }
-      .scattered-card:hover::before { opacity: 0.9; }
 
-      .scattered-card:hover .card-symbol { color: var(--c-glow); text-shadow: 0 0 15px var(--c-glow); }
-      .scattered-card:hover .card-header { opacity: 0; transform: translateY(-20px); }
-      .scattered-card:hover .card-details { opacity: 1; pointer-events: auto; transition: opacity 0.3s var(--ultra-smooth) 0.2s; }
-      .scattered-card:hover .card-details > * { 
+      .book-content::before {
+        content: '“';
+        position: absolute;
+        top: -4rem;
+        right: -1rem;
+        font-family: var(--serif);
+        font-size: 24rem;
+        color: var(--c);
+        opacity: 0;
+        z-index: 0;
+        line-height: 1;
+        pointer-events: none;
+        transition: opacity 0.8s var(--ultra-smooth) 0.2s, transform 1s var(--spring) 0.2s;
+        transform: scale(0.8);
+      }
+      .book-slab:hover .book-content::before {
+        opacity: 0.12;
+        transform: scale(1);
+      }
+
+      .book-slab::after { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--c-glow) 0%, var(--c-glow) 20%, transparent 60%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s var(--ultra-smooth); pointer-events: none; z-index: 4; } 
+      .book-slab:hover::after { opacity: 1; }
+
+      /* Retouched Pre-hover Typography for Book Title */
+      .book-title { 
+        font-family: var(--serif); 
+        font-size: 1.5rem; 
+        font-weight: 400; 
+        writing-mode: vertical-rl; 
+        transform: rotate(180deg); 
+        position: absolute; 
+        top: 2.5rem; 
+        left: 2.5rem; 
+        white-space: nowrap; 
+        color: #F5F5F4; 
+        letter-spacing: 0.04em;
+        z-index: 3; 
+        text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+        transition: opacity 0.3s var(--smooth), transform 0.5s var(--spring); 
+      }
+      .book-slab:hover .book-title { opacity: 0; transform: translateX(-20px) rotate(180deg); }
+      
+      .book-content { 
+        position: relative; 
+        z-index: 2; 
+        max-width: 620px; 
+        width: 100%; 
+        height: 100%;
+        pointer-events: none; 
         opacity: 0; 
         transform: translateY(20px); 
-        transition: opacity 0.5s var(--ultra-smooth), transform 0.6s var(--ultra-smooth); 
+        transition: opacity 0.5s var(--ultra-smooth) 0.2s, transform 0.6s var(--ultra-smooth) 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.5rem;
       }
-      .scattered-card:hover .card-details > *:nth-child(1) { transition-delay: 0.25s; }
-      .scattered-card:hover .card-details > *:nth-child(2) { transition-delay: 0.35s; }
-      .scattered-card:hover .card-details > *:nth-child(3) { transition-delay: 0.45s; }
+      .book-slab:hover .book-content { opacity: 1; transform: translateY(0); pointer-events: auto; }
       
-      .scattered-card:hover .card-details > * { opacity: 1; transform: translateY(0); }
+      /* Premium Text Styling */
+      .book-slab:hover .slab-tag { color: var(--c-glow); border-color: var(--c-glow); background: rgba(255,255,255,0.05); box-shadow: 0 0 15px rgba(255,255,255,0.1); align-self: flex-start; }
+      .book-slab:hover h3 { color: #ffffff; font-size: 3rem; line-height: 1.1; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+      .book-slab:hover .book-author { color: rgba(255,255,255,0.6); font-size: 1.2rem; }
+      .book-slab:hover .book-summary { color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.8; }
     }
 
     /* =========================================
-       2. MOBILE/TABLET TAP LAYOUT
+       MOBILE 3D HOLOGRAPHIC FLIP DECK
        ========================================= */
     @media (max-width: 1024px), (hover: none) {
-      body { cursor: auto; }
+      body { cursor: auto; background: #0a0a0a; }
       .cursor-dot, .cursor-ring { display: none; }
-      .topbar { padding: 0.8rem 1.2rem; border-radius: 18px; top: 10px; width: calc(100% - 20px); }
-      .topbar .meta { display: none; }
-      .hamburger { display: block; cursor: pointer; }
+      .topbar { background: rgba(10, 10, 10, 0.6); border-color: rgba(255,255,255,0.08); }
+      .topbar.scrolled { background: rgba(10, 10, 10, 0.85); }
+      .topbar .logo { color: #fff; }
+      .hamburger { color: #fff; }
       
-      .hero-text h1 { font-size: clamp(2.2rem, 9vw, 4rem); }
+      .hero { background: transparent; min-height: 40vh; padding-top: 8rem; padding-bottom: 2rem; }
+      .hero-text h1 { color: #fff; }
+      .hero-text .subtitle { color: rgba(255,255,255,0.6); }
 
-      .card-table {
-        height: auto;
-        perspective: none;
+      /* New Mobile Deck Wrapper to separate stage and controls */
+      .mobile-deck-section {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 1.5rem;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        min-height: 90vh;
+        padding: 4rem 0 !important;
       }
 
-      .scattered-card {
+      .mobile-library-stage {
         position: relative;
         width: 100%;
-        height: auto;
-        min-height: 140px;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important;
+        height: 65vh;
+        max-height: 550px;
+        perspective: 1500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .m-card-wrapper {
+        position: relative;
+        width: 85vw;
+        max-width: 360px;
+        height: 100%;
+        max-height: 500px; /* Restricted height to ensure no overlap */
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease, opacity 0.3s ease; /* Base transition */
+      }
+
+      /* Class for smooth swap transition */
+      .m-card-wrapper.swapping {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .m-card {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transition: transform 0.6s var(--spring);
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      }
+
+      .m-card.flipped {
+        transform: rotateY(180deg);
+      }
+
+      .m-face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border-radius: 24px;
+        background: #141414;
+        border: 1px solid rgba(255,255,255,0.1);
+        overflow: hidden;
+        display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 1.5rem;
-        padding: 2rem;
-        display: grid;
-        grid-template-rows: auto 0fr;
-        transition: grid-template-rows 0.5s var(--ultra-smooth), box-shadow 0.5s var(--ultra-smooth), border-color 0.5s var(--ultra-smooth);
+        padding: 2.5rem 2rem;
+        color: #fff;
+      }
+
+      .m-face::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 2px;
+        background: radial-gradient(150px circle at var(--mx, 50%) var(--my, 50%), var(--c-glow, #E85D3A), transparent 60%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.8;
+        pointer-events: none;
+        z-index: 4;
+        transition: opacity 0.3s ease;
+      }
+
+      .m-front { justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #1a1a1a, #0a0a0a); }
+      .m-genre { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--c-glow, #E85D3A); padding: 0.4rem 1rem; border: 1px solid var(--c-glow, #E85D3A); border-radius: 50px; margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); backdrop-filter: blur(4px); z-index: 2; }
+      .m-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; line-height: 1.2; margin-bottom: 0.5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.8); z-index: 2; }
+      .m-author { font-family: var(--serif); font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.7); z-index: 2; }
+      .m-hint { position: absolute; bottom: 1.5rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: flex; gap: 1rem; align-items: center; z-index: 2; width: calc(100% - 4rem); justify-content: center; }
+      .m-hint span { display: flex; align-items: center; gap: 0.4rem; }
+
+      .m-back { 
+        transform: rotateY(180deg); 
+        justify-content: space-between; 
+        text-align: left; 
+        background: linear-gradient(135deg, var(--c-dark, #4a1205), #050505 80%); 
+      }
+
+      .m-back::before {
+        content: '“';
+        position: absolute;
+        top: -2rem;
+        right: 1rem;
+        font-family: var(--serif);
+        font-size: 15rem;
+        color: var(--c, #E85D3A);
+        opacity: 0.15;
+        z-index: 0;
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .m-summary { font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 1.5rem; flex-grow: 1; overflow-y: auto; z-index: 2; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+      
+      .m-lesson-box { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); z-index: 2; flex-shrink: 0; }
+      .m-lesson-label { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-glow, #E85D3A); font-weight: 600; margin-bottom: 0.8rem; display: block; text-shadow: 0 0 10px var(--c-glow, #E85D3A); }
+      .m-lesson-text { font-family: var(--serif); font-style: italic; font-size: 1.1rem; line-height: 1.5; color: #F5F5F4; }
+
+      /* Controls Footer */
+      .mobile-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 360px;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 10;
       }
       
-      .scattered-card.active {
-        grid-template-rows: auto 1fr;
-        border-color: transparent;
-        box-shadow: 0 12px 30px -8px rgba(0,0,0,0.6);
+      .m-nav-dots { 
+        position: relative; 
+        bottom: auto; 
+        left: auto; 
+        transform: none; 
+        display: flex; 
+        gap: 0.5rem; 
+        z-index: 10; 
       }
-      .scattered-card.active::after { opacity: 1; }
-      .scattered-card.active::before { opacity: 0.9; }
+      .m-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.2); border-radius: 50%; transition: all 0.3s ease; }
+      .m-dot.active { background: var(--c-glow, #E85D3A); width: 20px; border-radius: 3px; box-shadow: 0 0 10px var(--c-glow, #E85D3A); }
 
-      .card-symbol { display: none; }
-      .card-header { padding: 0; }
-      .card-title { font-size: 1.8rem; color: var(--c-glow); text-shadow: 0 0 15px var(--c-glow); }
-
-      .card-details {
-        position: relative;
-        inset: auto;
-        padding: 0;
-        opacity: 0;
-        overflow: hidden;
-        min-height: 0;
-        transition: opacity 0.3s var(--ultra-smooth) 0.1s;
+      .m-arrows { 
+        position: relative; 
+        bottom: auto;
+        width: auto;
+        display: flex; 
+        justify-content: space-between; 
+        padding: 0; 
+        z-index: 10; 
+        pointer-events: none; 
+        gap: 2rem;
       }
-      .scattered-card.active .card-details { opacity: 1; pointer-events: auto; }
-    }
+      .m-arrow { color: rgba(255,255,255,0.4); font-size: 1.5rem; pointer-events: auto; cursor: pointer; transition: color 0.3s; }
+      .m-arrow:active { color: #fff; }
 
-    /* Small Mobile Adjustments */
-    @media(max-width: 480px) {
-      .scattered-card { padding: 1.5rem; }
-      .card-title { font-size: 1.5rem; }
-      .detail-summary { font-size: 0.85rem; }
-      .lesson-text { font-size: 0.9rem; }
+      .gyro-permission-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--accent);
+        color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        z-index: 20;
+        box-shadow: 0 10px 30px rgba(232, 93, 58, 0.4);
+        transition: transform 0.2s;
+      }
+      .gyro-permission-btn:active { transform: translate(-50%, -50%) scale(0.95); }
     }
 
     .footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
@@ -348,7 +527,6 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
 
 <header class="topbar" id="topbar">
   <a href="index.html" class="logo">Aum <em>Sapariya</em></a>
@@ -380,177 +558,156 @@
       <em class="grad-text">lessons</em>.
     </h1>
     <p class="subtitle reveal" data-delay="1">
-      A scattered collection of books that have shaped my thoughts. Hover over a card on the ground to reveal its summary and the core essence I drew from it.
+      A scattered collection of books that have shaped my thoughts. Hover over a card on desktop, or tilt, swipe, and flip on mobile to reveal their core essence.
     </p>
+  </div>
+
+  <!-- Right Side Floating Quote Box -->
+  <div class="hero-visual">
+    <div class="quote-box">
+      <div class="quote-tag"><i class="fa-solid fa-feather"></i> Echoes</div>
+      <div class="quote-content" id="quoteContent">
+        <p class="quote-text" id="quoteText">"What would you do if you weren't afraid?"</p>
+        <div class="quote-author">
+          <span class="author-name" id="quoteAuthor">Spencer Johnson</span>
+          <span class="book-name" id="quoteBook">Who Moved My Cheese?</span>
+        </div>
+      </div>
+      <div class="quote-decor">”</div>
+    </div>
   </div>
 </section>
 
-<!-- 3D SCATTERED CARDS TABLE -->
-<section style="padding-top: 0; min-height: 100vh;">
-  <div class="card-table">
+<!-- DESKTOP BOOK CONTAINER -->
+<section style="padding-top: 2rem;" class="desktop-only">
+  <div class="container">
+    <div class="book-container reveal-scale" data-delay="3">
+      <!-- Book 1 -->
+      <div class="book-slab book-slab--1" style="top: 0%; left: 5%; transform: rotate(-8deg);">
+        <div class="book-title">Who Moved My Cheese?</div>
+        <div class="book-content">
+          <div class="slab-tag">Business · Change</div>
+          <h3>Who Moved My Cheese?</h3>
+          <span class="book-author">by Spencer Johnson</span>
+          <p class="book-summary">A simple parable about two mice and two little people who react differently when their cheese supply runs out. It explores how to deal with change gracefully in work and life.</p>
+        </div>
+      </div>
+      <!-- Book 2 -->
+      <div class="book-slab book-slab--2" style="top: 8%; left: 25%; transform: rotate(6deg);">
+        <div class="book-title">The Alchemist</div>
+        <div class="book-content">
+          <div class="slab-tag">Fiction · Quest</div>
+          <h3>The Alchemist</h3>
+          <span class="book-author">by Paulo Coelho</span>
+          <p class="book-summary">A magical tale of Santiago, a young Andalusian shepherd who journeys to the Egyptian desert in search of a worldly treasure, only to discover the profound treasures hidden within his own heart.</p>
+        </div>
+      </div>
+      <!-- Book 3 -->
+      <div class="book-slab book-slab--3" style="top: 2%; left: 45%; transform: rotate(-4deg);">
+        <div class="book-title">Rich Dad Poor Dad</div>
+        <div class="book-content">
+          <div class="slab-tag">Finance · Mindset</div>
+          <h3>Rich Dad Poor Dad</h3>
+          <span class="book-author">by Robert Kiyosaki</span>
+          <p class="book-summary">A classic that contrasts the mindsets of two father figures—one highly educated but financially struggling, and the other a school dropout who became a wealthy entrepreneur. It reshapes how we view assets and liabilities.</p>
+        </div>
+      </div>
+      <!-- Book 4 -->
+      <div class="book-slab book-slab--4" style="top: 10%; left: 65%; transform: rotate(9deg);">
+        <div class="book-title">Ikigai</div>
+        <div class="book-content">
+          <div class="slab-tag">Philosophy · Lifestyle</div>
+          <h3>Ikigai</h3>
+          <span class="book-author">by Héctor García & Francesc Miralles</span>
+          <p class="book-summary">An exploration of the Japanese concept of 'ikigai'—a reason for being. It uncovers the secrets to a long, happy life by finding the intersection of what you love, what you are good at, what the world needs, and what you can be paid for.</p>
+        </div>
+      </div>
+      <!-- Book 5 -->
+      <div class="book-slab book-slab--5" style="top: 15%; left: 80%; transform: rotate(-7deg);">
+        <div class="book-title">Eat That Frog</div>
+        <div class="book-content">
+          <div class="slab-tag">Productivity · Time Mgmt</div>
+          <h3>Eat That Frog</h3>
+          <span class="book-author">by Brian Tracy</span>
+          <p class="book-summary">A practical guide to overcoming procrastination. Tracy argues that if you 'eat the frog'—tackle your hardest, most important task first thing in the morning—the rest of the day will feel remarkably easy.</p>
+        </div>
+      </div>
+      <!-- Book 6 -->
+      <div class="book-slab book-slab--6" style="top: 45%; left: 0%; transform: rotate(5deg);">
+        <div class="book-title">The Prophet</div>
+        <div class="book-content">
+          <div class="slab-tag">Philosophy · Poetry</div>
+          <h3>The Prophet</h3>
+          <span class="book-author">by Kahlil Gibran</span>
+          <p class="book-summary">A beautiful collection of poetic essays where Almustafa, the chosen prophet, shares his timeless wisdom on joy, sorrow, work, and love with the people of Orphalese before his departure.</p>
+        </div>
+      </div>
+      <!-- Book 7 -->
+      <div class="book-slab book-slab--7" style="top: 50%; left: 20%; transform: rotate(-6deg);">
+        <div class="book-title">Red Rising Trilogy</div>
+        <div class="book-content">
+          <div class="slab-tag">Sci-Fi · Dystopia</div>
+          <h3>Red Rising Trilogy</h3>
+          <span class="book-author">by Pierce Brown</span>
+          <p class="book-summary">A thrilling sci-fi epic following Darrow, a Red laborer in a color-coded society on Mars. Driven by tragedy, he infiltrates the elite Golds to tear down the oppressive hierarchy from within.</p>
+        </div>
+      </div>
+      <!-- Book 8 -->
+      <div class="book-slab book-slab--8" style="top: 40%; left: 40%; transform: rotate(8deg);">
+        <div class="book-title">Psychology of Money</div>
+        <div class="book-content">
+          <div class="slab-tag">Finance · Behavior</div>
+          <h3>Psychology of Money</h3>
+          <span class="book-author">by Morgan Housel</span>
+          <p class="book-summary">Housel explores how behavior, not math, dictates financial success. The book delves into how making good financial decisions is less about what you know and more about how you behave.</p>
+        </div>
+      </div>
+      <!-- Book 9 -->
+      <div class="book-slab book-slab--9" style="top: 48%; left: 60%; transform: rotate(-10deg);">
+        <div class="book-title">The Iliad</div>
+        <div class="book-content">
+          <div class="slab-tag">Epic · Mythology</div>
+          <h3>The Iliad</h3>
+          <span class="book-author">by Homer</span>
+          <p class="book-summary">An ancient Greek epic poem set during the final weeks of the ten-year Trojan War. It explores the rage of Achilles, the wrath of the gods, and the tragic, fleeting nature of heroism and mortality.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE 3D HOLOGRAPHIC DECK -->
+<section class="mobile-only mobile-deck-section">
+  <div class="mobile-library-stage" id="mobileStage">
+    <button class="gyro-permission-btn" id="gyroBtn">Enable 3D Tilt</button>
     
-    <!-- Book 1: Who Moved My Cheese? -->
-    <div class="scattered-card scattered-card--1 reveal-scale" style="top: 2%; left: 5%; transform: rotate(-6deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Business · Change</span>
-        <h3 class="card-title">Who Moved My Cheese?</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Spencer Johnson</span>
-        <p class="detail-summary">A simple parable about two mice and two little people who react differently when their cheese supply runs out. It explores how to deal with change gracefully in work and life.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"What would you do if you weren't afraid? Move with the cheese and enjoy the ride."</p>
+    <div class="m-card-wrapper" id="mWrapper">
+      <div class="m-card" id="mCard">
+        <div class="m-face m-front">
+          <div class="m-genre" id="mGenre">Business · Change</div>
+          <h3 class="m-title" id="mTitle">Who Moved My Cheese?</h3>
+          <span class="m-author" id="mAuthor">by Spencer Johnson</span>
+          <div class="m-hint">
+            <span><i class="fa-solid fa-arrow-left"></i> Swipe</span>
+            <span>Tap to Flip <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <span>Swipe <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="m-face m-back">
+          <div class="m-summary" id="mSummary">A simple parable about two mice and two little people who react differently when their cheese supply runs out. It explores how to deal with change gracefully in work and life.</div>
+          <div class="m-lesson-box">
+            <span class="m-lesson-label">Words to Live By</span>
+            <p class="m-lesson-text" id="mLesson">"What would you do if you weren't afraid?"</p>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Book 2: The Alchemist -->
-    <div class="scattered-card scattered-card--2 reveal-scale" data-delay="1" style="top: 5%; left: 32%; transform: rotate(4deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Fiction · Quest</span>
-        <h3 class="card-title">The Alchemist</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Paulo Coelho</span>
-        <p class="detail-summary">A magical tale of Santiago, a young Andalusian shepherd who journeys to the Egyptian desert in search of a worldly treasure, only to discover the profound treasures hidden within his own heart.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"When you want something, all the universe conspires in helping you to achieve it."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 3: Rich Dad Poor Dad -->
-    <div class="scattered-card scattered-card--3 reveal-scale" data-delay="2" style="top: 8%; right: 28%; transform: rotate(-9deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Finance · Mindset</span>
-        <h3 class="card-title">Rich Dad Poor Dad</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Robert Kiyosaki</span>
-        <p class="detail-summary">A classic that contrasts the mindsets of two father figures—one highly educated but financially struggling, and the other a school dropout who became a wealthy entrepreneur. It reshapes how we view assets and liabilities.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"Don't work for money; make it work for you. The rich acquire assets, while the poor acquire expenses."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 4: Ikigai -->
-    <div class="scattered-card scattered-card--4 reveal-scale" data-delay="3" style="top: 0%; right: 5%; transform: rotate(7deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Philosophy · Lifestyle</span>
-        <h3 class="card-title">Ikigai</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Héctor García & Francesc Miralles</span>
-        <p class="detail-summary">An exploration of the Japanese concept of 'ikigai'—a reason for being. It uncovers the secrets to a long, happy life by finding the intersection of what you love, what you are good at, what the world needs, and what you can be paid for.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"Your ikigai is the reason you get up in the morning. Finding it requires patience, action, and staying active."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 5: Eat That Frog -->
-    <div class="scattered-card scattered-card--5 reveal-scale" data-delay="4" style="top: 35%; left: 12%; transform: rotate(5deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Productivity · Time Mgmt</span>
-        <h3 class="card-title">Eat That Frog</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Brian Tracy</span>
-        <p class="detail-summary">A practical guide to overcoming procrastination. Tracy argues that if you 'eat the frog'—tackle your hardest, most important task first thing in the morning—the rest of the day will feel remarkably easy.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"If you have to eat two frogs, eat the ugliest one first. Set the table, prioritize, and focus."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 6: The Prophet -->
-    <div class="scattered-card scattered-card--6 reveal-scale" data-delay="5" style="top: 38%; left: 40%; transform: rotate(-5deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Philosophy · Poetry</span>
-        <h3 class="card-title">The Prophet</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Kahlil Gibran</span>
-        <p class="detail-summary">A beautiful collection of poetic essays where Almustafa, the chosen prophet, shares his timeless wisdom on joy, sorrow, work, and love with the people of Orphalese before his departure.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"Work is love made visible. And when you work you are a flute through whose heart the whispering of the hours turns into music."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 7: Red Rising Trilogy -->
-    <div class="scattered-card scattered-card--7 reveal-scale" data-delay="6" style="top: 35%; right: 15%; transform: rotate(8deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Sci-Fi · Dystopia</span>
-        <h3 class="card-title">Red Rising Trilogy</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Pierce Brown</span>
-        <p class="detail-summary">A thrilling sci-fi epic following Darrow, a Red laborer in a color-coded society on Mars. Driven by tragedy, he infiltrates the elite Golds to tear down the oppressive hierarchy from within.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"Man is no man's slave. Break the chains, rise through the ranks, and forge your own destiny."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 8: The Psychology of Money -->
-    <div class="scattered-card scattered-card--8 reveal-scale" data-delay="7" style="top: 68%; left: 22%; transform: rotate(-7deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Finance · Behavior</span>
-        <h3 class="card-title">Psychology of Money</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Morgan Housel</span>
-        <p class="detail-summary">Housel explores how behavior, not math, dictates financial success. The book delves into how making good financial decisions is less about what you know and more about how you behave.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"Wealth is what you don't see. It's the cars not bought, the clothes not purchased, and the diamonds not upgraded."</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Book 9: The Iliad -->
-    <div class="scattered-card scattered-card--9 reveal-scale" data-delay="8" style="top: 65%; right: 22%; transform: rotate(6deg);">
-      <div class="card-symbol">✦</div>
-      <div class="card-header">
-        <span class="card-genre">Epic · Mythology</span>
-        <h3 class="card-title">The Iliad</h3>
-      </div>
-      <div class="card-symbol bottom">✦</div>
-      <div class="card-details">
-        <span class="detail-author">by Homer</span>
-        <p class="detail-summary">An ancient Greek epic poem set during the final weeks of the ten-year Trojan War. It explores the rage of Achilles, the wrath of the gods, and the tragic, fleeting nature of heroism and mortality.</p>
-        <div class="detail-lesson">
-          <span class="lesson-label">Core Essence</span>
-          <p class="lesson-text">"The gods weave the fate of mortals, but it is our courage and honor in the face of inevitable death that defines us."</p>
-        </div>
-      </div>
-    </div>
-
+  <div class="mobile-controls">
+    <div class="m-arrow" id="prevBook"><i class="fa-solid fa-chevron-left"></i></div>
+    <div class="m-nav-dots" id="mDots"></div>
+    <div class="m-arrow" id="nextBook"><i class="fa-solid fa-chevron-right"></i></div>
   </div>
 </section>
 
@@ -563,78 +720,16 @@
 </footer>
 
 <script>
-/* Custom Cursor */
-(function(){
-  var dot = document.getElementById('cursorDot');
-  var ring = document.getElementById('cursorRing');
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 1024) {
-    var mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', function(e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
-    });
-    (function loop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
-      requestAnimationFrame(loop);
-    })();
-    document.querySelectorAll('a,button,.scattered-card').forEach(function(el) {
-      el.addEventListener('mouseenter', function() { ring.classList.add('hover'); });
-      el.addEventListener('mouseleave', function() { ring.classList.remove('hover'); });
-    });
-  } else {
-    dot.style.display = 'none';
-    ring.style.display = 'none';
-  }
-})();
+/* Common Scripts */
+const topbar = document.getElementById('topbar');
+const btn = document.getElementById('hamburger');
+const menu = document.getElementById('mobileMenu');
+btn.addEventListener('click', () => { btn.classList.toggle('active'); menu.classList.toggle('open'); });
 
-/* Page Loader */
-(function(){
-  var loader = document.getElementById('pageLoader');
-  window.addEventListener('load', function() {
-    setTimeout(function() { loader.classList.add('loaded'); }, 800);
-    setTimeout(function() { loader.style.display = 'none'; }, 1600);
-  });
-  setTimeout(function() {
-    loader.classList.add('loaded');
-    setTimeout(function() { loader.style.display = 'none'; }, 800);
-  }, 3000);
-})();
-
-/* Scroll Progress */
-(function(){
-  var bar = document.getElementById('scrollProgress');
-  window.addEventListener('scroll', function() {
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
-  }, { passive: true });
-})();
-
-/* Topbar Scroll */
-(function(){
-  var topbar = document.getElementById('topbar');
-  window.addEventListener('scroll', function() {
-    topbar.classList.toggle('scrolled', window.scrollY > 80);
-  }, { passive: true });
-})();
-
-/* Mobile Menu */
-(function(){
-  var btn = document.getElementById('hamburger');
-  var menu = document.getElementById('mobileMenu');
-  btn.addEventListener('click', function() {
-    btn.classList.toggle('active');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
-  menu.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      btn.classList.remove('active');
-      menu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-})();
+window.addEventListener('scroll', () => {
+  topbar.classList.toggle('scrolled', window.scrollY > 80);
+  document.getElementById('scrollProgress').style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+}, { passive: true });
 
 /* Reveal Animations */
 (function(){
@@ -651,36 +746,327 @@
   }
 })();
 
-/* Dynamic Glow & Mobile Accordion Toggle */
-document.querySelectorAll('.scattered-card').forEach(function(card) {
-  var ticking = false;
-  card.addEventListener('mousemove', function(e) {
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        var rect = card.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-        card.style.setProperty('--mx', x + 'px');
-        card.style.setProperty('--my', y + 'px');
-        ticking = false;
+/* Desktop Quote Cycle (Randomized) */
+if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1025px)').matches) {
+  const heroQuotes = [
+    { text: "What would you do if you weren't afraid?", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    { text: "Smell the cheese often so you know when it is getting old.", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    { text: "Movement in a new direction helps you find new cheese.", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    { text: "The quicker you let go of old cheese, the sooner you find new cheese.", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    { text: "It is safer to search in the maze than to stay in a cheeseless situation.", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    { text: "When you stop being afraid, you feel good.", author: "Spencer Johnson", book: "Who Moved My Cheese?" },
+    
+    { text: "And, when you want something, all the universe conspires in helping you to achieve it.", author: "Paulo Coelho", book: "The Alchemist" },
+    { text: "It's the possibility of having a dream come true that makes life interesting.", author: "Paulo Coelho", book: "The Alchemist" },
+    { text: "There is only one thing that makes a dream impossible to achieve: the fear of failure.", author: "Paulo Coelho", book: "The Alchemist" },
+    { text: "When you find your path, you must not be afraid. You need to have sufficient courage to make mistakes.", author: "Paulo Coelho", book: "The Alchemist" },
+    { text: "Remember that wherever your heart is, there you will find your treasure.", author: "Paulo Coelho", book: "The Alchemist" },
+    { text: "The secret of life, though, is to fall seven times and to get up eight times.", author: "Paulo Coelho", book: "The Alchemist" },
+    
+    { text: "Don't work for money; make it work for you.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    { text: "The rich acquire assets. The poor and middle class acquire liabilities that they think are assets.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    { text: "It's not how much money you make. It's how much money you keep.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    { text: "In the real world, the smartest people are people who make mistakes and learn.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    { text: "Face your fears and doubts, and new worlds will open to you.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    { text: "The single most powerful asset we all have is our mind. If it is trained well, it can create enormous wealth.", author: "Robert Kiyosaki", book: "Rich Dad Poor Dad" },
+    
+    { text: "Your ikigai is the reason you get up in the morning.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    { text: "Life is not a puzzle to be solved, but a mystery to be lived.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    { text: "The happiest people are the ones who discover what they love and pursue it with relentless passion.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    { text: "Stay active; never retire. To retire is to die.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    { text: "Finding your ikigai is a journey of self-discovery that requires patience, action, and reflection.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    { text: "A small thing done well is better than a big thing done poorly.", author: "Héctor García & Francesc Miralles", book: "Ikigai" },
+    
+    { text: "If you have to eat two frogs, eat the ugliest one first.", author: "Brian Tracy", book: "Eat That Frog" },
+    { text: "Every minute you spend planning saves you ten minutes in execution.", author: "Brian Tracy", book: "Eat That Frog" },
+    { text: "The ability to concentrate single-mindedly on your most important task is the key to success.", author: "Brian Tracy", book: "Eat That Frog" },
+    { text: "You cannot hit a target you cannot see.", author: "Brian Tracy", book: "Eat That Frog" },
+    { text: "Don't let your phone or email dictate your day; you dictate your day.", author: "Brian Tracy", book: "Eat That Frog" },
+    { text: "The biggest trap is thinking that small things don't matter. They do.", author: "Brian Tracy", book: "Eat That Frog" },
+    
+    { text: "Work is love made visible.", author: "Kahlil Gibran", book: "The Prophet" },
+    { text: "Your pain is the breaking of the shell that encloses your understanding.", author: "Kahlil Gibran", book: "The Prophet" },
+    { text: "You give but little when you give of your possessions. It is when you give of yourself that you truly give.", author: "Kahlil Gibran", book: "The Prophet" },
+    { text: "Doubt is a pain too lonely to know that faith is his twin brother.", author: "Kahlil Gibran", book: "The Prophet" },
+    { text: "To understand the heart and mind of a person, look not at what he has already achieved, but at what he aspires to.", author: "Kahlil Gibran", book: "The Prophet" },
+    { text: "Life without love is like a tree without blossoms or fruit.", author: "Kahlil Gibran", book: "The Prophet" },
+    
+    { text: "Man is no man's slave.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    { text: "I would rather die standing than live on my knees.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    { text: "Rage is a fire that burns in the heart of the just.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    { text: "You do not follow me because I am the strongest. You follow me because I am the most right.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    { text: "I am the architect of my own destruction.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    { text: "We are the sum of our deeds, not our words.", author: "Pierce Brown", book: "Red Rising Trilogy" },
+    
+    { text: "Wealth is what you don't see.", author: "Morgan Housel", book: "Psychology of Money" },
+    { text: "Spending money to show people how much money you have is the fastest way to have less money.", author: "Morgan Housel", book: "Psychology of Money" },
+    { text: "The highest form of wealth is the ability to wake up every morning and say, 'I can do whatever I want today.'", author: "Morgan Housel", book: "Psychology of Money" },
+    { text: "Being rich is not about how much you make, but how much you keep.", author: "Morgan Housel", book: "Psychology of Money" },
+    { text: "Happiness is results minus expectations.", author: "Morgan Housel", book: "Psychology of Money" },
+    { text: "The most important part of every plan is planning on your plan not going according to plan.", author: "Morgan Housel", book: "Psychology of Money" },
+    
+    { text: "Let me not then die ingloriously and without a struggle, but let me first do some great thing that shall be told among men hereafter.", author: "Homer", book: "The Iliad" },
+    { text: "Ever to be best, and stand far above all other men.", author: "Homer", book: "The Iliad" }
+  ];
+
+  let currentQuote = 0;
+  const qContent = document.getElementById('quoteContent');
+  const qText = document.getElementById('quoteText');
+  const qAuthor = document.getElementById('quoteAuthor');
+  const qBook = document.getElementById('quoteBook');
+  
+  // Initialize first quote
+  qText.innerText = `"${heroQuotes[0].text}"`;
+  qAuthor.innerText = heroQuotes[0].author;
+  qBook.innerText = heroQuotes[0].book;
+  
+  setInterval(() => {
+    let nextQuote = currentQuote;
+    // Pick a random quote, ensuring it's not the exact same one as before
+    do {
+      nextQuote = Math.floor(Math.random() * heroQuotes.length);
+    } while (nextQuote === currentQuote && heroQuotes.length > 1);
+    
+    currentQuote = nextQuote;
+    
+    // Fade out
+    qContent.classList.add('changing');
+    
+    setTimeout(() => {
+      // Update content
+      const q = heroQuotes[currentQuote];
+      qText.innerText = `"${q.text}"`;
+      qAuthor.innerText = q.author;
+      qBook.innerText = q.book;
+      
+      // Fade in
+      qContent.classList.remove('changing');
+    }, 600); // Wait for fade out transition
+  }, 5500); // 5.5 seconds interval
+}
+
+/* Desktop Cursor & Slab Glow */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 1024) {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,.book-slab').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    if(el.classList.contains('book-slab')) {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
       });
-      ticking = true;
+    }
+  });
+}
+
+/* Mobile 3D Deck Logic */
+if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
+  const books = [
+    { genre: "Business · Change", title: "Who Moved My Cheese?", author: "by Spencer Johnson", summary: "A simple parable about two mice and two little people who react differently when their cheese supply runs out. It explores how to deal with change gracefully in work and life.", lesson: "What would you do if you weren't afraid?", color: "#E85D3A", glow: "#FF9D5C", dark: "#4a1205" },
+    { genre: "Fiction · Quest", title: "The Alchemist", author: "by Paulo Coelho", summary: "A magical tale of Santiago, a young Andalusian shepherd who journeys to the Egyptian desert in search of a worldly treasure, only to discover the profound treasures hidden within his own heart.", lesson: "When you want something, all the universe conspires in helping you to achieve it.", color: "#2B4C7E", glow: "#5b9bdd", dark: "#091424" },
+    { genre: "Finance · Mindset", title: "Rich Dad Poor Dad", author: "by Robert Kiyosaki", summary: "A classic that contrasts the mindsets of two father figures. It reshapes how we view assets and liabilities, showing that financial literacy is more important than formal education.", lesson: "Don't work for money; make it work for you.", color: "#D4A017", glow: "#ffdb5e", dark: "#3a2a04" },
+    { genre: "Philosophy · Lifestyle", title: "Ikigai", author: "by Héctor García & Francesc Miralles", summary: "An exploration of the Japanese concept of 'ikigai'—a reason for being. It uncovers the secrets to a long, happy life by finding the intersection of what you love, what you are good at, what the world needs, and what you can be paid for.", lesson: "Your ikigai is the reason you get up in the morning.", color: "#3A7D6E", glow: "#5fe0c4", dark: "#08221d" },
+    { genre: "Productivity", title: "Eat That Frog", author: "by Brian Tracy", summary: "A practical guide to overcoming procrastination. Tracy argues that if you 'eat the frog'—tackle your hardest, most important task first thing in the morning—the rest of the day will feel remarkably easy.", lesson: "If you have to eat two frogs, eat the ugliest one first.", color: "#8E44AD", glow: "#c77dff", dark: "#2a0d34" },
+    { genre: "Philosophy · Poetry", title: "The Prophet", author: "by Kahlil Gibran", summary: "A beautiful collection of poetic essays where Almustafa, the chosen prophet, shares his timeless wisdom on joy, sorrow, work, and love with the people of Orphalese before his departure.", lesson: "Work is love made visible.", color: "#16A085", glow: "#1abc9c", dark: "#05231d" },
+    { genre: "Sci-Fi · Dystopia", title: "Red Rising Trilogy", author: "by Pierce Brown", summary: "A thrilling sci-fi epic following Darrow, a Red laborer in a color-coded society on Mars. Driven by tragedy, he infiltrates the elite Golds to tear down the oppressive hierarchy from within.", lesson: "Man is no man's slave.", color: "#C0392B", glow: "#e74c3c", dark: "#350d08" },
+    { genre: "Finance · Behavior", title: "Psychology of Money", author: "by Morgan Housel", summary: "Housel explores how behavior, not math, dictates financial success. The book delves into how making good financial decisions is less about what you know and more about how you behave.", lesson: "Wealth is what you don't see.", color: "#2980B9", glow: "#3498db", dark: "#0c2735" },
+    { genre: "Epic · Mythology", title: "The Iliad", author: "by Homer", summary: "An ancient Greek epic poem set during the final weeks of the ten-year Trojan War. It explores the rage of Achilles, the wrath of the gods, and the tragic, fleeting nature of heroism and mortality.", lesson: "Let me not then die ingloriously and without a struggle, but let me first do some great thing that shall be told among men hereafter.", color: "#D35400", glow: "#e67e22", dark: "#3a1600" }
+  ];
+
+  let currentIndex = 0;
+  let isSwapping = false;
+  const mCard = document.getElementById('mCard');
+  const mWrapper = document.getElementById('mWrapper');
+  const mStage = document.getElementById('mobileStage');
+  const mDotsContainer = document.getElementById('mDots');
+  const gyroBtn = document.getElementById('gyroBtn');
+
+  // Create Dots
+  books.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'm-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => {
+      if (i !== currentIndex && !isSwapping) {
+        let dir = i - currentIndex;
+        changeBook(dir);
+      }
+    });
+    mDotsContainer.appendChild(dot);
+  });
+
+  function updateContent(index) {
+    const book = books[index];
+    document.getElementById('mGenre').innerText = book.genre;
+    document.getElementById('mTitle').innerText = book.title;
+    document.getElementById('mAuthor').innerText = book.author;
+    document.getElementById('mSummary').innerText = book.summary;
+    document.getElementById('mLesson').innerText = '"' + book.lesson + '"';
+
+    const mBack = document.querySelector('.m-back');
+    mBack.style.setProperty('--c-glow', book.glow);
+    mBack.style.setProperty('--c', book.color);
+    mBack.style.setProperty('--c-dark', book.dark);
+
+    document.querySelectorAll('.m-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  function changeBook(dir) {
+    if (isSwapping) return;
+    isSwapping = true;
+    
+    currentIndex = (currentIndex + dir + books.length) % books.length;
+    
+    // Ensure smooth fade out and reset tilt
+    mWrapper.style.transition = 'transform 0.4s ease, opacity 0.3s ease';
+    mWrapper.style.transform = ''; // Reset tilt if any
+    
+    // Fade out
+    mWrapper.classList.add('swapping');
+    
+    setTimeout(() => {
+      updateContent(currentIndex);
+      
+      // Silently reset to front face while invisible
+      mCard.style.transition = 'none';
+      mCard.classList.remove('flipped');
+      void mCard.offsetWidth; // Force reflow
+      mCard.style.transition = ''; // Restore default CSS transition
+      
+      // Fade in
+      mWrapper.classList.remove('swapping');
+      isSwapping = false;
+    }, 300);
+  }
+
+  // Tap to Flip & Swipe Logic
+  let touchStartX = 0, touchStartY = 0, hasMoved = false;
+  
+  mCard.addEventListener('touchstart', e => {
+    if (isSwapping) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    hasMoved = false;
+    
+    const rect = mCard.getBoundingClientRect();
+    const mx = e.touches[0].clientX - rect.left;
+    const my = e.touches[0].clientY - rect.top;
+    mCard.style.setProperty('--mx', mx + 'px');
+    mCard.style.setProperty('--my', my + 'px');
+    
+    // Make the tilt follow the finger snappily
+    mWrapper.style.transition = 'transform 0.1s ease-out';
+  }, { passive: true });
+
+  mCard.addEventListener('touchmove', e => {
+    if (isSwapping) return;
+    
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+    
+    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) hasMoved = true;
+    
+    // Prevent page scroll if swiping horizontally
+    if (hasMoved && Math.abs(dx) > Math.abs(dy)) {
+      e.preventDefault();
+    }
+
+    const rect = mCard.getBoundingClientRect();
+    const mx = e.touches[0].clientX - rect.left;
+    const my = e.touches[0].clientY - rect.top;
+    mCard.style.setProperty('--mx', mx + 'px');
+    mCard.style.setProperty('--my', my + 'px');
+
+    const px = (mx / rect.width) - 0.5;
+    const py = (my / rect.height) - 0.5;
+    
+    const isFlipped = mCard.classList.contains('flipped');
+    // Invert direction if flipped so it feels physically accurate
+    const rotY = (isFlipped ? -px : px) * 15;
+    const rotX = (isFlipped ? py : -py) * 15;
+
+    mWrapper.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  }, { passive: false });
+
+  mCard.addEventListener('touchend', e => {
+    if (isSwapping) return;
+    
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    
+    // Smoothly reset wrapper tilt and prepare for opacity transition
+    mWrapper.style.transition = 'transform 0.4s ease, opacity 0.3s ease';
+    mWrapper.style.transform = '';
+    
+    if (!hasMoved) {
+      // Tap to flip
+      mCard.classList.toggle('flipped');
+    } else if (Math.abs(dx) > 60) {
+      // Swipe to next/prev
+      changeBook(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+
+  // Arrows
+  document.getElementById('prevBook').addEventListener('click', () => changeBook(-1));
+  document.getElementById('nextBook').addEventListener('click', () => changeBook(1));
+
+  // Gyroscope
+  gyroBtn.addEventListener('click', () => {
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            enableGyro();
+            gyroBtn.style.display = 'none';
+          }
+        })
+        .catch(console.error);
+    } else {
+      enableGyro();
+      gyroBtn.style.display = 'none';
     }
   });
 
-  card.addEventListener('click', function() {
-    if (window.matchMedia('(max-width: 1024px), (hover: none)').matches) {
-      if (this.classList.contains('active')) {
-        this.classList.remove('active');
-      } else {
-        document.querySelectorAll('.scattered-card.active').forEach(function(otherCard) {
-          otherCard.classList.remove('active');
-        });
-        this.classList.add('active');
-      }
-    }
+  function enableGyro() {
+    window.addEventListener('deviceorientation', e => {
+      if (!e.gamma && !e.beta) return;
+      const x = Math.max(-30, Math.min(30, e.beta - 45));
+      const y = Math.max(-30, Math.min(30, e.gamma));
+      const flipped = mCard.classList.contains('flipped') ? 180 : 0;
+      mWrapper.style.transform = `rotateX(${-x/2}deg) rotateY(${y/2 + flipped}deg)`;
+    });
+  }
+
+  renderBook(0); // Initialize first book
+  function renderBook(index) {
+    updateContent(index);
+  }
+}
+
+/* Page Loader */
+(function(){
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function() {
+    setTimeout(function() { loader.classList.add('loaded'); }, 800);
+    setTimeout(function() { loader.style.display = 'none'; }, 1600);
   });
-});
+  setTimeout(function() {
+    loader.classList.add('loaded');
+    setTimeout(function() { loader.style.display = 'none'; }, 800);
+  }, 3000);
+})();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
