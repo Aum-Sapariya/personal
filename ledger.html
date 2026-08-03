@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="The Ledger of Life - A philosophical balance sheet of assets and liabilities by Aum Sapariya.">
+    <meta name="keywords" content="Aum Sapariya, balance sheet of life, philosophical assets, life liabilities, Bhagavad Gita cures, CA student blog">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Aum Sapariya - The Ledger",
+      "url": "https://aum-sapariya.vercel.app/ledger.html"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Ledger — Aum Sapariya</title>
+
+    <meta property="og:title" content="The Ledger — Aum Sapariya">
+    <meta property="og:site_name" content="Aum Sapariya">
+    <meta property="og:url" content="https://aum-sapariya.vercel.app/ledger.html">
+    <meta property="og:description" content="A philosophical balance sheet of assets and liabilities.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/portrait.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+    :root {
+      --bg: #050505; --bg-2: #0a0a0a; --surface: #141414;
+      --border: #2a2a2a; --border-strong: #3a3a3a;
+      --accent: #E85D3A; --accent-soft: #1a0d06;
+      --accent-2: #2B4C7E; --accent-2-soft: #080e1a;
+      --text: #F5F5F4; --text-dim: #A8A29E; --text-faint: #78716C;
+      --asset-c: #D4A017; --asset-glow: #ffdb5e; --asset-dark: #1c1604;
+      --liab-c: #2980B9; --liab-glow: #5b9bdd; --liab-dark: #0c2735;
+      --serif: 'Fraunces', serif; --sans: 'Manrope', sans-serif;
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ultra-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative}
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+    
+    .page-loader{position:fixed;inset:0;background:var(--accent);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;clip-path:circle(150% at 50% 50%);transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1)}
+    .page-loader.loaded{clip-path:circle(0% at 50% 50%)}
+    .page-loader .loader-name{color:#fff;font-family:var(--serif);font-style:italic;font-size:1.8rem;opacity:0;animation:loaderFade 1.6s ease forwards}
+    .page-loader .loader-sub{color:rgba(255,255,255,0.7);font-size:0.7rem;letter-spacing:0.2em;opacity:0;animation:loaderFade 1.4s ease 0.15s forwards;text-align:center;padding:0 1rem}
+    @keyframes loaderFade{0%{opacity:0;transform:translateY(12px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;background:linear-gradient(90deg,var(--liab-c),var(--accent),var(--asset-c));border-radius:0 2px 2px 0;transition:width 0.08s linear}
+    .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+    .cursor-dot{width:8px;height:8px;background:var(--text);mix-blend-mode:difference}
+    .cursor-ring{width:40px;height:40px;border:1.5px solid var(--accent);opacity:0.5;transition:width 0.35s var(--spring),height 0.35s var(--spring),opacity 0.3s ease,border-color 0.3s ease,background 0.3s ease}
+    .cursor-ring.hover{width:72px;height:72px;opacity:1;border-color:var(--accent);background:rgba(232,93,58,0.06)}
+
+    .topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:920px;z-index:1000;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.65);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.06);border-radius:24px;box-shadow:0 4px 24px rgba(0,0,0,0.3);transition:padding 0.4s var(--smooth),background 0.4s ease,box-shadow 0.4s ease}
+    .topbar.scrolled{padding:0.7rem 2rem;background:rgba(10,10,10,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.4)}
+    .topbar .logo{font-family:var(--serif);font-size:1.2rem;letter-spacing:0.05em;color:var(--text);font-weight:400;white-space:nowrap;text-decoration:none}
+    .topbar .logo em{font-style:italic;color:var(--accent)}
+    .topbar .meta{font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem; font-family:var(--serif); font-style:italic;}
+    .topbar .meta .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+    .hamburger{display:none;background:none;border:none;color:var(--text);padding:4px;z-index:1001}
+    .hamburger span{display:block;width:20px;height:1.5px;background:var(--text);margin:5px 0;transition:all 0.35s var(--spring);transform-origin:center;border-radius:2px}
+    .hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+    .mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(5,5,5,0.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;opacity:0;visibility:hidden;transition:opacity 0.5s var(--smooth),visibility 0.5s}
+    .mobile-menu.open{opacity:1;visibility:visible}
+    .mobile-menu a{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text-dim);text-decoration:none;letter-spacing:0.02em;transition:color 0.3s ease,transform 0.5s var(--spring);transform:translateY(20px);opacity:0}
+    .mobile-menu.open a{transform:translateY(0);opacity:1}
+    .mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}.mobile-menu.open a:nth-child(7){transition-delay:0.42s}
+    .mobile-menu a:hover{color:var(--accent)}
+    .mobile-menu a em{font-style:italic;color:var(--accent)}
+    .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
+
+    section{position:relative;padding:7rem 3rem;z-index:1}
+    @media(max-width:768px){section{padding:5rem 1.5rem}}
+    
+    .container{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+    .grad-text{background:linear-gradient(135deg,var(--liab-c),var(--accent),var(--asset-c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero{min-height:80vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 4rem;overflow:hidden}
+    @media(max-width:768px){.hero{padding:7rem 1.5rem 3rem;min-height:auto}}
+    .hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,8vw,7rem);font-weight:300;line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem}
+    .hero-text h1 em{font-style:italic;font-weight:400}
+    .hero-text .subtitle{max-width:540px;font-size:1.05rem;color:var(--text-dim);line-height:1.75}
+
+    /* =========================================
+       1. DESKTOP SPLIT SCREEN LEDGER
+       ========================================= */
+    .ledger-section {
+      position: relative; width: 100%; height: 100vh;
+      min-height: 600px; overflow: hidden; display: flex; padding: 0; z-index: 1;
+    }
+    .ledger-panel {
+      flex: 1; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      transition: background-color 0.6s var(--smooth);
+    }
+    .ledger-assets { background: var(--asset-dark); }
+    .ledger-liabilities { background: var(--liab-dark); }
+
+    .ledger-words { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .word-item {
+      position: absolute; font-family: var(--serif); font-style: italic;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 400; white-space: nowrap;
+      pointer-events: none; transition: text-shadow 0.3s ease;
+    }
+    .ledger-assets .word-item { color: rgba(212, 160, 23, 0.08); text-shadow: none; }
+    .ledger-liabilities .word-item { color: rgba(41, 128, 185, 0.08); text-shadow: none; }
+
+    .reveal-layer {
+      position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      -webkit-mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 70%);
+      mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 70%);
+    }
+    .reveal-layer .word-item { opacity: 1; }
+    .ledger-assets .reveal-layer .word-item { 
+      color: var(--asset-glow); text-shadow: 0 0 20px rgba(255, 219, 94, 0.6), 0 0 40px rgba(212, 160, 23, 0.4);
+    }
+    .ledger-liabilities .reveal-layer .word-item { 
+      color: var(--liab-glow); text-shadow: 0 0 20px rgba(91, 155, 221, 0.6), 0 0 40px rgba(41, 128, 185, 0.4);
+    }
+
+    .panel-label {
+      position: absolute; top: 4rem; font-size: 0.7rem; letter-spacing: 0.3em;
+      text-transform: uppercase; font-family: var(--sans); font-weight: 600;
+      z-index: 5; pointer-events: none; opacity: 0.5;
+    }
+    /* Swapped labels */
+    .ledger-liabilities .panel-label { left: 4rem; color: var(--liab-c); }
+    .ledger-assets .panel-label { right: 4rem; color: var(--asset-c); }
+
+    .equity-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+      background: linear-gradient(180deg, transparent, var(--text-faint), transparent);
+      z-index: 10; pointer-events: none;
+    }
+    .equity-core {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(5,5,5,0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem 2rem; border-radius: 50px; z-index: 15; text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.8); pointer-events: none;
+    }
+    .equity-label {
+      display: block; font-size: 0.6rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem;
+    }
+    .equity-value {
+      font-family: var(--serif); font-style: italic; font-size: 1.5rem;
+      color: var(--text); letter-spacing: 0.02em;
+    }
+
+    /* =========================================
+       2. EXPOSITION SECTION (Text Breakdown)
+       ========================================= */
+    .exposition-section { padding: 8rem 3rem; background: var(--bg-2); }
+    .exposition-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; max-width: 1300px; margin: 0 auto;
+    }
+    .exp-col h3 {
+      font-family: var(--serif); font-size: 0.8rem; letter-spacing: 0.35em;
+      text-transform: uppercase; margin-bottom: 3rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-col.assets h3 { color: var(--asset-c); }
+    .exp-col.liabilities h3 { color: var(--liab-c); }
+    
+    .exp-item { margin-bottom: 3rem; display: flex; flex-direction: column; }
+    .exp-item:last-child { margin-bottom: 0; }
+    
+    .exp-title {
+      font-family: var(--serif); font-style: italic; font-size: 1.8rem;
+      font-weight: 400; margin-bottom: 0.8rem; color: var(--text);
+    }
+    .exp-desc {
+      font-size: 0.95rem; line-height: 1.7; color: var(--text-dim); margin-bottom: 1rem;
+    }
+    
+    /* Matching boxes for visual balance */
+    .insight-box {
+      padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; margin-top: auto;
+    }
+    .asset-practice {
+      background: rgba(212, 160, 23, 0.05); border-left: 2px solid var(--asset-c);
+    }
+    .gita-cure {
+      background: rgba(41, 128, 185, 0.05); border-left: 2px solid var(--liab-c);
+    }
+    .box-label {
+      display: block; font-size: 0.65rem; letter-spacing: 0.3em;
+      text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .asset-practice .box-label { color: var(--asset-glow); }
+    .box-text {
+      font-size: 0.9rem; line-height: 1.6; color: var(--text);
+    }
+    .gita-source {
+      display: block; font-family: var(--serif); font-style: italic;
+      font-size: 0.8rem; color: var(--text-faint); margin-top: 0.6rem; text-align: right;
+    }
+
+    @media (max-width: 1024px) {
+      .exposition-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .exposition-section { padding: 5rem 1.5rem; }
+    }
+
+    /* =========================================
+       3. MOBILE FLIP CARD LEDGER
+       ========================================= */
+    .mobile-ledger { display: none; padding: 4rem 1.5rem; }
+    .flip-card-container {
+      display: flex; flex-direction: column; gap: 1.5rem;
+      max-width: 400px; margin: 0 auto;
+    }
+    .flip-card { perspective: 1500px; height: 320px; }
+    .flip-card-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.7s var(--spring); transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-face {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 20px; padding: 2.5rem 2rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .face-front { background: var(--liab-dark); }
+    .face-back { background: var(--asset-dark); transform: rotateY(180deg); }
+    .face-tag {
+      font-size: 0.6rem; letter-spacing: 0.3em;
+      text-transform: uppercase; font-weight: 600;
+    }
+    .face-front .face-tag { color: var(--liab-glow); }
+    .face-back .face-tag { color: var(--asset-glow); }
+    .face-title {
+      font-family: var(--serif); font-size: 2rem; font-style: italic;
+      font-weight: 400; line-height: 1.1; margin-bottom: 0.8rem; color: #fff;
+    }
+    .face-desc { font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.7); }
+    .flip-hint {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;
+    }
+
+    .footer{padding:7rem 3rem 2.5rem;background:#000;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
+    @media(max-width:1024px){.footer{padding:5rem 1.5rem 2rem}}
+    .footer-bottom{max-width:1400px;margin:0 auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#57534E}
+    .footer-bottom a{color:#57534E;text-decoration:none;transition:color 0.3s}
+    .footer-bottom a:hover{color:var(--accent)}
+    .footer-bottom .accent{color:var(--accent)}
+
+    .reveal{opacity:0;transform:translateY(35px);transition:opacity 0.9s var(--spring),transform 0.9s var(--spring)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width: 1024px) {
+      .ledger-section { display: none; }
+      .mobile-ledger { display: block; }
+    }
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+    ::selection{background:var(--accent);color:#fff}
+    </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="page-loader" id="pageLoader">
+  <span class="loader-name">The Ledger</span>
+  <span class="loader-sub">Assets · Liabilities · Equity</span>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<header class="topbar" id="topbar">
+  <a href="index.html" class="logo">Aum <em>Sapariya</em></a>
+  <div class="meta">
+    <span class="dot"></span>
+    <span>What you own defines you. What you owe refines you.</span>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#hero"><em>00</em> — Origin</a>
+  <a href="index.html#bygone"><em>01</em> — Bygone</a>
+  <a href="index.html#fleeting"><em>02</em> — Fleeting Blink</a>
+  <a href="index.html#hereafter"><em>03</em> — Hereafter</a>
+  <a href="ledger.html"><em>04</em> — The Ledger</a>
+  <a href="academics.html"><em>05</em> — Academic Journey</a>
+  <a href="library.html"><em>06</em> — The Library</a>
+  <span class="menu-label">Aum Sapariya · 2025</span>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-text">
+    <h1 class="reveal">
+      A quiet balance of<br>
+      <em class="grad-text">assets</em> and<br>
+      <em class="grad-text">liabilities</em>.
+    </h1>
+    <p class="subtitle reveal" data-delay="1">
+      In accountancy, a balance sheet captures the financial health of an entity. In life, it captures the soul. These are the philosophical assets that build me up, and the liabilities that hold me back. Move your cursor to illuminate the ledger.
+    </p>
+  </div>
+</section>
+
+<!-- DESKTOP LEDGER -->
+<section class="ledger-section">
+  
+  <!-- LIABILITIES PANEL (Left) -->
+  <div class="ledger-panel ledger-liabilities" id="liabPanel">
+    <div class="panel-label">Life Liabilities</div>
+    <div class="ledger-words">
+      <div class="word-item" style="top: 20%; left: 15%;">Procrastination</div>
+      <div class="word-item" style="top: 20%; left: 60%;">Distraction</div>
+      <div class="word-item" style="top: 45%; left: 15%;">Volatility</div>
+      <div class="word-item" style="top: 45%; left: 55%;">Obstinacy</div>
+      <div class="word-item" style="top: 70%; left: 20%;">Impatience</div>
+      <div class="word-item" style="top: 70%; left: 50%;">Counsel-Aversion</div>
+    </div>
+    <div class="reveal-layer">
+      <div class="word-item" style="top: 20%; left: 15%;">Procrastination</div>
+      <div class="word-item" style="top: 20%; left: 60%;">Distraction</div>
+      <div class="word-item" style="top: 45%; left: 15%;">Volatility</div>
+      <div class="word-item" style="top: 45%; left: 55%;">Obstinacy</div>
+      <div class="word-item" style="top: 70%; left: 20%;">Impatience</div>
+      <div class="word-item" style="top: 70%; left: 50%;">Counsel-Aversion</div>
+    </div>
+  </div>
+
+  <!-- ASSETS PANEL (Right) -->
+  <div class="ledger-panel ledger-assets" id="assetsPanel">
+    <div class="panel-label">Life Assets</div>
+    <div class="ledger-words">
+      <div class="word-item" style="top: 15%; left: 15%;">Integrity</div>
+      <div class="word-item" style="top: 15%; left: 55%;">Deep Focus</div>
+      <div class="word-item" style="top: 40%; left: 10%;">Solitude</div>
+      <div class="word-item" style="top: 40%; left: 45%;">Compassion</div>
+      <div class="word-item" style="top: 40%; left: 75%;">Honesty</div>
+      <div class="word-item" style="top: 65%; left: 15%;">Impartiality</div>
+      <div class="word-item" style="top: 65%; left: 55%;">Curiosity</div>
+      <div class="word-item" style="top: 85%; left: 35%;">Cognitive Agility</div>
+    </div>
+    <div class="reveal-layer">
+      <div class="word-item" style="top: 15%; left: 15%;">Integrity</div>
+      <div class="word-item" style="top: 15%; left: 55%;">Deep Focus</div>
+      <div class="word-item" style="top: 40%; left: 10%;">Solitude</div>
+      <div class="word-item" style="top: 40%; left: 45%;">Compassion</div>
+      <div class="word-item" style="top: 40%; left: 75%;">Honesty</div>
+      <div class="word-item" style="top: 65%; left: 15%;">Impartiality</div>
+      <div class="word-item" style="top: 65%; left: 55%;">Curiosity</div>
+      <div class="word-item" style="top: 85%; left: 35%;">Cognitive Agility</div>
+    </div>
+  </div>
+
+  <!-- CENTER EQUITY -->
+  <div class="equity-divider"></div>
+  <div class="equity-core">
+    <span class="equity-label">True Equity</span>
+    <span class="equity-value">Character</span>
+  </div>
+</section>
+
+<!-- MOBILE FLIP CARD LEDGER (Moved above exposition for mobile flow) -->
+<section class="mobile-ledger">
+  <div class="flip-card-container">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Procrastination</h3>
+            <p class="face-desc">The thief of time. Delaying necessary friction robs future potential for present comfort. The mind must be lifted by the self.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Deep Focus</h3>
+            <p class="face-desc">The antidote to delay. Channeling cognitive resources into a singular task, piercing through complexity with undivided attention.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Distraction</h3>
+            <p class="face-desc">The fragmentation of attention into shallow streams. One must withdraw the senses like a tortoise withdraws its limbs.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Solitude</h3>
+            <p class="face-desc">The quiet room of the mind. Carving out space away from the noise allows scattered pieces to reform into deep, original thought.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Impatience</h3>
+            <p class="face-desc">The urge to harvest before the season is right. You have a right to your duties, but never to the fruits of your actions.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Impartiality</h3>
+            <p class="face-desc">Maintaining an objective equilibrium. Trusting the compounding interest of habits and ensuring fairness without demanding instant results.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Volatility</h3>
+            <p class="face-desc">The combustion of reason when the ego meets resistance. One must tolerate the urges of desire and anger to find true steadiness.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Compassion</h3>
+            <p class="face-desc">The quiet empathy that humanizes the rigidity of logic. It dissolves anger and fosters genuine connections and understanding.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Obstinacy</h3>
+            <p class="face-desc">The stubborn refusal to act when the mind rebels. Surrendering the rigid sense of 'I' and 'mine' is required to perform one's duty.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Cognitive Agility</h3>
+            <p class="face-desc">The ability to rapidly assimilate new paradigms. It breaks rigid willfulness, allowing one to adapt to shifting logical frameworks.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-face face-front">
+          <span class="face-tag">Liability</span>
+          <div>
+            <h3 class="face-title">Counsel-Aversion</h3>
+            <p class="face-desc">The ego's shield against external wisdom. True knowledge dawns only when you approach the wise with submission and sincere inquiry.</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to reveal antidote</span>
+        </div>
+        <div class="flip-card-face face-back">
+          <span class="face-tag">Asset</span>
+          <div>
+            <h3 class="face-title">Curiosity</h3>
+            <p class="face-desc">The relentless pursuit of the "why." Approaching every book and every person with the humble question, "What can this teach me?"</p>
+          </div>
+          <span class="flip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip back</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPOSITION SECTION (Explanation & Gita Cures) -->
+<section class="exposition-section">
+  <div class="exposition-grid">
+    
+    <!-- LIABILITIES EXPOSITION & GITA CURES (Left Side) -->
+    <div class="exp-col liabilities">
+      <h3>The Liabilities & Gita Cures</h3>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Procrastination</h4>
+        <p class="exp-desc">The thief of time; the quiet habit of delaying necessary friction, robbing future potential for present comfort.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"Lift yourself by your own self; do not let yourself fall, for the self alone is the friend of the self, and the self alone is the enemy of the self." Conquer the restless mind through disciplined practice (Abhyasa).</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 6, Verse 5</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Distraction</h4>
+        <p class="exp-desc">The fragmentation of attention into a thousand shallow streams, severing the mind from deep, original thought.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"One who is able to withdraw his senses from their objects, as a tortoise withdraws its limbs into its shell, is firmly fixed in perfect knowledge."</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 2, Verse 58</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Impatience</h4>
+        <p class="exp-desc">The tension of wanting the harvest before the season is right, breaking discipline when results do not appear instantly.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results, and never be attached to not doing your duty."</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 2, Verse 47</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Volatility (Short Temper)</h4>
+        <p class="exp-desc">The combustion of reason when the ego meets resistance, leading to hasty words and fractured relationships.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"He who is able to tolerate the urges of the material senses and check the force of desire and anger... is happy in this world." Cultivate the steadiness of a sage undisturbed by dualities.</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 5, Verse 23</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Obstinacy (Rigid Willfulness)</h4>
+        <p class="exp-desc">The stubborn refusal to act when the mind rebels against logic or duty, binding oneself to transient emotional states.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"Therefore, O Arjuna, surrendering all your works unto Me with a mind free from the sense of 'I' and 'mine', perform your duties without being desirous of the results."</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 3, Verse 30</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Counsel-Aversion (Dislike of Advice)</h4>
+        <p class="exp-desc">The ego's shield against external wisdom; the assumption that one's own paradigm requires no calibration.</p>
+        <div class="insight-box gita-cure">
+          <p class="box-text">"Just try to learn the truth by approaching a spiritual master. Inquire from him submissively and render service unto him. The self-realized souls can impart knowledge unto you because they have seen the truth."</p>
+          <span class="gita-source">— Bhagavad Gita, Chapter 4, Verse 34</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ASSETS EXPOSITION (Right Side) -->
+    <div class="exp-col assets">
+      <h3>The Assets (What builds me)</h3>
+      
+      <div class="exp-item">
+        <h4 class="exp-title">Deep Focus</h4>
+        <p class="exp-desc">The capacity to channel cognitive resources into a singular task, piercing through complexity with undivided attention.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Single-tasking. Drowning out the noise to let one beam of logic cut through the dense volumes of ledgers and law."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Integrity</h4>
+        <p class="exp-desc">The unbreakable alignment between thought, word, and deed, forming the bedrock of professional and personal trust.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Doing what is right when no one is watching. Ensuring the inner reality matches the outer presentation flawlessly."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Solitude</h4>
+        <p class="exp-desc">The deliberate practice of seeking silence, creating the necessary space for deep synthesis and self-reflection away from external noise.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Embracing silence. Retreating inward to synthesize the external, finding clarity in the quiet spaces between the numbers."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Curiosity</h4>
+        <p class="exp-desc">The relentless pursuit of the "why," allowing one to remain a perpetual student of life, numbers, and human nature.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Asking 'why'. Remaining a perpetual student in the face of every ledger, every book, and every human interaction."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Cognitive Agility</h4>
+        <p class="exp-desc">The ability to rapidly assimilate new paradigms and adapt to shifting logical frameworks with swift precision.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Rewiring paradigms. Adapting to new logical structures and shifting regulations without resistance or delay."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Honesty</h4>
+        <p class="exp-desc">The uncompromising commitment to truth, ensuring every ledger and every interaction reflects absolute reality.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Uncompromising truth. Letting the numbers speak, regardless of the consequence or the comfort of the listener."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Impartiality</h4>
+        <p class="exp-desc">Maintaining an objective equilibrium, ensuring fairness and justice regardless of personal bias or external pressure.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"The middle path. Weighing every argument and every entity on a scale free of personal bias or emotional weight."</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <h4 class="exp-title">Compassion</h4>
+        <p class="exp-desc">The quiet empathy that humanizes the rigidity of logic, fostering genuine connections and understanding.</p>
+        <div class="insight-box asset-practice">
+          <span class="box-label">The Core Practice</span>
+          <p class="box-text">"Active empathy. Understanding the human behind the number, softening the sharp edges of logic with genuine care."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-bottom">
+    <div>© <span id="year">2025</span> <span class="accent">Aum Sapariya</span> · All rights, gently reserved</div>
+    <div><a href="index.html">← Back to Origin</a></div>
+  </div>
+</footer>
+
+<script>
+/* Custom Cursor (Only runs on devices that actually support hover) */
+(function(){
+  var dot = document.getElementById('cursorDot');
+  var ring = document.getElementById('cursorRing');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 1024) {
+    document.body.style.cursor = 'none';
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.flip-card').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', function() { ring.classList.remove('hover'); });
+    });
+  } else {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+  }
+})();
+
+/* Page Loader */
+(function(){
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function() {
+    setTimeout(function() { loader.classList.add('loaded'); }, 800);
+    setTimeout(function() { loader.style.display = 'none'; }, 1600);
+  });
+  setTimeout(function() {
+    loader.classList.add('loaded');
+    setTimeout(function() { loader.style.display = 'none'; }, 800);
+  }, 3000);
+})();
+
+/* Scroll Progress */
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', function() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+/* Topbar Scroll */
+(function(){
+  var topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function() {
+    topbar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
+/* Mobile Menu */
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('active');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('active');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+
+/* Reveal Animations */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+  } else {
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+
+/* Desktop Spotlight Tracking */
+(function(){
+  var assetsPanel = document.getElementById('assetsPanel');
+  var liabPanel = document.getElementById('liabPanel');
+  if (!assetsPanel || !liabPanel) return;
+
+  var ticking = false;
+  
+  function updateMouse(e) {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        // Update Assets Panel
+        var aRect = assetsPanel.getBoundingClientRect();
+        var ax = e.clientX - aRect.left;
+        var ay = e.clientY - aRect.top;
+        assetsPanel.style.setProperty('--mx', ax + 'px');
+        assetsPanel.style.setProperty('--my', ay + 'px');
+        
+        // Update Liabilities Panel
+        var lRect = liabPanel.getBoundingClientRect();
+        var lx = e.clientX - lRect.left;
+        var ly = e.clientY - lRect.top;
+        liabPanel.style.setProperty('--mx', lx + 'px');
+        liabPanel.style.setProperty('--my', ly + 'px');
+        
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  document.addEventListener('mousemove', updateMouse);
+})();
+
+/* Mobile Flip Cards */
+document.querySelectorAll('.flip-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    this.classList.toggle('flipped');
+  });
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
