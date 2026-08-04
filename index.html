@@ -23,11 +23,9 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="/portrait.jpg">
 
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<!-- Pointing directly to your new image in the public folder -->
+<link rel="icon" type="image/png" href="/app-icon.png">
+<link rel="apple-touch-icon" href="/app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -545,7 +543,10 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 <div class="blob blob-3"></div>
 
 <header class="topbar" id="topbar">
-  <div class="logo">Aum <em>Sapariya</em> <span class="logo-translate" id="logoTranslate"></span></div>
+<div class="logo">
+  <img src="/app-icon.png" alt="Aum Sapariya Logo" style="width: 32px; height: 32px; border-radius: 8px; margin-right: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+  Aum <em>Sapariya</em> <span class="logo-translate" id="logoTranslate"></span>
+</div>
   <div class="meta">
     <span class="dot"></span>
     <span>Balance the Crucible and the Crown</span>
