@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1"></stop>
+      <stop offset="50%" style="stop-color:#F4E5B0;stop-opacity:1"></stop>
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1"></stop>
+    </linearGradient>
+  </defs><rect width="512" height="512" rx="96" fill="#0a0a0a"></rect><rect x="16" y="16" width="480" height="480" rx="80" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.3"></rect><text x="256" y="340" font-family="'Times New Roman', Georgia, serif" font-size="320" font-weight="400" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="-10">A</text></svg>
