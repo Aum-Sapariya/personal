@@ -89,7 +89,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .mobile-menu.open{opacity:1;visibility:visible}
 .mobile-menu a{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text-dim);text-decoration:none;letter-spacing:0.02em;transition:color 0.3s ease,transform 0.5s var(--spring);transform:translateY(20px);opacity:0}
 .mobile-menu.open a{transform:translateY(0);opacity:1}
-.mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}.mobile-menu.open a:nth-child(7){transition-delay:0.42s}
+.mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}.mobile-menu.open a:nth-child(7){transition-delay:0.42s}.mobile-menu.open a:nth-child(8){transition-delay:0.48s}
 .mobile-menu a:hover{color:var(--accent)}
 .mobile-menu a em{font-style:italic;color:var(--accent)}
 .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
@@ -557,13 +557,14 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#hero"><em>00</em> — Origin</a>
-  <a href="index.html#bygone"><em>01</em> — Bygone</a>
-  <a href="index.html#fleeting"><em>02</em> — Fleeting Blink</a>
-  <a href="index.html#hereafter"><em>03</em> — Hereafter</a>
+  <a href="#hero"><em>00</em> — Origin</a>
+  <a href="#bygone"><em>01</em> — Bygone</a>
+  <a href="#fleeting"><em>02</em> — Fleeting Blink</a>
+  <a href="#hereafter"><em>03</em> — Hereafter</a>
   <a href="ledger.html"><em>04</em> — The Ledger</a>
   <a href="academics.html"><em>05</em> — Academic Journey</a>
   <a href="library.html"><em>06</em> — The Library</a>
+  <a href="margins.html"><em>07</em> — The Margins</a>
   <span class="menu-label">Aum Sapariya · 2026</span>
 </div>
 
@@ -575,6 +576,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   <a href="academics.html">04 — Academics ↗</a>
   <a href="library.html">05 — Library ↗</a>
   <a href="ledger.html">06 — Ledger ↗</a>
+  <a href="margins.html">07 — Margins ↗</a>
 </nav>
 
 <!-- HERO -->
@@ -888,6 +890,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     
+    <!-- CTA Wrapper with The Margins added -->
     <div class="cta-wrapper reveal" data-delay="1">
       <div class="cta-container">
         <div class="smoke-layer"></div>
@@ -923,6 +926,19 @@ section{position:relative;padding:7rem 3rem;z-index:1}
             <span class="cta-tag">The Ledger of Life</span>
             <h4 class="cta-title">"What you own defines you. What you owe refines you."</h4>
             <span class="cta-subtitle">Explore the philosophical balance sheet of my soul →</span>
+          </div>
+          <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
+        </a>
+      </div>
+      <div class="cta-divider"></div>
+      <div class="cta-container">
+        <div class="smoke-layer"></div>
+        <div class="glow-light"></div>
+        <a href="margins.html" class="cta-card">
+          <div class="cta-text-group">
+            <span class="cta-tag">The Margins</span>
+            <h4 class="cta-title">"The future I am building requires a philosophy worth building it upon."</h4>
+            <span class="cta-subtitle">Enter The Doctrine →</span>
           </div>
           <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
@@ -1242,6 +1258,20 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     frameId = requestAnimationFrame(decay);
   }
 })();
+
+/* Side Nav Smooth Scroll Fix */
+document.querySelectorAll('.side-nav a[href^="#"], .mobile-menu a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href.startsWith('#') && href.length > 1) {
+      e.preventDefault();
+      var targetEl = document.querySelector(href);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+});
 
 document.getElementById('year').textContent = "2026";
 </script>
