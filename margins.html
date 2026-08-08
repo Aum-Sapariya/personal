@@ -42,12 +42,21 @@
     }
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative}
-    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(28,25,23,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
-    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px)}
-    .blob-1{width:550px;height:550px;background:radial-gradient(circle,rgba(232,93,58,0.08),transparent 70%);top:-120px;right:-120px;animation:blobDrift 22s ease-in-out infinite}
-    .blob-2{width:450px;height:450px;background:radial-gradient(circle,rgba(43,76,126,0.06),transparent 70%);bottom:-80px;left:-100px;animation:blobDrift 28s ease-in-out infinite reverse}
-    @keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,40px) scale(1.1)}66%{transform:translate(25px,-25px) scale(0.93)}}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative;cursor:none;}
+    
+    /* Premium Grain Texture Overlay */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.4; mix-blend-mode: multiply;
+    }
+    
+    /* Ambient Blobs */
+    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px)}
+    .blob-1{width:600px;height:600px;background:radial-gradient(circle,rgba(232,93,58,0.1),transparent 70%);top:-150px;right:-150px;animation:blobDrift 22s ease-in-out infinite}
+    .blob-2{width:500px;height:500px;background:radial-gradient(circle,rgba(43,76,126,0.08),transparent 70%);bottom:-100px;left:-100px;animation:blobDrift 28s ease-in-out infinite reverse}
+    .blob-3{width:400px;height:400px;background:radial-gradient(circle,rgba(255,193,7,0.06),transparent 70%);top:40%;left:40%;animation:blobDrift 25s ease-in-out infinite 5s}
+    @keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-40px,50px) scale(1.1)}66%{transform:translate(30px,-30px) scale(0.93)}}
 
     .page-loader{position:fixed;inset:0;background:var(--accent);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;clip-path:circle(150% at 50% 50%);transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1)}
     .page-loader.loaded{clip-path:circle(0% at 50% 50%)}
@@ -57,13 +66,11 @@
 
     .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;background:linear-gradient(90deg,var(--accent),#FF8C42,var(--accent-2));border-radius:0 2px 2px 0;transition:width 0.08s linear}
     
-    /* Custom Cursor - Increased z-index to sit above modals */
+    /* Custom Cursor */
     .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:100002;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
     .cursor-dot{width:8px;height:8px;background:var(--text);mix-blend-mode:difference}
     .cursor-ring{width:40px;height:40px;border:1.5px solid var(--accent);opacity:0.5;transition:width 0.35s var(--spring),height 0.35s var(--spring),opacity 0.3s ease,border-color 0.3s ease,background 0.3s ease}
     .cursor-ring.hover{width:72px;height:72px;opacity:1;border-color:var(--accent);background:rgba(232,93,58,0.06)}
-    
-    /* Cursor visibility fix over dark modal backgrounds */
     body.modal-open .cursor-dot { background: #fff; mix-blend-mode: normal; }
     body.modal-open .cursor-ring { border-color: var(--accent); background: rgba(232,93,58,0.1); mix-blend-mode: normal; }
 
@@ -93,40 +100,31 @@
     section{position:relative;padding:7rem 3rem;z-index:1}
     @media(max-width:768px){section{padding:5rem 1.5rem}}
     
-    .container{max-width:1500px;margin:0 auto;position:relative;z-index:1;padding:0 4rem;}
+    /* Widened container to 1400px to match Academics/Library and utilize space */
+    .container{max-width:1400px;margin:0 auto;position:relative;z-index:1;padding:0 4rem;}
     @media(max-width:768px){.container{padding:0 1.5rem}}
     
-    .grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    
-    /* HERO */
-    .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:10rem 3rem 4rem;overflow:hidden}
+    /* HERO - Strictly Left Aligned */
+    .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 4rem 4rem;overflow:hidden;text-align:left;align-items:flex-start;}
     @media(max-width:768px){.hero{padding:8rem 1.5rem 3rem;min-height:auto}}
     
-    .hero-concept { 
-      font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.4em; 
-      text-transform: uppercase; color: var(--text-faint); margin-bottom: 2.5rem; 
-      opacity: 0; animation: slowFadeIn 2s ease 0.5s forwards;
-    }
-    .hero-title { 
-      font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; 
-      line-height: 1.4; letter-spacing: -0.01em; color: var(--text); max-width: 800px; 
-      opacity: 0; animation: slowFadeIn 4s var(--ultra-smooth) 1s forwards; 
-    }
-    .hero-title em { font-style: italic; color: var(--accent); font-weight: 400; }
-    .hero-line { 
-      width: 1px; height: 60px; background: var(--border-strong); 
-      margin: 3rem auto 2rem; transform-origin: top; 
-      opacity: 0; animation: lineGrow 1.5s ease 3s forwards; 
-    }
-    .hero-subtitle { 
-      font-size: 0.85rem; color: var(--text-dim); font-style: italic; font-family: var(--serif);
-      opacity: 0; animation: slowFadeIn 2s ease 3.5s forwards;
-    }
-    
+    .hero-text { width: 100%; max-width: 1400px; margin: 0 auto; }
+    .hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,8vw,7rem);font-weight:300;line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem}
+    .hero-text h1 em{font-style:italic;font-weight:400}
+    .grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-text .subtitle{max-width:540px;font-size:1.05rem;color:var(--text-dim);line-height:1.75;margin-top:2rem;}
+
+    /* Marquee */
+    .marquee-wrap{overflow:hidden;padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;width:100%;max-width:1400px;margin:3rem auto 0}
+    .marquee-track{display:flex;width:max-content;animation:marqueeScroll 35s linear infinite}
+    .marquee-text{font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--text-dim);white-space:nowrap;padding-right:2.5rem;letter-spacing:0.03em}
+    .marquee-text .sep{color:var(--accent);margin:0 0.8rem;font-style:normal}
+    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
     /* DOCTRINE META & THOUGHT BUTTON */
     .doctrine-meta {
-      margin-top: 4rem; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
-      opacity: 0; animation: slowFadeIn 2s ease 4s forwards;
+      margin-top: 4rem; display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+      width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;
     }
     .doctrine-version {
       font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.35em; 
@@ -134,130 +132,240 @@
       display: flex; align-items: center; gap: 0.8rem;
     }
     .doctrine-version .v-num { color: var(--accent); }
-    .doctrine-date { font-size: 0.65rem; color: var(--text-faint); font-style: italic; font-family: var(--serif); }
     
     .thought-btn {
-      margin-top: 2.5rem; background: transparent; border: 1px solid var(--text); 
-      color: var(--text); padding: 0.8rem 2rem; border-radius: 50px; 
+      background: var(--text); border: 1px solid var(--text); 
+      color: #fff; padding: 1rem 2.5rem; border-radius: 50px; 
       font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.3em; 
       text-transform: uppercase; font-weight: 600; cursor: none; 
       transition: all 0.4s var(--spring); display: inline-flex; align-items: center; gap: 0.8rem;
+      box-shadow: 0 10px 30px rgba(28,25,23,0.15);
     }
-    .thought-btn:hover { background: var(--text); color: #fff; transform: translateY(-2px); }
+    .thought-btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(232,93,58,0.3); }
     .thought-btn i { transition: transform 0.4s var(--spring); }
     .thought-btn:hover i { transform: rotate(90deg); }
 
-    @keyframes slowFadeIn { 0% { opacity: 0; transform: translateY(15px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
-    @keyframes lineGrow { 0% { opacity: 0; transform: scaleY(0); } 100% { opacity: 1; transform: scaleY(1); } }
+    /* Highlighters */
+    .hl{background:linear-gradient(180deg,transparent 50%,rgba(232,93,58,0.16) 50%);padding:0 3px;border-radius:2px;box-shadow:0 0 10px rgba(232,93,58,0.1)}
+    .hl-blue{background:linear-gradient(180deg,transparent 50%,rgba(43,76,126,0.12) 50%);padding:0 3px;border-radius:2px;box-shadow:0 0 10px rgba(43,76,126,0.1)}
+    .hl-yellow{background:linear-gradient(180deg,transparent 50%,rgba(255,193,7,0.18) 50%);padding:0 3px;border-radius:2px;box-shadow:0 0 10px rgba(255,193,7,0.1)}
+    .accent-text { color: var(--accent); font-weight: 500; }
+    .blue-text { color: var(--accent-2); font-weight: 500; }
 
-    /* EDITORIAL LAYOUT WITH RIGHT WATERMARK */
+    /* Ornamental Divider */
+    .ornament-divider {
+      display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+      margin: 4rem 0; color: var(--border-strong);
+    }
+    .ornament-divider .line { height: 1px; flex: 0 0 100px; background: var(--border-strong); }
+    .ornament-divider i { color: var(--accent); opacity: 0.6; font-size: 1rem; }
+
+    /* EDITORIAL LAYOUT - FLAT LEFT ALIGNED */
     .chapter-section {
-      padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      padding: 4rem 0;
       position: relative;
       overflow: hidden;
     }
-    .chapter-section:last-child { border-bottom: 1px solid var(--border); }
 
-    /* Right Accent Watermark Only */
+    /* Massive Gradient Watermark moved upwards and inwards */
     .wm-right {
       position: absolute;
-      right: 2rem;
-      top: 4rem;
+      right: 2rem; /* Moved inward to prevent clipping */
+      top: 0rem;
       font-family: var(--serif);
-      font-size: 8rem;
+      font-size: 10rem; 
       font-weight: 700;
       font-style: italic;
-      color: rgba(232, 93, 58, 0.08);
+      background: linear-gradient(135deg, var(--accent), #FF8C42);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
       line-height: 1;
-      transition: color 0.4s var(--ultra-smooth);
+      transition: opacity 0.4s var(--ultra-smooth);
     }
-    .chapter-section:hover .wm-right { color: rgba(232, 93, 58, 0.15); }
+    .chapter-section:hover .wm-right { opacity: 0.25; }
 
-    @media(max-width: 1024px) {
+    @media(max-width: 768px) {
       .wm-right {
-        position: relative;
-        top: auto;
-        right: auto;
-        text-align: right;
         font-size: 5rem;
-        margin-bottom: 1rem;
-        padding-right: 1rem;
-        color: rgba(232, 93, 58, 0.15);
+        top: 0;
+        right: 1rem;
       }
     }
 
-    .chapter-grid {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 5rem;
-      width: 100%;
+    /* Chapter Header - Title and Tags on same line */
+    .chapter-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
       position: relative;
       z-index: 2;
+      flex-wrap: wrap;
     }
-    @media(max-width: 1024px) {
-      .chapter-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .chapter-roman {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-faint);
+      font-weight: 400;
+    }
+    .chapter-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text);
+    }
+    .chapter-themes {
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 600;
+      padding-bottom: 0.4rem;
+    }
+    .chapter-themes span {
+      position: relative;
+    }
+    .chapter-themes span:not(:last-child)::after {
+      content: '·';
+      position: absolute;
+      right: -0.9rem;
+      color: var(--text-faint);
     }
 
-    .chapter-meta { position: relative; padding-top: 1rem; }
-    .chapter-roman { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--accent); font-weight: 400; display: block; margin-bottom: 0.5rem; position: relative; z-index: 2; }
-    .chapter-title { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.5rem; position: relative; z-index: 2; }
-    .chapter-themes { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); display: flex; gap: 0.6rem; flex-wrap: wrap; position: relative; z-index: 2; }
-    .chapter-themes span { padding: 0.3rem 0.8rem; border: 1px solid var(--border-strong); border-radius: 50px; background: var(--surface); }
-
-    .chapter-content { position: relative; z-index: 2; max-width: 800px; width: 100%; }
+    .chapter-content { position: relative; z-index: 2; width: 100%; max-width: 800px; }
 
     /* 3-LEVEL QUOTE HIERARCHY */
-    .quote-fragment { margin: 2.5rem 0; padding: 0.5rem 0 0.5rem 1.5rem; border-left: 2px solid var(--border); max-width: 500px; transition: border-color 0.3s ease; }
-    .quote-fragment:hover { border-color: var(--accent); }
-    .quote-fragment .q-text { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.5; margin-bottom: 0.4rem; display: block; }
+    
+    /* LEVEL 01: FRAGMENTS */
+    .quote-fragment { 
+      margin: 2.5rem 0; padding: 1rem 0 1rem 1.5rem; 
+      border-left: 2px solid var(--border); max-width: 500px; 
+      transition: all 0.4s var(--smooth); 
+    }
+    .quote-fragment:hover { 
+      border-color: var(--accent); 
+      transform: translateX(8px);
+    }
+    .quote-fragment .q-text { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 1.5; margin-bottom: 0.4rem; display: block; transition: color 0.3s ease; }
+    .quote-fragment:hover .q-text { color: var(--accent); }
     .quote-fragment .q-author { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); }
     .quote-fragment .q-source { font-family: var(--serif); font-style: italic; font-size: 0.8rem; color: var(--text-faint); display: block; margin-top: 0.3rem; }
 
-    /* LEVEL 02: ENTRIES */
-    .quote-entry { margin: 3rem 0; padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .quote-entry .q-text { font-family: var(--serif); font-size: 1.75rem; line-height: 1.4; font-weight: 400; margin-bottom: 1rem; color: var(--text); }
-    .quote-entry .q-author { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; display: block; font-weight: 600; }
-    .quote-entry .q-source { font-size: 0.85rem; font-style: italic; color: var(--text-dim); display: block; margin-bottom: 2rem; font-family: var(--serif); }
-    
-    /* WHY IT STAYED EXPANDABLE */
-    .q-prompt {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--text-faint); font-weight: 700; cursor: pointer;
-      transition: color 0.3s ease; margin-top: 1rem;
+    /* LEVEL 02: ENTRIES (Glassmorphism Premium Card) */
+    .quote-entry { 
+      margin: 3rem 0; padding: 3rem; 
+      background: rgba(255, 255, 255, 0.6); 
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.8); 
+      border-radius: 24px; 
+      position: relative; overflow: hidden;
+      box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      --mx: 50%; --my: 50%;
     }
-    .quote-entry:hover .q-prompt { color: var(--accent); }
+    .quote-entry::before { /* Cursor Spotlight */
+      content: '';
+      position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(400px circle at var(--mx) var(--my), rgba(232, 93, 58, 0.06), transparent 40%);
+      opacity: 0; transition: opacity 0.4s ease; pointer-events: none; z-index: 1;
+    }
+    .quote-entry::after { /* Background Quote Mark */
+      content: '"';
+      position: absolute; top: -3rem; right: 1rem; 
+      font-family: var(--serif); font-size: 12rem; 
+      color: rgba(232, 93, 58, 0.03); pointer-events: none; line-height: 1; z-index: 0;
+      transition: color 0.4s ease;
+    }
+    .quote-entry:hover { 
+      border-color: rgba(232,93,58,0.4); 
+      box-shadow: 0 25px 50px -20px rgba(0,0,0,0.15); 
+    }
+    .quote-entry:hover::before { opacity: 1; }
+    .quote-entry:hover::after { color: rgba(232, 93, 58, 0.08); }
+    
+    .quote-entry .q-text { font-family: var(--serif); font-size: 1.75rem; line-height: 1.4; font-weight: 400; margin-bottom: 1rem; color: var(--text); position: relative; z-index: 2; }
+    .quote-entry .q-author { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; display: block; font-weight: 600; position: relative; z-index: 2; }
+    .quote-entry .q-source { font-size: 0.85rem; font-style: italic; color: var(--text-dim); display: block; margin-bottom: 2rem; font-family: var(--serif); position: relative; z-index: 2; }
+    
+    /* WHY IT STAYED EXPANDABLE (Grid transition to prevent scroll jump) */
+    .q-prompt {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      font-weight: 700; cursor: pointer;
+      transition: all 0.3s ease; margin-top: 1rem; padding: 0.5rem 1rem;
+      background: var(--accent-soft); border-radius: 50px; color: var(--accent);
+      position: relative; z-index: 2;
+    }
+    .quote-entry:hover .q-prompt { background: var(--accent); color: #fff; box-shadow: 0 5px 15px rgba(232,93,58,0.2); }
     .quote-entry:hover .q-prompt i { transform: translateX(4px); }
     .q-prompt i { transition: transform 0.3s ease; }
     
-    .q-explanation-wrapper {
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: max-height 0.5s var(--smooth), opacity 0.4s ease, margin-top 0.5s ease;
+    .q-explanation-grid {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s var(--smooth), margin-top 0.5s var(--smooth);
       margin-top: 0;
+      position: relative; z-index: 2;
+    }
+    .q-explanation-wrapper {
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .quote-entry:hover .q-explanation-grid, .quote-entry.expanded .q-explanation-grid {
+      grid-template-rows: 1fr;
+      margin-top: 2rem;
     }
     .quote-entry:hover .q-explanation-wrapper, .quote-entry.expanded .q-explanation-wrapper {
-      max-height: 500px; opacity: 1; margin-top: 2rem;
+      opacity: 1;
     }
 
     .q-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; display: block; font-weight: 700; }
     .q-explanation { font-family: var(--sans); font-size: 1.1rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.6; max-width: 600px; }
     .q-values { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .q-value { font-size: 0.7rem; padding: 0.2rem 0.6rem; border: 1px solid var(--border-strong); border-radius: 50px; color: var(--text-dim); }
+    .q-value { font-size: 0.7rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border-strong); border-radius: 50px; color: var(--text-dim); background: var(--bg); }
 
-    /* LEVEL 03: PILLARS */
-    .quote-pillar { margin: 4rem 0; padding: 3rem; background: var(--text); color: #fff; border-radius: 24px; position: relative; overflow: hidden; }
-    .quote-pillar::before { content: '"'; position: absolute; top: -2rem; right: 1rem; font-family: var(--serif); font-size: 12rem; color: rgba(255,255,255,0.05); pointer-events: none; line-height: 1; }
-    .quote-pillar .p-tag { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: block; font-weight: 700; }
-    .quote-pillar .p-text { font-family: var(--serif); font-size: 2.2rem; line-height: 1.2; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; position: relative; z-index: 2; }
-    .quote-pillar .p-author { font-family: var(--serif); font-style: italic; color: var(--accent); margin-bottom: 2rem; display: block; font-size: 1rem; }
-    .quote-pillar .p-source { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem; font-style: italic; }
+    /* LEVEL 03: PILLARS (Premium Glow Card with Gradient Text) */
+    .quote-pillar { 
+      margin: 4rem 0; padding: 3rem; background: var(--text); color: #fff; border-radius: 24px; 
+      position: relative; overflow: hidden; 
+      transition: box-shadow 0.5s ease;
+      box-shadow: 0 20px 50px -20px rgba(0,0,0,0.3);
+    }
+    .quote-pillar::before { 
+      content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+      background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, var(--accent-2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.5; transition: opacity 0.5s ease; z-index: 1;
+    }
+    .quote-pillar:hover { box-shadow: 0 30px 60px -20px rgba(232,93,58,0.3); }
+    .quote-pillar:hover::before { opacity: 1; }
+    .quote-pillar::after { content: '"'; position: absolute; top: -2rem; right: 1rem; font-family: var(--serif); font-size: 12rem; color: rgba(255,255,255,0.05); pointer-events: none; line-height: 1; z-index: 0; }
+    
+    .quote-pillar .p-tag { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: block; font-weight: 700; position: relative; z-index: 2; }
+    .quote-pillar .p-text { 
+      font-family: var(--serif); font-size: 2rem; line-height: 1.2; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; position: relative; z-index: 2; 
+      background: linear-gradient(135deg, #fff, #A8A29E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .quote-pillar .p-author { font-family: var(--serif); font-style: italic; color: var(--accent); margin-bottom: 2rem; display: block; font-size: 1rem; position: relative; z-index: 2; }
+    .quote-pillar .p-source { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem; font-style: italic; position: relative; z-index: 2; }
     .quote-pillar .p-explanation { font-size: 1rem; color: rgba(255,255,255,0.8); max-width: 500px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; position: relative; z-index: 2; line-height: 1.6; }
 
     /* BELIEF / PRACTICE COMPONENT */
-    .belief-practice { margin: 4rem 0; display: grid; grid-template-columns: 1fr 1px 1fr; gap: 3rem; padding: 2.5rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; align-items: center; }
+    .belief-practice { margin: 4rem 0; display: grid; grid-template-columns: 1fr 1px 1fr; gap: 3rem; padding: 2.5rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: 24px; align-items: center; position: relative; box-shadow: 0 20px 40px -20px rgba(0,0,0,0.05); }
+    .belief-practice::before { content: 'Belief vs. Practice'; position: absolute; top: -10px; left: 2rem; background: var(--bg); padding: 0 1rem; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); font-weight: 700; }
     .bp-block { position: relative; }
     .bp-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1rem; display: block; font-weight: 700; }
     .bp-text { font-family: var(--serif); font-size: 1.25rem; color: var(--text); line-height: 1.4; font-weight: 400; }
@@ -273,7 +381,8 @@
     .contradictions-section { background: var(--bg-2); color: var(--text); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     @media(max-width: 768px) { .changed-section, .contradictions-section { padding: 5rem 1.5rem; } }
     
-    .changed-container { max-width: 1500px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 300px 1fr; gap: 5rem; }
+    /* Widened to match site container */
+    .changed-container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 300px 1fr; gap: 5rem; }
     @media(max-width: 1024px) { .changed-container { grid-template-columns: 1fr; gap: 2rem; } }
     
     .changed-title { font-family: var(--serif); font-size: 2.5rem; font-weight: 300; line-height: 1.1; position: relative; z-index: 2; }
@@ -282,8 +391,8 @@
     .changed-section .changed-intro { color: rgba(255,255,255,0.6); }
     
     .changed-list { display: flex; flex-direction: column; gap: 3rem; }
-    .changed-item { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 2rem; transition: border-color 0.3s ease; }
-    .changed-item:hover { border-color: var(--accent); }
+    .changed-item { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 2rem; transition: all 0.4s var(--smooth); }
+    .changed-item:hover { border-color: var(--accent); transform: translateX(8px); }
     .contradictions-section .changed-item { border-left: 2px solid var(--border); }
 
     /* Contradiction Layout */
@@ -308,11 +417,7 @@
 
     /* ANTI-DOCTRINE SECTION */
     .anti-doctrine-section {
-      background: #0c0c0c;
-      color: #fff; 
-      padding: 10rem 4rem; 
-      position: relative; 
-      overflow: hidden;
+      background: #0c0c0c; color: #fff; padding: 10rem 4rem; position: relative; overflow: hidden;
     }
     @media(max-width: 768px) { .anti-doctrine-section { padding: 5rem 1.5rem; } }
     .anti-list { display: flex; flex-direction: column; gap: 0; }
@@ -360,7 +465,7 @@
 
     /* RANDOM THOUGHT MODAL */
     .thought-modal {
-      position: fixed; inset: 0; z-index: 100000; /* Increased z-index */
+      position: fixed; inset: 0; z-index: 100000; 
       background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center; padding: 2rem;
       opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -379,11 +484,10 @@
     }
     .close-thought:hover { background: var(--accent); color: #fff; transform: rotate(90deg); }
     
-    /* Modal Quote Overrides (Force Expanded) */
-    .thought-modal-content .quote-entry { border: none; padding: 0; margin: 0; }
-    .thought-modal-content .q-explanation-wrapper {
-      max-height: 500px; opacity: 1; margin-top: 2rem;
-    }
+    .thought-modal-content .quote-entry { border: none; padding: 0; margin: 0; box-shadow: none; background: transparent; }
+    .thought-modal-content .quote-entry:hover { transform: none; box-shadow: none; border-color: transparent; }
+    .thought-modal-content .q-explanation-grid { grid-template-rows: 1fr; margin-top: 2rem; }
+    .thought-modal-content .q-explanation-wrapper { max-height: 500px; opacity: 1; }
     .thought-modal-content .q-prompt { display: none; }
 
     .footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
@@ -412,8 +516,10 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- Atmospheric Blobs -->
 <div class="blob blob-1"></div>
 <div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
 
 <!-- RANDOM THOUGHT MODAL -->
 <div class="thought-modal" id="thoughtModal">
@@ -448,17 +554,27 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <span class="hero-concept">The Doctrine · v1.0</span>
-  <h1 class="hero-title">
-    Words I have carried.<br>
-    Ideas I have returned to.<br>
-    Principles I am still <em>learning to live by</em>.
-  </h1>
-  <div class="hero-line"></div>
-  <p class="hero-subtitle">A collection of borrowed words and personal convictions.</p>
+  <div class="hero-text">
+    <h1 class="reveal">
+      A quiet record of<br>
+      <em class="grad-text">echoes</em> and<br>
+      <em class="grad-text">convictions</em>.
+    </h1>
+    <p class="subtitle reveal" data-delay="1">
+      A margin is the empty space around the text. It is where we make our notes, where we argue with the author, and where we quietly underline the <span class="hl">truths we aren't ready to forget</span>. These are the words that followed me out of the pages.
+    </p>
+  </div>
+
+  <!-- Academic Codex Marquee -->
+  <div class="marquee-wrap reveal" data-delay="2">
+    <div class="marquee-track">
+      <span class="marquee-text">The Doctrine <span class="sep">✦</span> Belief & Practice <span class="sep">✦</span> Contradictions <span class="sep">✦</span> Anti-Doctrine <span class="sep">✦</span> Personal Principles <span class="sep">✦</span></span>
+      <span class="marquee-text">The Doctrine <span class="sep">✦</span> Belief & Practice <span class="sep">✦</span> Contradictions <span class="sep">✦</span> Anti-Doctrine <span class="sep">✦</span> Personal Principles <span class="sep">✦</span></span>
+    </div>
+  </div>
 
   <!-- DOCTRINE META & THOUGHT BUTTON -->
-  <div class="doctrine-meta">
+  <div class="doctrine-meta reveal" data-delay="3">
     <span class="doctrine-version">Last revised <span class="v-num">08 AUGUST 2026</span></span>
     <button class="thought-btn" id="thoughtBtn">
       <i class="fa-solid fa-shuffle"></i>
@@ -473,35 +589,35 @@
   <!-- CHAPTER I -->
   <section class="chapter-section">
     <div class="wm-right">I</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter I</span>
-        <h2 class="chapter-title">Becoming</h2>
-        <div class="chapter-themes">
-          <span>Ambition</span><span>Growth</span><span>Identity</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">I.</span>
+      <h2 class="chapter-title">Becoming</h2>
+      <div class="chapter-themes">
+        <span>Ambition</span><span>Growth</span><span>Identity</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"It's the possibility of having a dream come true that makes life interesting."</span>
-          <span class="q-author">— Paulo Coelho</span>
-          <span class="q-source">The Alchemist</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"It's the possibility of having a <span class="accent-text">dream come true</span> that makes life interesting."</span>
+        <span class="q-author">— Paulo Coelho</span>
+        <span class="q-source">The Alchemist</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"When you want something, all the universe conspires in helping you to achieve it."</p>
-          <span class="q-author">Paulo Coelho</span>
-          <span class="q-source">The Alchemist</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"When you want something, all the <span class="hl">universe conspires</span> in helping you to achieve it."</p>
+        <span class="q-author">Paulo Coelho</span>
+        <span class="q-source">The Alchemist</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Because ambition isn't just wishing; it’s an alignment of focus. When you commit fully to a path, every resource, lesson, and hurdle begins to serve the trajectory.</p>
+            <p class="q-explanation">Because ambition isn't just wishing; it’s an <span class="accent-text">alignment of focus</span>. When you commit fully to a path, every resource, lesson, and hurdle begins to serve the trajectory.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -511,50 +627,52 @@
             </div>
           </div>
         </div>
-
-        <div class="quote-pillar">
-          <span class="p-tag">Personal Principle 01</span>
-          <p class="p-text">"I do not seek to be finished; I seek to be aligned. Growth is not a destination where I arrive, but a posture I maintain."</p>
-          <span class="p-author">— Aum Sapariya</span>
-          <span class="p-source">Personal Note · 2026</span>
-        </div>
-
       </div>
+
+      <div class="quote-pillar">
+        <span class="p-tag">Personal Principle 01</span>
+        <p class="p-text">"I do not seek to be finished; I seek to be aligned. Growth is not a destination where I arrive, but a posture I maintain."</p>
+        <span class="p-author">— Aum Sapariya</span>
+        <span class="p-source">Personal Note · 2026</span>
+      </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER II -->
   <section class="chapter-section">
     <div class="wm-right">II</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter II</span>
-        <h2 class="chapter-title">Discipline</h2>
-        <div class="chapter-themes">
-          <span>Work</span><span>Consistency</span><span>Patience</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">II.</span>
+      <h2 class="chapter-title">Discipline</h2>
+      <div class="chapter-themes">
+        <span>Work</span><span>Consistency</span><span>Patience</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"You do not rise to the level of your goals. You fall to the level of your systems."</span>
-          <span class="q-author">— James Clear</span>
-          <span class="q-source">Atomic Habits</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"You do not rise to the level of your goals. You fall to the level of your <span class="accent-text">systems</span>."</span>
+        <span class="q-author">— James Clear</span>
+        <span class="q-source">Atomic Habits</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"The work you do in the dark, when nobody is watching, dictates how bright the light shines when everyone is."</p>
-          <span class="q-author">Anonymous</span>
-          <span class="q-source">Unknown</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"The work you do in the <span class="hl-blue">dark</span>, when nobody is watching, dictates how bright the <span class="hl-yellow">light</span> shines when everyone is."</p>
+        <span class="q-author">Anonymous</span>
+        <span class="q-source">Unknown</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">True mastery comes from the silent hours—the unglamorous tracking of time, the repetition, the commitment to process over applause.</p>
+            <p class="q-explanation">True mastery comes from the <span class="hl">silent hours</span>—the unglamorous tracking of time, the repetition, the commitment to process over applause.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -564,55 +682,57 @@
             </div>
           </div>
         </div>
-
-        <div class="belief-practice">
-          <div class="bp-block belief">
-            <span class="bp-label">Belief</span>
-            <p class="bp-text">Discipline matters far more than transient motivation.</p>
-          </div>
-          <div class="bp-divider"></div>
-          <div class="bp-block practice">
-            <span class="bp-label">Practice</span>
-            <p class="bp-text">Log the hours and execute the task before granting permission to rest.</p>
-          </div>
-        </div>
-
       </div>
+
+      <div class="belief-practice">
+        <div class="bp-block belief">
+          <span class="bp-label">Belief</span>
+          <p class="bp-text">Discipline matters far more than transient motivation.</p>
+        </div>
+        <div class="bp-divider"></div>
+        <div class="bp-block practice">
+          <span class="bp-label">Practice</span>
+          <p class="bp-text">Log the hours and execute the task before granting permission to rest.</p>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER III -->
   <section class="chapter-section">
     <div class="wm-right">III</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter III</span>
-        <h2 class="chapter-title">Knowledge</h2>
-        <div class="chapter-themes">
-          <span>Curiosity</span><span>Learning</span><span>Wisdom</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">III.</span>
+      <h2 class="chapter-title">Knowledge</h2>
+      <div class="chapter-themes">
+        <span>Curiosity</span><span>Learning</span><span>Wisdom</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"The unexamined life is not worth living."</span>
-          <span class="q-author">— Socrates</span>
-          <span class="q-source">Plato, Apology</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"The <span class="accent-text">unexamined</span> life is not worth living."</span>
+        <span class="q-author">— Socrates</span>
+        <span class="q-source">Plato, Apology</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"For the breath of life is in the sunlight and the hand of life is in the wind."</p>
-          <span class="q-author">Kahlil Gibran</span>
-          <span class="q-source">The Prophet</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"For the <span class="hl">breath of life</span> is in the sunlight and the hand of life is in the wind."</p>
+        <span class="q-author">Kahlil Gibran</span>
+        <span class="q-source">The Prophet</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Knowledge isn't merely data accumulated in a ledger; it is perspective gained to understand the world and one's place within it.</p>
+            <p class="q-explanation">Knowledge isn't merely data accumulated in a ledger; it is <span class="accent-text">perspective gained</span> to understand the world and one's place within it.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -622,50 +742,52 @@
             </div>
           </div>
         </div>
-
-        <div class="quote-pillar">
-          <span class="p-tag">Personal Principle 02</span>
-          <p class="p-text">"Education equips the mind with tools; philosophy dictates how wisely those tools are used. I study to transform my thinking, not just to collect credentials."</p>
-          <span class="p-author">— Aum Sapariya</span>
-          <span class="p-source">Personal Note · 2026</span>
-        </div>
-
       </div>
+
+      <div class="quote-pillar">
+        <span class="p-tag">Personal Principle 02</span>
+        <p class="p-text">"Education equips the mind with tools; philosophy dictates how wisely those tools are used. I study to transform my thinking, not just to collect credentials."</p>
+        <span class="p-author">— Aum Sapariya</span>
+        <span class="p-source">Personal Note · 2026</span>
+      </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER IV -->
   <section class="chapter-section">
     <div class="wm-right">IV</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter IV</span>
-        <h2 class="chapter-title">Character</h2>
-        <div class="chapter-themes">
-          <span>Integrity</span><span>Responsibility</span><span>Courage</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">IV.</span>
+      <h2 class="chapter-title">Character</h2>
+      <div class="chapter-themes">
+        <span>Integrity</span><span>Responsibility</span><span>Courage</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"Break the chains of your thought, and you break the chains of your body, too."</span>
-          <span class="q-author">— Richard Bach</span>
-          <span class="q-source">Jonathan Livingston Seagull</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"Break the chains of your thought, and you break the chains of your <span class="accent-text">body</span>, too."</span>
+        <span class="q-author">— Richard Bach</span>
+        <span class="q-source">Jonathan Livingston Seagull</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"You have power over your mind—not outside events. Realize this, and you will find strength."</p>
-          <span class="q-author">Marcus Aurelius</span>
-          <span class="q-source">Meditations</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"You have power over your <span class="hl-blue">mind</span>—not outside events. Realize this, and you will find <span class="hl">strength</span>."</p>
+        <span class="q-author">Marcus Aurelius</span>
+        <span class="q-source">Meditations</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Character is built in the gap between stimulus and response. Choosing integrity over convenience defines who you are when no one is holding you accountable.</p>
+            <p class="q-explanation">Character is built in the <span class="hl-yellow">gap between stimulus and response</span>. Choosing integrity over convenience defines who you are when no one is holding you accountable.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -675,55 +797,57 @@
             </div>
           </div>
         </div>
-
-        <div class="belief-practice">
-          <div class="bp-block belief">
-            <span class="bp-label">Belief</span>
-            <p class="bp-text">Respect is earned through quiet standards, not loud declarations.</p>
-          </div>
-          <div class="bp-divider"></div>
-          <div class="bp-block practice">
-            <span class="bp-label">Practice</span>
-            <p class="bp-text">Keep promises made to myself with the same rigor as promises made to others.</p>
-          </div>
-        </div>
-
       </div>
+
+      <div class="belief-practice">
+        <div class="bp-block belief">
+          <span class="bp-label">Belief</span>
+          <p class="bp-text">Respect is earned through quiet standards, not loud declarations.</p>
+        </div>
+        <div class="bp-divider"></div>
+        <div class="bp-block practice">
+          <span class="bp-label">Practice</span>
+          <p class="bp-text">Keep promises made to myself with the same rigor as promises made to others.</p>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER V -->
   <section class="chapter-section">
     <div class="wm-right">V</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter V</span>
-        <h2 class="chapter-title">People</h2>
-        <div class="chapter-themes">
-          <span>Love</span><span>Friendship</span><span>Kindness</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">V.</span>
+      <h2 class="chapter-title">People</h2>
+      <div class="chapter-themes">
+        <span>Love</span><span>Friendship</span><span>Kindness</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"To love and be loved is to feel the sun from both sides."</span>
-          <span class="q-author">— David Viscott</span>
-          <span class="q-source">Anonymous</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"To love and be loved is to feel the sun from <span class="accent-text">both sides</span>."</span>
+        <span class="q-author">— David Viscott</span>
+        <span class="q-source">Anonymous</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"And think not you can direct the course of love, for love, if it finds you worthy, directs your course."</p>
-          <span class="q-author">Kahlil Gibran</span>
-          <span class="q-source">The Prophet</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"And think not you can direct the course of <span class="hl">love</span>, for love, if it finds you worthy, directs your course."</p>
+        <span class="q-author">Kahlil Gibran</span>
+        <span class="q-source">The Prophet</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Amidst ambitious pursuits and intellectual rigor, human connections ground us. Ambition without shared humanity is a lonely endeavor.</p>
+            <p class="q-explanation">Amidst ambitious pursuits and intellectual rigor, <span class="accent-text">human connections</span> ground us. Ambition without shared humanity is a lonely endeavor.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -733,43 +857,45 @@
             </div>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER VI -->
   <section class="chapter-section">
     <div class="wm-right">VI</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter VI</span>
-        <h2 class="chapter-title">Failure</h2>
-        <div class="chapter-themes">
-          <span>Mistakes</span><span>Resilience</span><span>Uncertainty</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">VI.</span>
+      <h2 class="chapter-title">Failure</h2>
+      <div class="chapter-themes">
+        <span>Mistakes</span><span>Resilience</span><span>Uncertainty</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"Man falls up, not down."</span>
-          <span class="q-author">— Pierce Brown</span>
-          <span class="q-source">Red Rising</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"Man falls <span class="accent-text">up</span>, not down."</span>
+        <span class="q-author">— Pierce Brown</span>
+        <span class="q-source">Red Rising</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"I have not failed. I've just found 10,000 ways that won't work."</p>
-          <span class="q-author">Thomas A. Edison</span>
-          <span class="q-source">Unknown</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"I have not failed. I've just found <span class="hl-blue">10,000 ways</span> that won't work."</p>
+        <span class="q-author">Thomas A. Edison</span>
+        <span class="q-source">Unknown</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Every miscalculation is simply feedback. Admitting a mistake and recalibrating is not weakness; it is the core mechanism of iteration.</p>
+            <p class="q-explanation">Every miscalculation is simply <span class="hl">feedback</span>. Admitting a mistake and recalibrating is not weakness; it is the core mechanism of iteration.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -779,43 +905,45 @@
             </div>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER VII -->
   <section class="chapter-section">
     <div class="wm-right">VII</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter VII</span>
-        <h2 class="chapter-title">Time</h2>
-        <div class="chapter-themes">
-          <span>Mortality</span><span>Impermanence</span><span>Memory</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">VII.</span>
+      <h2 class="chapter-title">Time</h2>
+      <div class="chapter-themes">
+        <span>Mortality</span><span>Impermanence</span><span>Memory</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"It is not that we have a short time to live, but that we waste a lot of it."</span>
-          <span class="q-author">— Seneca</span>
-          <span class="q-source">On the Shortness of Life</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"It is not that we have a short time to live, but that we <span class="accent-text">waste</span> a lot of it."</span>
+        <span class="q-author">— Seneca</span>
+        <span class="q-source">On the Shortness of Life</span>
+      </blockquote>
 
-        <div class="quote-entry">
-          <p class="q-text">"The future belongs to those who prepare for it today."</p>
-          <span class="q-author">Malcolm X</span>
-          <span class="q-source">Speech · 1964</span>
-          
-          <div class="q-prompt">
-            <span>Why It Stayed</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          
+      <div class="quote-entry">
+        <p class="q-text">"The future belongs to those who <span class="hl">prepare</span> for it today."</p>
+        <span class="q-author">Malcolm X</span>
+        <span class="q-source">Speech · 1964</span>
+        
+        <div class="q-prompt">
+          <span>Why It Stayed</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+        
+        <div class="q-explanation-grid">
           <div class="q-explanation-wrapper">
             <span class="q-label">Why It Stayed</span>
-            <p class="q-explanation">Time is the only non-renewable resource. Living intentionally requires holding the present moment with gratitude while actively building for tomorrow.</p>
+            <p class="q-explanation">Time is the only <span class="accent-text">non-renewable resource</span>. Living intentionally requires holding the present moment with gratitude while actively building for tomorrow.</p>
             
             <span class="q-label">Value</span>
             <div class="q-values">
@@ -825,38 +953,38 @@
             </div>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
+
+  <div class="ornament-divider"><span class="line"></span><i class="fa-solid fa-feather-pointed"></i><span class="line"></span></div>
 
   <!-- CHAPTER VIII -->
   <section class="chapter-section">
     <div class="wm-right">VIII</div>
-    <div class="chapter-grid">
-      <div class="chapter-meta">
-        <span class="chapter-roman">Chapter VIII</span>
-        <h2 class="chapter-title">Living</h2>
-        <div class="chapter-themes">
-          <span>Meaning</span><span>Happiness</span><span>Perspective</span>
-        </div>
+    <div class="chapter-header">
+      <span class="chapter-roman">VIII.</span>
+      <h2 class="chapter-title">Living</h2>
+      <div class="chapter-themes">
+        <span>Meaning</span><span>Happiness</span><span>Perspective</span>
       </div>
-      <div class="chapter-content">
-        
-        <blockquote class="quote-fragment">
-          <span class="q-text">"Live as if you were to die tomorrow. Learn as if you were to live forever."</span>
-          <span class="q-author">— Mahatma Gandhi</span>
-          <span class="q-source">Unknown</span>
-        </blockquote>
+    </div>
+    <div class="chapter-content">
+      
+      <blockquote class="quote-fragment">
+        <span class="q-text">"Live as if you were to <span class="accent-text">die tomorrow</span>. Learn as if you were to live forever."</span>
+        <span class="q-author">— Mahatma Gandhi</span>
+        <span class="q-source">Unknown</span>
+      </blockquote>
 
-        <div class="quote-pillar">
-          <span class="p-tag">Personal Principle 03</span>
-          <p class="p-text">"A meaningful life requires high standards without self-righteousness, and relentless drive without losing the capacity for quiet appreciation."</p>
-          <span class="p-author">— Aum Sapariya</span>
-          <span class="p-source">Personal Note · 2026</span>
-        </div>
-
+      <div class="quote-pillar">
+        <span class="p-tag">Personal Principle 03</span>
+        <p class="p-text">"A meaningful life requires high standards without self-righteousness, and relentless drive without losing the capacity for quiet appreciation."</p>
+        <span class="p-author">— Aum Sapariya</span>
+        <span class="p-source">Personal Note · 2026</span>
       </div>
+
     </div>
   </section>
 
@@ -874,54 +1002,54 @@
       <div class="changed-item">
         <span class="c-title">Discipline vs. Spontaneity</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Value</span><p class="cm-text">Strict discipline and structured systems.</p></div>
+          <div class="c-left"><span class="cm-label">I Value</span><p class="cm-text"><span class="hl-yellow">Strict discipline</span> and structured systems.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">Life needs space for spontaneity and unscripted moments.</p></div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">Life needs space for <span class="hl-blue">spontaneity</span> and unscripted moments.</p></div>
         </div>
       </div>
 
       <div class="changed-item">
         <span class="c-title">Ambition vs. Contentment</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Intensely ambitious about my future.</p></div>
+          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Intensely <span class="hl">ambitious</span> about my future.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Strive</span><p class="cm-text new">To be fully present and content in the current step.</p></div>
+          <div class="c-right"><span class="cm-label new">I Strive</span><p class="cm-text new">To be fully <span class="hl-blue">present</span> and content in the current step.</p></div>
         </div>
       </div>
 
       <div class="changed-item">
         <span class="c-title">Ambition vs. Acceptance</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Relentlessly driven to optimize my potential and reach the highest tier of my field.</p></div>
+          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Relentlessly driven to <span class="hl">optimize</span> my potential.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">True peace comes from accepting where I am right now without anxiety for tomorrow.</p></div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">True peace comes from <span class="hl-blue">accepting</span> where I am right now.</p></div>
         </div>
       </div>
 
       <div class="changed-item">
         <span class="c-title">Privacy vs. Expression</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Prefer</span><p class="cm-text">To keep my private life, struggles, and internal process reserved for a very small inner circle.</p></div>
+          <div class="c-left"><span class="cm-label">I Prefer</span><p class="cm-text">To keep my private life reserved for a very small <span class="hl-yellow">inner circle</span>.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Feel</span><p class="cm-text new">A strong desire to document my trajectory, articulate my thoughts, and share my work publicly.</p></div>
+          <div class="c-right"><span class="cm-label new">I Feel</span><p class="cm-text new">A strong desire to <span class="hl">document</span> my trajectory and share my work.</p></div>
         </div>
       </div>
 
       <div class="changed-item">
         <span class="c-title">Independence vs. Interdependence</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Take</span><p class="cm-text">Deep pride in self-reliance and solving complex problems without asking for help.</p></div>
+          <div class="c-left"><span class="cm-label">I Take</span><p class="cm-text">Deep pride in <span class="hl-blue">self-reliance</span> and solving complex problems.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Recognize</span><p class="cm-text new">That no meaningful legacy is built alone, and leaning on people you trust is a strength, not a flaw.</p></div>
+          <div class="c-right"><span class="cm-label new">I Recognize</span><p class="cm-text new">That no meaningful legacy is built alone, and leaning on people is a <span class="hl">strength</span>.</p></div>
         </div>
       </div>
 
       <div class="changed-item">
         <span class="c-title">Structure vs. Serendipity</span>
         <div class="contradiction-item">
-          <div class="c-left"><span class="cm-label">I Rely</span><p class="cm-text">Heavily on daily habits, structured tracking, and routine to maintain standards.</p></div>
+          <div class="c-left"><span class="cm-label">I Rely</span><p class="cm-text">Heavily on daily <span class="hl-yellow">habits</span> and routine.</p></div>
           <div class="c-divider">/</div>
-          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">Some of the best insights and experiences happen when you completely abandon the schedule.</p></div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">The best insights happen when you completely <span class="hl">abandon</span> the schedule.</p></div>
         </div>
       </div>
 
@@ -940,42 +1068,42 @@
       
       <div class="changed-item">
         <span class="cm-label">I used to believe</span>
-        <p class="cm-text">"Success was defined entirely by milestones achieved and public recognition."</p>
+        <p class="cm-text">"Success was defined entirely by <span class="hl-yellow">milestones achieved</span> and public recognition."</p>
         <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
         <span class="cm-label new">I now believe</span>
-        <p class="cm-text new">"Success is defined by self-mastery, peace of mind, and the quality of the standards you hold when no one is watching."</p>
+        <p class="cm-text new">"Success is defined by <span class="hl">self-mastery</span>, peace of mind, and the quality of the standards you hold when no one is watching."</p>
       </div>
 
       <div class="changed-item">
         <span class="cm-label">I used to believe</span>
-        <p class="cm-text">"Speed of execution was the ultimate metric of progress."</p>
+        <p class="cm-text">"<span class="hl-yellow">Speed of execution</span> was the ultimate metric of progress."</p>
         <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
         <span class="cm-label new">I now believe</span>
-        <p class="cm-text new">"Direction matters far more than pace. Moving quickly in the wrong direction is just efficient failure."</p>
+        <p class="cm-text new">"<span class="hl">Direction</span> matters far more than pace. Moving quickly in the wrong direction is just efficient failure."</p>
       </div>
 
       <div class="changed-item">
         <span class="cm-label">I used to believe</span>
-        <p class="cm-text">"Holding firm to an initial opinion was a sign of strong character and conviction."</p>
+        <p class="cm-text">"Holding firm to an initial opinion was a sign of <span class="hl-yellow">strong character</span>."</p>
         <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
         <span class="cm-label new">I now believe</span>
-        <p class="cm-text new">"Updating your mind in the presence of better evidence is the true test of intellectual integrity."</p>
+        <p class="cm-text new">"<span class="hl">Updating your mind</span> in the presence of better evidence is the true test of intellectual integrity."</p>
       </div>
 
       <div class="changed-item">
         <span class="cm-label">I used to believe</span>
-        <p class="cm-text">"Productivity meant filling every waking hour with observable output."</p>
+        <p class="cm-text">"Productivity meant filling every waking hour with <span class="hl-yellow">observable output</span>."</p>
         <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
         <span class="cm-label new">I now believe</span>
-        <p class="cm-text new">"Deep thought, reflection, and deliberate rest are the highest forms of productive labor."</p>
+        <p class="cm-text new">"<span class="hl">Deep thought</span>, reflection, and deliberate rest are the highest forms of productive labor."</p>
       </div>
 
       <div class="changed-item">
         <span class="cm-label">I used to believe</span>
-        <p class="cm-text">"You must prove your worth to every room you walk into."</p>
+        <p class="cm-text">"You must <span class="hl-yellow">prove your worth</span> to every room you walk into."</p>
         <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
         <span class="cm-label new">I now believe</span>
-        <p class="cm-text new">"Quiet competence speaks louder than any performance, and the right rooms will recognize it without a demonstration."</p>
+        <p class="cm-text new">"<span class="hl">Quiet competence</span> speaks louder than any performance, and the right rooms will recognize it without a demonstration."</p>
       </div>
 
     </div>
@@ -993,37 +1121,37 @@
       
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let achievement matter more than the people around me.</p>
+        <p class="anti-text">Let <span class="hl">achievement</span> matter more than the people around me.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let knowledge make me arrogant instead of curious.</p>
+        <p class="anti-text">Let knowledge make me <span class="hl">arrogant</span> instead of curious.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let ambition blind me to the beauty of simple consistency.</p>
+        <p class="anti-text">Let ambition blind me to the beauty of <span class="hl">simple consistency</span>.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let knowledge become a substitute for action. Understanding the theory behind something should never convince me that I have mastered the practice.</p>
+        <p class="anti-text">Let knowledge become a substitute for <span class="hl">action</span>. Understanding the theory behind something should never convince me that I have mastered the practice.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let my standards turn into cynicism. Having high expectations for myself should never make me hyper-critical or dismissive of others' efforts.</p>
+        <p class="anti-text">Let my standards turn into <span class="hl">cynicism</span>. Having high expectations for myself should never make me hyper-critical or dismissive of others' efforts.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let comfort look like success. A life without friction, challenge, or calculated risk is not a victory—it is a slow drift into stagnation.</p>
+        <p class="anti-text">Let <span class="hl">comfort</span> look like success. A life without friction, challenge, or calculated risk is not a victory—it is a slow drift into stagnation.</p>
       </div>
 
       <div class="anti-item">
         <span class="anti-prefix">Never</span>
-        <p class="anti-text">Let my achievements obscure my origins. No matter how far I go, I never want to forget the hunger, curiosity, and humility of day one.</p>
+        <p class="anti-text">Let my achievements obscure my origins. No matter how far I go, I never want to forget the <span class="hl">hunger, curiosity, and humility</span> of day one.</p>
       </div>
 
     </div>
@@ -1126,7 +1254,7 @@
 
 /* Reveal Animations */
 (function(){
-  var els = document.querySelectorAll('.chapter-section, .chapter-content, .changed-item, .anti-item, .final-content');
+  var els = document.querySelectorAll('.reveal,.chapter-section, .chapter-content, .changed-item, .anti-item, .final-content');
   if ('IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
@@ -1137,6 +1265,17 @@
   } else {
     els.forEach(function(el) { el.classList.add('visible'); });
   }
+})();
+
+/* Spotlight tracking for Quote Entries */
+(function(){
+  document.querySelectorAll('.quote-entry').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
 })();
 
 /* RANDOM THOUGHT MODAL LOGIC */
@@ -1152,27 +1291,27 @@
     const entries = document.querySelectorAll('.quote-entry');
     if (entries.length === 0) return;
     
-    // Pick random entry
     const randomIndex = Math.floor(Math.random() * entries.length);
     const randomEntry = entries[randomIndex].cloneNode(true);
     
-    // Reset styles for modal context (force expanded)
     randomEntry.style.margin = '0';
     randomEntry.style.border = 'none';
     randomEntry.style.padding = '0';
+    randomEntry.style.boxShadow = 'none';
+    randomEntry.style.background = 'transparent';
     
-    container.innerHTML = ''; // clear previous
+    container.innerHTML = ''; 
     container.appendChild(randomEntry);
     
     thoughtModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open'); // Fix cursor visibility over dark background
+    document.body.classList.add('modal-open');
   });
 
   function closeModal() {
     thoughtModal.classList.remove('active');
     document.body.style.overflow = '';
-    document.body.classList.remove('modal-open'); // Restore default cursor
+    document.body.classList.remove('modal-open');
   }
 
   closeThought.addEventListener('click', closeModal);
@@ -1180,7 +1319,6 @@
     if (e.target === thoughtModal) closeModal();
   });
   
-  // Keyboard close
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && thoughtModal.classList.contains('active')) {
       closeModal();
@@ -1192,11 +1330,9 @@
 document.querySelectorAll('.quote-entry').forEach(function(entry) {
   entry.addEventListener('click', function(e) {
     if (window.matchMedia('(hover: none)').matches) {
-      // Close all others
       document.querySelectorAll('.quote-entry.expanded').forEach(function(other) {
         if (other !== entry) other.classList.remove('expanded');
       });
-      // Toggle this one
       entry.classList.toggle('expanded');
     }
   });
