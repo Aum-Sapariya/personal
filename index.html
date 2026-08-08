@@ -426,7 +426,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .now-list:hover .now-item:not(:hover) { opacity: 0.3; transform: scale(0.98); filter: blur(2px); }
 .now-item:hover { transform: translateX(10px); }
 .now-item:last-child{border-bottom:none}
-.now-thumb{width:48px;height:48px;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:transform 0.5s var(--spring),box-shadow 0.4s ease;flex-shrink:0;margin-top:0.1rem}
+.now-thumb{width:48px;height:48px;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:transform 0.5s var(--spring),box-shadow 0.4s ease;flex-shrink: 0;margin-top:0.1rem}
 .now-item:hover .now-thumb{transform:scale(1.12) rotate(-3deg);box-shadow:0 6px 18px rgba(232,93,58,0.18)}
 .now-thumb img{width:100%;height:100%;object-fit:cover}
 .now-label{font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-dim);padding-top:0.7rem;position:relative}
@@ -459,11 +459,26 @@ section{position:relative;padding:7rem 3rem;z-index:1}
 .future-card .horizon{position:absolute;bottom:1.5rem;left:2rem;right:2rem;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-faint);display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);z-index:2}
 .future-card .horizon span:last-child{color:var(--accent);font-weight:500}
 
-/* CTA Wrapper */
-.cta-wrapper { display: flex; gap: 2rem; margin-top: 6rem; position: relative; z-index: 2; align-items: stretch; }
-.cta-container { --mouse-x: 50%; --mouse-y: 50%; flex: 1; position: relative; background: #000000; padding: 2rem; border-radius: 32px; border: 1px solid #1C1917; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,1); overflow: hidden; }
-.cta-divider { width: 1px; background: linear-gradient(to bottom, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: stretch; }
-@media(max-width: 1024px) { .cta-wrapper { flex-direction: column; gap: 1.5rem; } .cta-divider { width: 80%; height: 1px; background: linear-gradient(to right, transparent 10%, var(--border-strong) 50%, transparent 90%); align-self: center; } }
+/* CTA Wrapper - 2x2 Grid Layout */
+.cta-wrapper { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 2rem; 
+  margin-top: 6rem; 
+  position: relative; 
+  z-index: 2; 
+  align-items: stretch; 
+}
+.cta-divider { display: none; } /* Dividers hidden as we are using grid gap */
+
+@media (max-width: 1024px) { 
+  .cta-wrapper { 
+    grid-template-columns: 1fr; /* Stack on tablet/mobile */
+    gap: 1.5rem; 
+  } 
+}
+
+.cta-container { --mouse-x: 50%; --mouse-y: 50%; position: relative; background: #000000; padding: 2rem; border-radius: 32px; border: 1px solid #1C1917; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,1); overflow: hidden; }
 
 .smoke-layer { position: absolute; inset: -20%; z-index: 1; background: radial-gradient(circle at 20% 35%, rgba(60, 60, 60, 0.4) 0%, transparent 25%), radial-gradient(circle at 75% 44%, rgba(40, 40, 40, 0.5) 0%, transparent 30%), radial-gradient(circle at 50% 10%, rgba(50, 50, 50, 0.4) 0%, transparent 20%), radial-gradient(circle at 10% 80%, rgba(45, 45, 45, 0.5) 0%, transparent 35%); background-size: 200% 200%, 180% 180%, 220% 220%, 150% 150%; background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; filter: blur(10px); animation: smokeDrift 15s ease-in-out infinite alternate; }
 @keyframes smokeDrift { 0% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; } 100% { background-position: 100% 50%, 0% 50%, 80% 20%, 50% 0%; } }
@@ -890,7 +905,7 @@ section{position:relative;padding:7rem 3rem;z-index:1}
       </div>
     </div>
     
-    <!-- CTA Wrapper with The Margins added -->
+    <!-- CTA Wrapper - 2x2 Grid Layout -->
     <div class="cta-wrapper reveal" data-delay="1">
       <div class="cta-container">
         <div class="smoke-layer"></div>
@@ -904,7 +919,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-      <div class="cta-divider"></div>
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -917,7 +931,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-      <div class="cta-divider"></div>
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -930,7 +943,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
           <div class="cta-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
         </a>
       </div>
-      <div class="cta-divider"></div>
       <div class="cta-container">
         <div class="smoke-layer"></div>
         <div class="glow-light"></div>
@@ -1057,13 +1069,6 @@ section{position:relative;padding:7rem 3rem;z-index:1}
     btn.classList.toggle('active');
     menu.classList.toggle('open');
     document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
-  menu.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      btn.classList.remove('active');
-      menu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
   });
 })();
 
@@ -1259,15 +1264,33 @@ section{position:relative;padding:7rem 3rem;z-index:1}
   }
 })();
 
-/* Side Nav Smooth Scroll Fix */
+/* =========================================
+   SIDE NAV & MOBILE MENU SMOOTH SCROLL FIX
+   ========================================= */
 document.querySelectorAll('.side-nav a[href^="#"], .mobile-menu a[href^="#"]').forEach(function(anchor) {
   anchor.addEventListener('click', function(e) {
     var href = this.getAttribute('href');
     if (href.startsWith('#') && href.length > 1) {
-      e.preventDefault();
+      e.preventDefault(); // Prevent default anchor jump
+      
       var targetEl = document.querySelector(href);
       if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
+        // Calculate position with an offset for the fixed topbar
+        var rect = targetEl.getBoundingClientRect();
+        var offset = 100; // Height of the topbar + some breathing room
+        var top = rect.top + window.pageYOffset - offset;
+        
+        // Smooth scroll to the target
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        
+        // If mobile menu is open, close it after clicking
+        var mobileMenu = document.getElementById('mobileMenu');
+        var hamburger = document.getElementById('hamburger');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+          document.body.style.overflow = '';
+        }
       }
     }
   });
