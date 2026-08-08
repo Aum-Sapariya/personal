@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="The Margins - A collection of borrowed words and personal convictions by Aum Sapariya.">
+    <meta name="keywords" content="Aum Sapariya, quotes, philosophy, personal convictions, words that stayed, principles">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Aum Sapariya - The Margins",
+      "url": "https://aum-sapariya.vercel.app/margins.html"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Margins — Aum Sapariya</title>
+
+    <meta property="og:title" content="The Margins — Aum Sapariya">
+    <meta property="og:site_name" content="Aum Sapariya">
+    <meta property="og:url" content="https://aum-sapariya.vercel.app/margins.html">
+    <meta property="og:description" content="A collection of borrowed words and personal convictions. Words that stayed.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/portrait.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+    :root {
+      --bg: #FAFAF7; --bg-2: #F3F1EC; --surface: #FFFFFF;
+      --border: #E8E3DA; --border-strong: #D4CFC5;
+      --accent: #E85D3A; --accent-soft: #FFF0EB;
+      --accent-2: #2B4C7E; --accent-2-soft: #EBF0F7;
+      --text: #1C1917; --text-dim: #78716C; --text-faint: #A8A29E;
+      --serif: 'Fraunces', serif; --sans: 'Manrope', sans-serif;
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ultra-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;position:relative}
+    body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(28,25,23,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+    .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px)}
+    .blob-1{width:550px;height:550px;background:radial-gradient(circle,rgba(232,93,58,0.08),transparent 70%);top:-120px;right:-120px;animation:blobDrift 22s ease-in-out infinite}
+    .blob-2{width:450px;height:450px;background:radial-gradient(circle,rgba(43,76,126,0.06),transparent 70%);bottom:-80px;left:-100px;animation:blobDrift 28s ease-in-out infinite reverse}
+    @keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,40px) scale(1.1)}66%{transform:translate(25px,-25px) scale(0.93)}}
+
+    .page-loader{position:fixed;inset:0;background:var(--accent);z-index:10001;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.8rem;clip-path:circle(150% at 50% 50%);transition:clip-path 0.7s cubic-bezier(0.65,0,0.35,1)}
+    .page-loader.loaded{clip-path:circle(0% at 50% 50%)}
+    .page-loader .loader-name{color:#fff;font-family:var(--serif);font-style:italic;font-size:1.8rem;opacity:0;animation:loaderFade 1.6s ease forwards}
+    .page-loader .loader-sub{color:rgba(255,255,255,0.7);font-size:0.7rem;letter-spacing:0.2em;opacity:0;animation:loaderFade 1.4s ease 0.15s forwards;text-align:center;padding:0 1rem}
+    @keyframes loaderFade{0%{opacity:0;transform:translateY(12px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
+
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;background:linear-gradient(90deg,var(--accent),#FF8C42,var(--accent-2));border-radius:0 2px 2px 0;transition:width 0.08s linear}
+    .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+    .cursor-dot{width:8px;height:8px;background:var(--text);mix-blend-mode:difference}
+    .cursor-ring{width:40px;height:40px;border:1.5px solid var(--accent);opacity:0.5;transition:width 0.35s var(--spring),height 0.35s var(--spring),opacity 0.3s ease,border-color 0.3s ease,background 0.3s ease}
+    .cursor-ring.hover{width:72px;height:72px;opacity:1;border-color:var(--accent);background:rgba(232,93,58,0.06)}
+
+    .topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:920px;z-index:1000;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.65);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(0,0,0,0.06);border-radius:24px;box-shadow:0 4px 24px rgba(0,0,0,0.06);transition:padding 0.4s var(--smooth),background 0.4s ease,box-shadow 0.4s ease}
+    .topbar.scrolled{padding:0.7rem 2rem;background:rgba(255,255,255,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .topbar .logo{font-family:var(--serif);font-size:1.2rem;letter-spacing:0.05em;color:var(--text);font-weight:400;white-space:nowrap;text-decoration:none}
+    .topbar .logo em{font-style:italic;color:var(--accent)}
+    .topbar .meta{font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;gap:0.8rem; font-family:var(--serif); font-style:italic;}
+    .topbar .meta .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+    .hamburger{display:none;background:none;border:none;color:var(--text);padding:4px;z-index:1001}
+    .hamburger span{display:block;width:20px;height:1.5px;background:var(--text);margin:5px 0;transition:all 0.35s var(--spring);transform-origin:center;border-radius:2px}
+    .hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+    .mobile-menu{position:fixed;inset:0;z-index:999;background:rgba(250,250,247,0.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;opacity:0;visibility:hidden;transition:opacity 0.5s var(--smooth),visibility 0.5s}
+    .mobile-menu.open{opacity:1;visibility:visible}
+    .mobile-menu a{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--text-dim);text-decoration:none;letter-spacing:0.02em;transition:color 0.3s ease,transform 0.5s var(--spring);transform:translateY(20px);opacity:0}
+    .mobile-menu.open a{transform:translateY(0);opacity:1}
+    .mobile-menu.open a:nth-child(1){transition-delay:0.06s}.mobile-menu.open a:nth-child(2){transition-delay:0.12s}.mobile-menu.open a:nth-child(3){transition-delay:0.18s}.mobile-menu.open a:nth-child(4){transition-delay:0.24s}.mobile-menu.open a:nth-child(5){transition-delay:0.30s}.mobile-menu.open a:nth-child(6){transition-delay:0.36s}.mobile-menu.open a:nth-child(7){transition-delay:0.42s}.mobile-menu.open a:nth-child(8){transition-delay:0.48s}
+    .mobile-menu a:hover{color:var(--accent)}
+    .mobile-menu a em{font-style:italic;color:var(--accent)}
+    .mobile-menu .menu-label{position:absolute;bottom:3rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-faint)}
+
+    section{position:relative;padding:7rem 3rem;z-index:1}
+    @media(max-width:768px){section{padding:5rem 1.5rem}}
+    
+    .container{max-width:1500px;margin:0 auto;position:relative;z-index:1;padding:0 4rem;}
+    @media(max-width:768px){.container{padding:0 1.5rem}}
+    
+    .grad-text{background:linear-gradient(135deg,var(--accent),#FF8C42);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    
+    /* HERO */
+    .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:10rem 3rem 4rem;overflow:hidden}
+    @media(max-width:768px){.hero{padding:8rem 1.5rem 3rem;min-height:auto}}
+    
+    .hero-concept { 
+      font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.4em; 
+      text-transform: uppercase; color: var(--text-faint); margin-bottom: 2.5rem; 
+      opacity: 0; animation: slowFadeIn 2s ease 0.5s forwards;
+    }
+    .hero-title { 
+      font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; 
+      line-height: 1.4; letter-spacing: -0.01em; color: var(--text); max-width: 800px; 
+      opacity: 0; animation: slowFadeIn 4s var(--ultra-smooth) 1s forwards; 
+    }
+    .hero-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+    .hero-line { 
+      width: 1px; height: 60px; background: var(--border-strong); 
+      margin: 3rem auto 2rem; transform-origin: top; 
+      opacity: 0; animation: lineGrow 1.5s ease 3s forwards; 
+    }
+    .hero-subtitle { 
+      font-size: 0.85rem; color: var(--text-dim); font-style: italic; font-family: var(--serif);
+      opacity: 0; animation: slowFadeIn 2s ease 3.5s forwards;
+    }
+    
+    /* DOCTRINE META & THOUGHT BUTTON */
+    .doctrine-meta {
+      margin-top: 4rem; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      opacity: 0; animation: slowFadeIn 2s ease 4s forwards;
+    }
+    .doctrine-version {
+      font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.35em; 
+      text-transform: uppercase; color: var(--text); font-weight: 600;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .doctrine-version .v-num { color: var(--accent); }
+    .doctrine-date { font-size: 0.65rem; color: var(--text-faint); font-style: italic; font-family: var(--serif); }
+    
+    .thought-btn {
+      margin-top: 2.5rem; background: transparent; border: 1px solid var(--text); 
+      color: var(--text); padding: 0.8rem 2rem; border-radius: 50px; 
+      font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.3em; 
+      text-transform: uppercase; font-weight: 600; cursor: none; 
+      transition: all 0.4s var(--spring); display: inline-flex; align-items: center; gap: 0.8rem;
+    }
+    .thought-btn:hover { background: var(--text); color: #fff; transform: translateY(-2px); }
+    .thought-btn i { transition: transform 0.4s var(--spring); }
+    .thought-btn:hover i { transform: rotate(90deg); }
+
+    @keyframes slowFadeIn { 0% { opacity: 0; transform: translateY(15px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+    @keyframes lineGrow { 0% { opacity: 0; transform: scaleY(0); } 100% { opacity: 1; transform: scaleY(1); } }
+
+    /* EDITORIAL LAYOUT WITH RIGHT WATERMARK */
+    .chapter-section {
+      padding: 6rem 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-section:last-child { border-bottom: 1px solid var(--border); }
+
+    /* Right Accent Watermark Only */
+    .wm-right {
+      position: absolute;
+      right: 2rem;
+      top: 4rem;
+      font-family: var(--serif);
+      font-size: 8rem;
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(232, 93, 58, 0.08);
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+      transition: color 0.4s var(--ultra-smooth);
+    }
+    .chapter-section:hover .wm-right { color: rgba(232, 93, 58, 0.15); }
+
+    @media(max-width: 1024px) {
+      .wm-right {
+        position: relative;
+        top: auto;
+        right: auto;
+        text-align: right;
+        font-size: 5rem;
+        margin-bottom: 1rem;
+        padding-right: 1rem; /* Shifted slightly inward to prevent clipping */
+        color: rgba(232, 93, 58, 0.15);
+      }
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 5rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+    @media(max-width: 1024px) {
+      .chapter-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .chapter-meta { position: relative; padding-top: 1rem; }
+    .chapter-roman { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--accent); font-weight: 400; display: block; margin-bottom: 0.5rem; position: relative; z-index: 2; }
+    .chapter-title { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+    .chapter-themes { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); display: flex; gap: 0.6rem; flex-wrap: wrap; position: relative; z-index: 2; }
+    .chapter-themes span { padding: 0.3rem 0.8rem; border: 1px solid var(--border-strong); border-radius: 50px; background: var(--surface); }
+
+    .chapter-content { position: relative; z-index: 2; max-width: 800px; width: 100%; }
+
+    /* 3-LEVEL QUOTE HIERARCHY */
+    .quote-fragment { margin: 2.5rem 0; padding: 0.5rem 0 0.5rem 1.5rem; border-left: 2px solid var(--border); max-width: 500px; transition: border-color 0.3s ease; }
+    .quote-fragment:hover { border-color: var(--accent); }
+    .quote-fragment .q-text { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.5; margin-bottom: 0.4rem; display: block; }
+    .quote-fragment .q-author { font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); }
+    .quote-fragment .q-source { font-family: var(--serif); font-style: italic; font-size: 0.8rem; color: var(--text-faint); display: block; margin-top: 0.3rem; }
+
+    /* LEVEL 02: ENTRIES */
+    .quote-entry { margin: 3rem 0; padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .quote-entry .q-text { font-family: var(--serif); font-size: 1.75rem; line-height: 1.4; font-weight: 400; margin-bottom: 1rem; color: var(--text); }
+    .quote-entry .q-author { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; display: block; font-weight: 600; }
+    .quote-entry .q-source { font-size: 0.85rem; font-style: italic; color: var(--text-dim); display: block; margin-bottom: 2rem; font-family: var(--serif); }
+    
+    /* WHY IT STAYED EXPANDABLE */
+    .q-prompt {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--text-faint); font-weight: 700; cursor: pointer;
+      transition: color 0.3s ease; margin-top: 1rem;
+    }
+    .quote-entry:hover .q-prompt { color: var(--accent); }
+    .quote-entry:hover .q-prompt i { transform: translateX(4px); }
+    .q-prompt i { transition: transform 0.3s ease; }
+    
+    .q-explanation-wrapper {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.5s var(--smooth), opacity 0.4s ease, margin-top 0.5s ease;
+      margin-top: 0;
+    }
+    .quote-entry:hover .q-explanation-wrapper, .quote-entry.expanded .q-explanation-wrapper {
+      max-height: 500px; opacity: 1; margin-top: 2rem;
+    }
+
+    .q-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; display: block; font-weight: 700; }
+    .q-explanation { font-family: var(--sans); font-size: 1.1rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.6; max-width: 600px; }
+    .q-values { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .q-value { font-size: 0.7rem; padding: 0.2rem 0.6rem; border: 1px solid var(--border-strong); border-radius: 50px; color: var(--text-dim); }
+
+    /* LEVEL 03: PILLARS */
+    .quote-pillar { margin: 4rem 0; padding: 3rem; background: var(--text); color: #fff; border-radius: 24px; position: relative; overflow: hidden; }
+    .quote-pillar::before { content: '"'; position: absolute; top: -2rem; right: 1rem; font-family: var(--serif); font-size: 12rem; color: rgba(255,255,255,0.05); pointer-events: none; line-height: 1; }
+    .quote-pillar .p-tag { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: block; font-weight: 700; }
+    .quote-pillar .p-text { font-family: var(--serif); font-size: 2.2rem; line-height: 1.2; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+    .quote-pillar .p-author { font-family: var(--serif); font-style: italic; color: var(--accent); margin-bottom: 2rem; display: block; font-size: 1rem; }
+    .quote-pillar .p-source { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem; font-style: italic; }
+    .quote-pillar .p-explanation { font-size: 1rem; color: rgba(255,255,255,0.8); max-width: 500px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; position: relative; z-index: 2; line-height: 1.6; }
+
+    /* BELIEF / PRACTICE COMPONENT */
+    .belief-practice { margin: 4rem 0; display: grid; grid-template-columns: 1fr 1px 1fr; gap: 3rem; padding: 2.5rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; align-items: center; }
+    .bp-block { position: relative; }
+    .bp-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1rem; display: block; font-weight: 700; }
+    .bp-text { font-family: var(--serif); font-size: 1.25rem; color: var(--text); line-height: 1.4; font-weight: 400; }
+    .bp-block.practice .bp-label { color: var(--accent); }
+    .bp-block.practice .bp-text { color: var(--accent-2); font-style: italic; }
+    .bp-divider { width: 1px; height: 100%; background: var(--border-strong); min-height: 80px; justify-self: center; }
+    @media(max-width: 768px) { .belief-practice { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; } .bp-divider { display: none; } }
+
+    /* CONTRADICTIONS & CHANGED SECTIONS */
+    .changed-section, .contradictions-section {
+      background: #1C1917; color: #fff; padding: 10rem 4rem; margin-top: 0; position: relative; overflow: hidden;
+    }
+    .contradictions-section { background: var(--bg-2); color: var(--text); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    @media(max-width: 768px) { .changed-section, .contradictions-section { padding: 5rem 1.5rem; } }
+    
+    .changed-container { max-width: 1500px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 300px 1fr; gap: 5rem; }
+    @media(max-width: 1024px) { .changed-container { grid-template-columns: 1fr; gap: 2rem; } }
+    
+    .changed-title { font-family: var(--serif); font-size: 2.5rem; font-weight: 300; line-height: 1.1; position: relative; z-index: 2; }
+    .changed-title em { color: var(--accent); font-style: italic; }
+    .changed-intro { color: var(--text-dim); font-size: 0.9rem; margin-top: 1rem; max-width: 250px; position: relative; z-index: 2; }
+    .changed-section .changed-intro { color: rgba(255,255,255,0.6); }
+    
+    .changed-list { display: flex; flex-direction: column; gap: 3rem; }
+    .changed-item { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 2rem; transition: border-color 0.3s ease; }
+    .changed-item:hover { border-color: var(--accent); }
+    .contradictions-section .changed-item { border-left: 2px solid var(--border); }
+
+    /* Contradiction Layout */
+    .c-title { display: block; text-align: center; margin-bottom: 1.5rem; font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .contradiction-item { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--border); transition: background 0.3s ease; }
+    .contradiction-item:hover { background: rgba(232, 93, 58, 0.03); }
+    .c-left { text-align: right; padding-right: 2rem; }
+    .c-right { text-align: left; padding-left: 2rem; color: var(--accent-2); }
+    .c-divider { text-align: center; font-family: var(--serif); font-style: italic; color: var(--text-faint); font-size: 1.2rem; }
+    .cm-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; display: block; font-weight: 700; }
+    .cm-label.new { color: var(--accent); }
+    .cm-text { font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--text); margin-bottom: 0; line-height: 1.4; }
+    .changed-section .cm-text { color: rgba(255,255,255,0.7); }
+    .changed-section .cm-text.new { color: #fff; }
+    .cm-arrow { color: var(--text-faint); margin: 0.5rem 0; display: block; font-size: 0.8rem; }
+    @media(max-width: 768px) {
+      .contradiction-item { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; }
+      .c-left { text-align: left; padding-right: 0; }
+      .c-right { text-align: left; padding-left: 0; padding-top: 1rem; border-top: 1px dashed var(--border); }
+      .c-divider { display: none; }
+    }
+
+    /* ANTI-DOCTRINE SECTION */
+    .anti-doctrine-section {
+      background: #0c0c0c;
+      color: #fff; 
+      padding: 10rem 4rem; 
+      position: relative; 
+      overflow: hidden;
+    }
+    @media(max-width: 768px) { .anti-doctrine-section { padding: 5rem 1.5rem; } }
+    .anti-list { display: flex; flex-direction: column; gap: 0; }
+    .anti-item {
+      display: flex; gap: 2rem; align-items: baseline; padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: padding-left 0.4s var(--smooth);
+    }
+    .anti-item:last-child { border-bottom: none; }
+    .anti-item:hover { padding-left: 1rem; }
+    .anti-prefix {
+      font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--accent); font-weight: 700;
+      white-space: nowrap; padding-top: 0.4rem;
+    }
+    .anti-text {
+      font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: rgba(255,255,255,0.9); line-height: 1.4; font-weight: 300;
+    }
+    @media(max-width: 768px) {
+      .anti-item { flex-direction: column; gap: 0.5rem; padding: 2rem 0; }
+      .anti-prefix { padding-top: 0; }
+    }
+
+    /* FINAL SECTION */
+    .final-section {
+      background: #050505; color: #fff; min-height: 90vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 10rem 2rem; position: relative; overflow: hidden;
+    }
+    .final-content { position: relative; z-index: 2; max-width: 1000px; }
+    .final-title {
+      font-family: var(--serif); font-size: clamp(2.5rem, 8vw, 7rem);
+      font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 4rem;
+    }
+    .final-title em { color: var(--accent); font-style: italic; }
+    .final-subtitle {
+      font-family: var(--serif); font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      color: rgba(255,255,255,0.7); font-style: italic; line-height: 1.6;
+      max-width: 800px; margin: 0 auto 4rem;
+    }
+    .final-signature { font-family: var(--serif); font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+    .final-date { font-family: var(--sans); font-size: 0.85rem; letter-spacing: 0.4em; color: var(--accent); font-weight: 600; }
+    .final-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(232,93,58,0.15) 0%, transparent 60%); top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; filter: blur(40px); pointer-events: none; }
+
+    /* RANDOM THOUGHT MODAL */
+    .thought-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+      opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .thought-modal.active { opacity: 1; visibility: visible; }
+    .thought-modal-content {
+      max-width: 700px; width: 100%; background: var(--bg); padding: 4rem 3rem; border-radius: 24px;
+      position: relative; transform: scale(0.95); transition: transform 0.4s var(--spring);
+      border: 1px solid var(--border); max-height: 90vh; overflow-y: auto;
+    }
+    .thought-modal.active .thought-modal-content { transform: scale(1); }
+    .close-thought {
+      position: absolute; top: 1.5rem; right: 1.5rem; background: var(--bg-2); border: none;
+      width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; color: var(--text-dim);
+      transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+    }
+    .close-thought:hover { background: var(--accent); color: #fff; transform: rotate(90deg); }
+    
+    /* Modal Quote Overrides (Force Expanded) */
+    .thought-modal-content .quote-entry { border: none; padding: 0; margin: 0; }
+    .thought-modal-content .q-explanation-wrapper {
+      max-height: 500px; opacity: 1; margin-top: 2rem;
+    }
+    .thought-modal-content .q-prompt { display: none; }
+
+    .footer{padding:7rem 3rem 2.5rem;background:#1C1917;border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
+    @media(max-width:768px){.footer{padding:5rem 1.5rem 2rem}}
+    .footer-bottom{max-width:1500px;margin:0 auto;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#57534E}
+    .footer-bottom a{color:#57534E;text-decoration:none;transition:color 0.3s}
+    .footer-bottom a:hover{color:var(--accent)}
+    .footer-bottom .accent{color:var(--accent)}
+
+    .reveal{opacity:0;transform:translateY(35px);transition:opacity 0.9s var(--spring),transform 0.9s var(--spring)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+    ::selection{background:var(--accent);color:#fff}
+    </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="page-loader" id="pageLoader">
+  <span class="loader-name">The Margins</span>
+  <span class="loader-sub">Words that stayed</span>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- RANDOM THOUGHT MODAL -->
+<div class="thought-modal" id="thoughtModal">
+  <div class="thought-modal-content">
+    <button class="close-thought" id="closeThought"><i class="fa-solid fa-xmark"></i></button>
+    <div id="randomThoughtContainer"></div>
+  </div>
+</div>
+
+<header class="topbar" id="topbar">
+  <a href="index.html" class="logo">Aum <em>Sapariya</em></a>
+  <div class="meta">
+    <span class="dot"></span>
+    <span>Words That Stayed</span>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#hero"><em>00</em> — Origin</a>
+  <a href="index.html#bygone"><em>01</em> — Bygone</a>
+  <a href="index.html#fleeting"><em>02</em> — Fleeting Blink</a>
+  <a href="index.html#hereafter"><em>03</em> — Hereafter</a>
+  <a href="ledger.html"><em>04</em> — The Ledger</a>
+  <a href="academics.html"><em>05</em> — Academic Journey</a>
+  <a href="library.html"><em>06</em> — The Library</a>
+  <a href="margins.html"><em>07</em> — The Margins</a>
+  <span class="menu-label">Aum Sapariya · 2025</span>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <span class="hero-concept">The Doctrine · v1.0</span>
+  <h1 class="hero-title">
+    Words I have carried.<br>
+    Ideas I have returned to.<br>
+    Principles I am still <em>learning to live by</em>.
+  </h1>
+  <div class="hero-line"></div>
+  <p class="hero-subtitle">A collection of borrowed words and personal convictions.</p>
+
+  <!-- DOCTRINE META & THOUGHT BUTTON -->
+  <div class="doctrine-meta">
+    <span class="doctrine-version">Last revised <span class="v-num">08 AUGUST 2026</span></span>
+    <button class="thought-btn" id="thoughtBtn">
+      <i class="fa-solid fa-shuffle"></i>
+      <span>Give me a thought</span>
+    </button>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<div class="container">
+
+  <!-- CHAPTER I -->
+  <section class="chapter-section">
+    <div class="wm-right">I</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter I</span>
+        <h2 class="chapter-title">Becoming</h2>
+        <div class="chapter-themes">
+          <span>Ambition</span><span>Growth</span><span>Identity</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"It's the possibility of having a dream come true that makes life interesting."</span>
+          <span class="q-author">— Paulo Coelho</span>
+          <span class="q-source">The Alchemist</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"When you want something, all the universe conspires in helping you to achieve it."</p>
+          <span class="q-author">Paulo Coelho</span>
+          <span class="q-source">The Alchemist</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Because ambition isn't just wishing; it’s an alignment of focus. When you commit fully to a path, every resource, lesson, and hurdle begins to serve the trajectory.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Intentionality</span>
+              <span class="q-value">Faith</span>
+              <span class="q-value">Momentum</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-pillar">
+          <span class="p-tag">Personal Principle 01</span>
+          <p class="p-text">"I do not seek to be finished; I seek to be aligned. Growth is not a destination where I arrive, but a posture I maintain."</p>
+          <span class="p-author">— Aum Sapariya</span>
+          <span class="p-source">Personal Note · 2026</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER II -->
+  <section class="chapter-section">
+    <div class="wm-right">II</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter II</span>
+        <h2 class="chapter-title">Discipline</h2>
+        <div class="chapter-themes">
+          <span>Work</span><span>Consistency</span><span>Patience</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"You do not rise to the level of your goals. You fall to the level of your systems."</span>
+          <span class="q-author">— James Clear</span>
+          <span class="q-source">Atomic Habits</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"The work you do in the dark, when nobody is watching, dictates how bright the light shines when everyone is."</p>
+          <span class="q-author">Anonymous</span>
+          <span class="q-source">Unknown</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">True mastery comes from the silent hours—the unglamorous tracking of time, the repetition, the commitment to process over applause.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Systems</span>
+              <span class="q-value">Solitude</span>
+              <span class="q-value">Dedication</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="belief-practice">
+          <div class="bp-block belief">
+            <span class="bp-label">Belief</span>
+            <p class="bp-text">Discipline matters far more than transient motivation.</p>
+          </div>
+          <div class="bp-divider"></div>
+          <div class="bp-block practice">
+            <span class="bp-label">Practice</span>
+            <p class="bp-text">Log the hours and execute the task before granting permission to rest.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER III -->
+  <section class="chapter-section">
+    <div class="wm-right">III</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter III</span>
+        <h2 class="chapter-title">Knowledge</h2>
+        <div class="chapter-themes">
+          <span>Curiosity</span><span>Learning</span><span>Wisdom</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"The unexamined life is not worth living."</span>
+          <span class="q-author">— Socrates</span>
+          <span class="q-source">Plato, Apology</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"For the breath of life is in the sunlight and the hand of life is in the wind."</p>
+          <span class="q-author">Kahlil Gibran</span>
+          <span class="q-source">The Prophet</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Knowledge isn't merely data accumulated in a ledger; it is perspective gained to understand the world and one's place within it.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Intellectual Depth</span>
+              <span class="q-value">Observation</span>
+              <span class="q-value">Clarity</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-pillar">
+          <span class="p-tag">Personal Principle 02</span>
+          <p class="p-text">"Education equips the mind with tools; philosophy dictates how wisely those tools are used. I study to transform my thinking, not just to collect credentials."</p>
+          <span class="p-author">— Aum Sapariya</span>
+          <span class="p-source">Personal Note · 2026</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER IV -->
+  <section class="chapter-section">
+    <div class="wm-right">IV</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter IV</span>
+        <h2 class="chapter-title">Character</h2>
+        <div class="chapter-themes">
+          <span>Integrity</span><span>Responsibility</span><span>Courage</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"Break the chains of your thought, and you break the chains of your body, too."</span>
+          <span class="q-author">— Richard Bach</span>
+          <span class="q-source">Jonathan Livingston Seagull</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"You have power over your mind—not outside events. Realize this, and you will find strength."</p>
+          <span class="q-author">Marcus Aurelius</span>
+          <span class="q-source">Meditations</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Character is built in the gap between stimulus and response. Choosing integrity over convenience defines who you are when no one is holding you accountable.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Ownership</span>
+              <span class="q-value">Resilience</span>
+              <span class="q-value">Stoicism</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="belief-practice">
+          <div class="bp-block belief">
+            <span class="bp-label">Belief</span>
+            <p class="bp-text">Respect is earned through quiet standards, not loud declarations.</p>
+          </div>
+          <div class="bp-divider"></div>
+          <div class="bp-block practice">
+            <span class="bp-label">Practice</span>
+            <p class="bp-text">Keep promises made to myself with the same rigor as promises made to others.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER V -->
+  <section class="chapter-section">
+    <div class="wm-right">V</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter V</span>
+        <h2 class="chapter-title">People</h2>
+        <div class="chapter-themes">
+          <span>Love</span><span>Friendship</span><span>Kindness</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"To love and be loved is to feel the sun from both sides."</span>
+          <span class="q-author">— David Viscott</span>
+          <span class="q-source">Anonymous</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"And think not you can direct the course of love, for love, if it finds you worthy, directs your course."</p>
+          <span class="q-author">Kahlil Gibran</span>
+          <span class="q-source">The Prophet</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Amidst ambitious pursuits and intellectual rigor, human connections ground us. Ambition without shared humanity is a lonely endeavor.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Loyalty</span>
+              <span class="q-value">Presence</span>
+              <span class="q-value">Warmth</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER VI -->
+  <section class="chapter-section">
+    <div class="wm-right">VI</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter VI</span>
+        <h2 class="chapter-title">Failure</h2>
+        <div class="chapter-themes">
+          <span>Mistakes</span><span>Resilience</span><span>Uncertainty</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"Man falls up, not down."</span>
+          <span class="q-author">— Pierce Brown</span>
+          <span class="q-source">Red Rising</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"I have not failed. I've just found 10,000 ways that won't work."</p>
+          <span class="q-author">Thomas A. Edison</span>
+          <span class="q-source">Unknown</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Every miscalculation is simply feedback. Admitting a mistake and recalibrating is not weakness; it is the core mechanism of iteration.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Adaptability</span>
+              <span class="q-value">Candor</span>
+              <span class="q-value">Grace</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER VII -->
+  <section class="chapter-section">
+    <div class="wm-right">VII</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter VII</span>
+        <h2 class="chapter-title">Time</h2>
+        <div class="chapter-themes">
+          <span>Mortality</span><span>Impermanence</span><span>Memory</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"It is not that we have a short time to live, but that we waste a lot of it."</span>
+          <span class="q-author">— Seneca</span>
+          <span class="q-source">On the Shortness of Life</span>
+        </blockquote>
+
+        <div class="quote-entry">
+          <p class="q-text">"The future belongs to those who prepare for it today."</p>
+          <span class="q-author">Malcolm X</span>
+          <span class="q-source">Speech · 1964</span>
+          
+          <div class="q-prompt">
+            <span>Why It Stayed</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          
+          <div class="q-explanation-wrapper">
+            <span class="q-label">Why It Stayed</span>
+            <p class="q-explanation">Time is the only non-renewable resource. Living intentionally requires holding the present moment with gratitude while actively building for tomorrow.</p>
+            
+            <span class="q-label">Value</span>
+            <div class="q-values">
+              <span class="q-value">Perspective</span>
+              <span class="q-value">Legacy</span>
+              <span class="q-value">Focus</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER VIII -->
+  <section class="chapter-section">
+    <div class="wm-right">VIII</div>
+    <div class="chapter-grid">
+      <div class="chapter-meta">
+        <span class="chapter-roman">Chapter VIII</span>
+        <h2 class="chapter-title">Living</h2>
+        <div class="chapter-themes">
+          <span>Meaning</span><span>Happiness</span><span>Perspective</span>
+        </div>
+      </div>
+      <div class="chapter-content">
+        
+        <blockquote class="quote-fragment">
+          <span class="q-text">"Live as if you were to die tomorrow. Learn as if you were to live forever."</span>
+          <span class="q-author">— Mahatma Gandhi</span>
+          <span class="q-source">Unknown</span>
+        </blockquote>
+
+        <div class="quote-pillar">
+          <span class="p-tag">Personal Principle 03</span>
+          <p class="p-text">"A meaningful life requires high standards without self-righteousness, and relentless drive without losing the capacity for quiet appreciation."</p>
+          <span class="p-author">— Aum Sapariya</span>
+          <span class="p-source">Personal Note · 2026</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- CONTRADICTIONS SECTION -->
+<section class="contradictions-section">
+  <div class="changed-container">
+    <div class="chapter-meta">
+      <h2 class="changed-title">Contradictions</h2>
+      <p class="changed-intro">The honest friction between competing truths I hold simultaneously.</p>
+    </div>
+    <div class="changed-list">
+      
+      <div class="changed-item">
+        <span class="c-title">Discipline vs. Spontaneity</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Value</span><p class="cm-text">Strict discipline and structured systems.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">Life needs space for spontaneity and unscripted moments.</p></div>
+        </div>
+      </div>
+
+      <div class="changed-item">
+        <span class="c-title">Ambition vs. Contentment</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Intensely ambitious about my future.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Strive</span><p class="cm-text new">To be fully present and content in the current step.</p></div>
+        </div>
+      </div>
+
+      <div class="changed-item">
+        <span class="c-title">Ambition vs. Acceptance</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Am</span><p class="cm-text">Relentlessly driven to optimize my potential and reach the highest tier of my field.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">True peace comes from accepting where I am right now without anxiety for tomorrow.</p></div>
+        </div>
+      </div>
+
+      <div class="changed-item">
+        <span class="c-title">Privacy vs. Expression</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Prefer</span><p class="cm-text">To keep my private life, struggles, and internal process reserved for a very small inner circle.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Feel</span><p class="cm-text new">A strong desire to document my trajectory, articulate my thoughts, and share my work publicly.</p></div>
+        </div>
+      </div>
+
+      <div class="changed-item">
+        <span class="c-title">Independence vs. Interdependence</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Take</span><p class="cm-text">Deep pride in self-reliance and solving complex problems without asking for help.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Recognize</span><p class="cm-text new">That no meaningful legacy is built alone, and leaning on people you trust is a strength, not a flaw.</p></div>
+        </div>
+      </div>
+
+      <div class="changed-item">
+        <span class="c-title">Structure vs. Serendipity</span>
+        <div class="contradiction-item">
+          <div class="c-left"><span class="cm-label">I Rely</span><p class="cm-text">Heavily on daily habits, structured tracking, and routine to maintain standards.</p></div>
+          <div class="c-divider">/</div>
+          <div class="c-right"><span class="cm-label new">I Believe</span><p class="cm-text new">Some of the best insights and experiences happen when you completely abandon the schedule.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHANGED MY MIND SECTION -->
+<section class="changed-section">
+  <div class="changed-container">
+    <div class="chapter-meta">
+      <h2 class="changed-title">Things I No Longer <em>Believe</em></h2>
+      <p class="changed-intro">Ideas I have outgrown as I’ve learned to distinguish between appearance and reality.</p>
+    </div>
+    <div class="changed-list">
+      
+      <div class="changed-item">
+        <span class="cm-label">I used to believe</span>
+        <p class="cm-text">"Success was defined entirely by milestones achieved and public recognition."</p>
+        <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+        <span class="cm-label new">I now believe</span>
+        <p class="cm-text new">"Success is defined by self-mastery, peace of mind, and the quality of the standards you hold when no one is watching."</p>
+      </div>
+
+      <div class="changed-item">
+        <span class="cm-label">I used to believe</span>
+        <p class="cm-text">"Speed of execution was the ultimate metric of progress."</p>
+        <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+        <span class="cm-label new">I now believe</span>
+        <p class="cm-text new">"Direction matters far more than pace. Moving quickly in the wrong direction is just efficient failure."</p>
+      </div>
+
+      <div class="changed-item">
+        <span class="cm-label">I used to believe</span>
+        <p class="cm-text">"Holding firm to an initial opinion was a sign of strong character and conviction."</p>
+        <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+        <span class="cm-label new">I now believe</span>
+        <p class="cm-text new">"Updating your mind in the presence of better evidence is the true test of intellectual integrity."</p>
+      </div>
+
+      <div class="changed-item">
+        <span class="cm-label">I used to believe</span>
+        <p class="cm-text">"Productivity meant filling every waking hour with observable output."</p>
+        <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+        <span class="cm-label new">I now believe</span>
+        <p class="cm-text new">"Deep thought, reflection, and deliberate rest are the highest forms of productive labor."</p>
+      </div>
+
+      <div class="changed-item">
+        <span class="cm-label">I used to believe</span>
+        <p class="cm-text">"You must prove your worth to every room you walk into."</p>
+        <span class="cm-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+        <span class="cm-label new">I now believe</span>
+        <p class="cm-text new">"Quiet competence speaks louder than any performance, and the right rooms will recognize it without a demonstration."</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ANTI-DOCTRINE SECTION -->
+<section class="anti-doctrine-section">
+  <div class="changed-container">
+    <div class="chapter-meta">
+      <h2 class="changed-title">Anti-<em>Doctrine</em></h2>
+      <p class="changed-intro">Warnings to my future self. The intellectual and behavioral traps I pledge to avoid.</p>
+    </div>
+    <div class="anti-list">
+      
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let achievement matter more than the people around me.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let knowledge make me arrogant instead of curious.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let ambition blind me to the beauty of simple consistency.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let knowledge become a substitute for action. Understanding the theory behind something should never convince me that I have mastered the practice.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let my standards turn into cynicism. Having high expectations for myself should never make me hyper-critical or dismissive of others' efforts.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let comfort look like success. A life without friction, challenge, or calculated risk is not a victory—it is a slow drift into stagnation.</p>
+      </div>
+
+      <div class="anti-item">
+        <span class="anti-prefix">Never</span>
+        <p class="anti-text">Let my achievements obscure my origins. No matter how far I go, I never want to forget the hunger, curiosity, and humility of day one.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL SECTION -->
+<section class="final-section">
+  <div class="final-glow"></div>
+  <div class="final-content">
+    <h2 class="final-title">AND AFTER ALL OF THIS,<br>I AM STILL <em>BECOMING</em>.</h2>
+    <p class="final-subtitle">These are not the beliefs of a finished person.<br>They are the beliefs of someone still figuring out how to live.</p>
+    <div class="final-signature">— Aum Sapariya</div>
+    <div class="final-date">08.08.2026</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-bottom">
+    <div>© <span id="year">2025</span> <span class="accent">Aum Sapariya</span> · All rights, gently reserved</div>
+    <div><a href="index.html">← Back to Origin</a></div>
+  </div>
+</footer>
+
+<script>
+/* Custom Cursor */
+(function(){
+  var dot = document.getElementById('cursorDot');
+  var ring = document.getElementById('cursorRing');
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 1024) {
+    document.body.style.cursor = 'none';
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', function(e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.quote-fragment,.quote-entry,.quote-pillar,.belief-practice,.changed-item,.chapter-section,.anti-item').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', function() { ring.classList.remove('hover'); });
+    });
+  } else {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+  }
+})();
+
+/* Page Loader */
+(function(){
+  var loader = document.getElementById('pageLoader');
+  window.addEventListener('load', function() {
+    setTimeout(function() { loader.classList.add('loaded'); }, 800);
+    setTimeout(function() { loader.style.display = 'none'; }, 1600);
+  });
+  setTimeout(function() {
+    loader.classList.add('loaded');
+    setTimeout(function() { loader.style.display = 'none'; }, 800);
+  }, 3000);
+})();
+
+/* Scroll Progress */
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', function() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
+/* Topbar Scroll */
+(function(){
+  var topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function() {
+    topbar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
+/* Mobile Menu */
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function() {
+    btn.classList.toggle('active');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('active');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+
+/* Reveal Animations */
+(function(){
+  var els = document.querySelectorAll('.chapter-section, .chapter-content, .changed-item, .anti-item, .final-content');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+  } else {
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+
+/* RANDOM THOUGHT MODAL LOGIC */
+(function(){
+  const thoughtBtn = document.getElementById('thoughtBtn');
+  const thoughtModal = document.getElementById('thoughtModal');
+  const closeThought = document.getElementById('closeThought');
+  const container = document.getElementById('randomThoughtContainer');
+  
+  if (!thoughtBtn || !thoughtModal) return;
+
+  thoughtBtn.addEventListener('click', function() {
+    const entries = document.querySelectorAll('.quote-entry');
+    if (entries.length === 0) return;
+    
+    // Pick random entry
+    const randomIndex = Math.floor(Math.random() * entries.length);
+    const randomEntry = entries[randomIndex].cloneNode(true);
+    
+    // Reset styles for modal context (force expanded)
+    randomEntry.style.margin = '0';
+    randomEntry.style.border = 'none';
+    randomEntry.style.padding = '0';
+    
+    container.innerHTML = ''; // clear previous
+    container.appendChild(randomEntry);
+    
+    thoughtModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeModal() {
+    thoughtModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  closeThought.addEventListener('click', closeModal);
+  thoughtModal.addEventListener('click', function(e) {
+    if (e.target === thoughtModal) closeModal();
+  });
+  
+  // Keyboard close
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && thoughtModal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+})();
+
+/* Mobile Tap to Expand Quotes */
+document.querySelectorAll('.quote-entry').forEach(function(entry) {
+  entry.addEventListener('click', function(e) {
+    if (window.matchMedia('(hover: none)').matches) {
+      // Close all others
+      document.querySelectorAll('.quote-entry.expanded').forEach(function(other) {
+        if (other !== entry) other.classList.remove('expanded');
+      });
+      // Toggle this one
+      entry.classList.toggle('expanded');
+    }
+  });
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
