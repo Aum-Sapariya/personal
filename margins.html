@@ -56,10 +56,16 @@
     @keyframes loaderFade{0%{opacity:0;transform:translateY(12px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateY(-8px)}}
 
     .scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:10000;width:0%;background:linear-gradient(90deg,var(--accent),#FF8C42,var(--accent-2));border-radius:0 2px 2px 0;transition:width 0.08s linear}
-    .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+    
+    /* Custom Cursor - Increased z-index to sit above modals */
+    .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:100002;border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
     .cursor-dot{width:8px;height:8px;background:var(--text);mix-blend-mode:difference}
     .cursor-ring{width:40px;height:40px;border:1.5px solid var(--accent);opacity:0.5;transition:width 0.35s var(--spring),height 0.35s var(--spring),opacity 0.3s ease,border-color 0.3s ease,background 0.3s ease}
     .cursor-ring.hover{width:72px;height:72px;opacity:1;border-color:var(--accent);background:rgba(232,93,58,0.06)}
+    
+    /* Cursor visibility fix over dark modal backgrounds */
+    body.modal-open .cursor-dot { background: #fff; mix-blend-mode: normal; }
+    body.modal-open .cursor-ring { border-color: var(--accent); background: rgba(232,93,58,0.1); mix-blend-mode: normal; }
 
     .topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:920px;z-index:1000;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.65);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(0,0,0,0.06);border-radius:24px;box-shadow:0 4px 24px rgba(0,0,0,0.06);transition:padding 0.4s var(--smooth),background 0.4s ease,box-shadow 0.4s ease}
     .topbar.scrolled{padding:0.7rem 2rem;background:rgba(255,255,255,0.88);box-shadow:0 2px 12px rgba(0,0,0,0.08)}
@@ -178,7 +184,7 @@
         text-align: right;
         font-size: 5rem;
         margin-bottom: 1rem;
-        padding-right: 1rem; /* Shifted slightly inward to prevent clipping */
+        padding-right: 1rem;
         color: rgba(232, 93, 58, 0.15);
       }
     }
@@ -354,7 +360,7 @@
 
     /* RANDOM THOUGHT MODAL */
     .thought-modal {
-      position: fixed; inset: 0; z-index: 9999;
+      position: fixed; inset: 0; z-index: 100000; /* Increased z-index */
       background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center; padding: 2rem;
       opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -1160,11 +1166,13 @@
     
     thoughtModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open'); // Fix cursor visibility over dark background
   });
 
   function closeModal() {
     thoughtModal.classList.remove('active');
     document.body.style.overflow = '';
+    document.body.classList.remove('modal-open'); // Restore default cursor
   }
 
   closeThought.addEventListener('click', closeModal);
